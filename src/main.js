@@ -1,5 +1,3 @@
-/**@type {import("../typings/phaser")} */
-
 let canvasStyle = " \
 border-radius: 10px; \
 "
