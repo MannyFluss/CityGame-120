@@ -10,7 +10,7 @@ class Board extends Phaser.GameObjects.Container
         this.initalizeGrid();
     }
 
-    initalizeGrid()
+    initalizeGrid()//test
     {
         for(let x=0;x<3;x++)
         {
@@ -29,7 +29,7 @@ class Board extends Phaser.GameObjects.Container
         }
 
     }
-    
+
     createArray(length,width) {
         var arr = new Array(length);
 
