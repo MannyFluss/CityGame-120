@@ -23,7 +23,6 @@ class Building extends Phaser.GameObjects.Sprite
         //this might not be necessary
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
-        console.log("building at "+this.x+" "+this.y);
     }
     moveBuilding(command="none")
     {
@@ -63,7 +62,6 @@ class Building extends Phaser.GameObjects.Sprite
     ableToMove(x,y)//function to check if you are able to move to x,y
     {
         let boardRef = this.getBoard();
-        console.log("test: " +x+" "+y);
         if (boardRef.checkValidTile(x,y))
         {
             if (boardRef.getTile(x,y).checkEmpty())
@@ -73,6 +71,10 @@ class Building extends Phaser.GameObjects.Sprite
             }
         }
         return false;
+        
+    }
+    update()
+    {
         
     }
 }

@@ -15,6 +15,7 @@ class Board extends Phaser.GameObjects.Container
         var retBuilding = new Building(this.sceneRef,0,0,'buildingImage');
         this.placeBuilding(retBuilding,1,1);
         retBuilding.moveBuilding('down');
+        retBuilding.moveBuilding('down');
     }
 
     createBuilding()//temporary building function
