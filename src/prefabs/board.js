@@ -12,7 +12,9 @@ class Board extends Phaser.GameObjects.Container
         this.objectArray = this.createArray(this.boardX,this.boardY);
         this.initalizeGrid();
 
-        this.placeBuilding(this.createBuilding,1,1);
+        var retBuilding = new Building(this.sceneRef,0,0,'buildingImage');
+        this.placeBuilding(retBuilding,1,1);
+        retBuilding.moveBuilding('down');
     }
 
     createBuilding()//temporary building function
@@ -46,25 +48,30 @@ class Board extends Phaser.GameObjects.Container
             return;
         }
         let currTile = this.getTile(x,y);
-        let toAdd = new Building(this.sceneRef,100,100,'buildingImage');//building isnt showing in front
+        let toAdd = building;
+        this.objectArray[x][y] = toAdd;
+
         //let toTest = this.sceneRef.add.sprite(200,200,'buildingImage');//building isnt showing in front
         toAdd.setPlacement(currTile);
     }
 
     initalizeGrid()//test
     {
-        for(let x=0;x<this.boardX;x++)
+        for(let y=0;y<this.boardY;y++)
         {
-            let locX = -(x * this.tileOffset) + this.x;
-            let locY = x * this.tileOffset + this.y;
+            let locX = -(y * this.tileOffset) + this.x;
+            let locY = y * this.tileOffset + this.y;
 
-            for(let y=0;y<this.boardY;y++)
+            for(let x=0;x<this.boardX;x++)
             {
 
-                const toAdd = new Tile(this.sceneRef,locX,locY,'tileSprite');
+                const toAdd = new Tile(this.sceneRef,locX,locY,'tileSprite');//this can be cleaned up
                 this.tileArray[x][y] = toAdd;
                 toAdd.x = locX;
                 toAdd.y = locY;
+                toAdd.tileX = x;
+                toAdd.tileY = y;
+                toAdd.boardRef = this;
                 let temp = x+','+y;
                 this.sceneRef.add.text(locX,locY,temp);
 
