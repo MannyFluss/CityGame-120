@@ -6,6 +6,7 @@ class Board extends Phaser.GameObjects.Container
         this.config = config; //temp config["sprite"] = texture
         this.sceneRef=scene;
         this.tileOffset = 30.0;
+        this.tileArray = this.createArray(3,3);
         this.initalizeGrid();
     }
 
@@ -18,11 +19,24 @@ class Board extends Phaser.GameObjects.Container
 
             for(let y=0;y<3;y++)
             {
-                this.sceneRef.add.sprite(locX,locY,'tileSprite');
-
+                this.tileArray[x][y] = this.sceneRef.add.sprite(locX,locY,'tileSprite');
+                let temp = x+','+y;
+                this.sceneRef.add.text(locX,locY,temp);
+                
                 locX += this.tileOffset;
                 locY += this.tileOffset;   
             }
         }
+
+    }
+    createArray(length,width) {
+        var arr = new Array(length);
+
+        for (let i=0;i<length;i++)
+        {
+            arr[i] = new Array(width);
+        }
+    
+        return arr;
     }
 }
