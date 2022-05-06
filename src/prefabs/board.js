@@ -10,6 +10,8 @@ class Board extends Phaser.GameObjects.Container
         this.initalizeGrid();
     }
 
+    
+
     initalizeGrid()//test
     {
         for(let x=0;x<3;x++)
@@ -19,7 +21,10 @@ class Board extends Phaser.GameObjects.Container
 
             for(let y=0;y<3;y++)
             {
-                this.tileArray[x][y] = this.sceneRef.add.sprite(locX,locY,'tileSprite');
+
+                const toAdd = new Tile(this.sceneRef,locX,locY,'tileSprite');
+                toAdd.x = x;
+                toAdd.y = y;
                 let temp = x+','+y;
                 this.sceneRef.add.text(locX,locY,temp);
 
@@ -27,7 +32,6 @@ class Board extends Phaser.GameObjects.Container
                 locY += this.tileOffset;   
             }
         }
-
     }
 
     createArray(length,width) {
