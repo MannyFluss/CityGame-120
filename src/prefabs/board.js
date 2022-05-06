@@ -22,13 +22,14 @@ class Board extends Phaser.GameObjects.Container
                 this.tileArray[x][y] = this.sceneRef.add.sprite(locX,locY,'tileSprite');
                 let temp = x+','+y;
                 this.sceneRef.add.text(locX,locY,temp);
-                
+
                 locX += this.tileOffset;
                 locY += this.tileOffset;   
             }
         }
 
     }
+    
     createArray(length,width) {
         var arr = new Array(length);
 
