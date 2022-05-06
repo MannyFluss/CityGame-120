@@ -8,6 +8,7 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileX;
         this.tileY;
         this.tileParent;
+        this.setScale(.1);
     }
 
     setPlacement(tile)
@@ -18,5 +19,6 @@ class Building extends Phaser.GameObjects.Sprite
         //this might not be necessary
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
+        console.log("building at "+this.x+" "+this.y);
     }
 }
