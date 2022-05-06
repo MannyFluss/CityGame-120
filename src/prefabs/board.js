@@ -46,7 +46,7 @@ class Board extends Phaser.GameObjects.Container
             return;
         }
         let currTile = this.getTile(x,y);
-        const toAdd = new Building(this.sceneRef,x,y,'buildingImage');
+        const toAdd = new Building(this.sceneRef,x,y,'buildingImage');//building isnt showing in front
         toAdd.setPlacement(currTile);
     }
 
