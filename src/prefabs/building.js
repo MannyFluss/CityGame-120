@@ -9,6 +9,18 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileY;
         this.tileParent;
         this.setScale(.1);
+
+        this.timer = scene.time.addEvent({
+            delay: 500,                // ms
+            callback: this.timeElapsed,
+            args: [500],
+            loop: true
+        });
+    }
+
+    timeElapsed(delta)
+    {
+        money += 1;
     }
 
     getBoard()
@@ -75,6 +87,6 @@ class Building extends Phaser.GameObjects.Sprite
     }
     update()
     {
-        
+
     }
 }

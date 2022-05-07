@@ -18,6 +18,17 @@ class Play extends Phaser.Scene
         }
         this.board = new Board(this,200,200,[],this.boardConfig);
 
+        this.initUI()
         //var spritetest = this.add.sprite(100,100,'tileSprite');
+    }
+
+    initUI()
+    {
+        this.UImoney = this.add.text(50, 50, money);
+    }
+
+    update()
+    {
+        this.UImoney.text = money;
     }
 }

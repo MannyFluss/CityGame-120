@@ -9,6 +9,7 @@ let config = {
     scene : [Play],
     backgroundColor : "#1982FC",
     canvasStyle: canvasStyle
+    
 }
 
 // declare keys
@@ -18,5 +19,7 @@ let keyLEFT, keyRIGHT, keySTART;
 let game = new Phaser.Game(config);
 
 let highScore = 0;
+
+let money = 0;
 
 //global variables, see accessed in play.js

@@ -5,7 +5,7 @@ class Board extends Phaser.GameObjects.Container
         super(scene,x,y,objs);
         this.config = config; //temp config["sprite"] = texture will be edited to make better boards easily
         this.sceneRef=scene;
-        this.tileOffset = 30.0;
+        this.tileOffset = 40.0;
         this.boardX=3;//max size x and y
         this.boardY=3;
         this.tileArray = this.createArray(this.boardX,this.boardY); //this is where the board
@@ -15,7 +15,7 @@ class Board extends Phaser.GameObjects.Container
         var retBuilding = new Building(this.sceneRef,0,0,'buildingImage');
         this.placeBuilding(retBuilding,1,1);
         retBuilding.moveBuilding('down');
-        retBuilding.moveBuilding('down');
+        retBuilding.moveBuilding('left');
     }
 
     createBuilding()//temporary building function
@@ -92,4 +92,5 @@ class Board extends Phaser.GameObjects.Container
     
         return arr;
     }
+    
 }
