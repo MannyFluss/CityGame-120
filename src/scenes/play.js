@@ -5,8 +5,8 @@ class Play extends Phaser.Scene
         super("playScene");
         this.songList = //name of each of the songs
         [
-            "song1",
-            "song2"
+            "test1.wav",
+            "test2.wav"
         ];
 
     }
@@ -17,8 +17,8 @@ class Play extends Phaser.Scene
         
         for (let i=0; i< this.songList.length; i++)//this can be unsafe
         {
-            this.load.audio(this.songList[i],'./assets/music/radioMusic/'+this.songList[i]);
             
+            let x = this.load.audio(this.songList[i],'./assets/music/radioMusic/'+this.songList[i]);
         }
     }
     
@@ -28,7 +28,7 @@ class Play extends Phaser.Scene
             "sprite" : 'tileSprite',
         }
         this.board = new Board(this,200,200,[],this.boardConfig);
-
+        this.radio = new Radio(this,0,0,[],this.songList);
         this.initUI()
         //var spritetest = this.add.sprite(100,100,'tileSprite');
     }
