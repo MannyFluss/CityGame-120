@@ -22,7 +22,7 @@ class Building extends Phaser.GameObjects.Sprite
     timeElapsed(delta)
     {
         money += 1;
-        switch(state)
+        switch(this.state)
         {
             case 'idle':
                 //look for input
