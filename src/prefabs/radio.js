@@ -26,17 +26,9 @@ class Radio extends Phaser.GameObjects.Container
         this.currentlyPlaying = this.songsArr[this.currentIndex];
         console.log(this.currentIndex);
         this.music = this.sceneRef.sound.add(this.currentlyPlaying);
-        
-        this.music.once('complete',this.musicComplete(this.music)
-        {
-            console.log()
-        });
+        this.music.play();
+        this.music.once('complete',()=>{console.log("test");});//thank god it works
 
-    }
-
-    musicComplete(music)
-    {
-        console.log("done");
     }
 
     playPrevious()
