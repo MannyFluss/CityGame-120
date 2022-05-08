@@ -9,6 +9,7 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileY;
         this.tileParent;
         this.setScale(.1);
+        this.state = "idle";
 
         this.timer = scene.time.addEvent({
             delay: 500,                // ms
@@ -21,6 +22,15 @@ class Building extends Phaser.GameObjects.Sprite
     timeElapsed(delta)
     {
         money += 1;
+        switch(state)
+        {
+            case 'idle':
+                //look for input
+                break;
+            default:
+                break;
+        }
+
     }
 
     getBoard()
