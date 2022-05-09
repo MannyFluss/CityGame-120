@@ -42,6 +42,7 @@ class Building extends Phaser.GameObjects.Sprite
     {
         //clear the obj array @ this buildings coordinates of board.js
         this.boardRef.clearTile(this.tileX,this.tileY);
+        this.destroy();
     }
     setPlacement(tile)//get the tile, set the tile position
     {

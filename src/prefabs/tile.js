@@ -17,4 +17,14 @@ class Tile extends Phaser.GameObjects.Sprite
         }
         return false;
     }
+    getThisBuilding()
+    {
+        if (!this.boardRef.checkValidTile(this.tileX,this.tileY))
+        {
+            console.log("invalid tile get");
+            return;
+        }
+        return this.boardRef.objectArray[this.tileX][this.tileY];
+
+    }
 }
