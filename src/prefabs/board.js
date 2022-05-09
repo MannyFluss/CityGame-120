@@ -32,6 +32,17 @@ class Board extends Phaser.GameObjects.Container
         }
         return false;
     }
+    clearTile(x,y)
+    {
+        if (!this.checkValidTile(x,y))
+        {
+            console.log("invalid tile get");
+            return;
+        }
+        this.tileArray[x][y]=null;
+    }
+
+    
     getTile(x,y)//any interaction start @ 0,0
     {
         if (!this.checkValidTile(x,y))
