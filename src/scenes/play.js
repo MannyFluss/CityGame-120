@@ -29,6 +29,9 @@ class Play extends Phaser.Scene
         }
         this.board = new Board(this,200,200,[],this.boardConfig);
         this.radio = new Radio(this,0,0,[],this.songList);
+        this.shop = new Shop(this,0,0,[],this.board);
+
+        
         this.initUI()
         //var spritetest = this.add.sprite(100,100,'tileSprite');
     }

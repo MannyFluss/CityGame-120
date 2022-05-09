@@ -20,6 +20,11 @@ let radioPause,radioFFWD, radioFBWD,radioSHUFFLE;
 // set UI sizes
 let game = new Phaser.Game(config);
 
+let possibleBuildingList = 
+[
+    Building
+]
+
 let highScore = 0;
 
 let money = 0;
