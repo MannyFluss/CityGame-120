@@ -81,7 +81,6 @@ class Board extends Phaser.GameObjects.Container
             }
         }
     }
-
     createArray(length,width) {
         var arr = new Array(length);
 

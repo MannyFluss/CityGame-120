@@ -5,8 +5,8 @@ class Play extends Phaser.Scene
         super("playScene");
         this.songList = //name of each of the songs
         [
-            "test1.wav",
-            "test2.wav"
+            "mannymoemnt.mp3",
+            "omygodv2.mp3"
         ];
 
     }

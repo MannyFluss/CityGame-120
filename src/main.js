@@ -15,6 +15,8 @@ let config = {
 // declare keys
 let keyLEFT, keyRIGHT, keySTART;
 
+let radioPause,radioFFWD, radioFBWD,radioSHUFFLE;
+
 // set UI sizes
 let game = new Phaser.Game(config);
 
