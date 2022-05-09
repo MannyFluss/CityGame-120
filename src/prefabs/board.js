@@ -14,8 +14,8 @@ class Board extends Phaser.GameObjects.Container
 
         var retBuilding = new Building(this.sceneRef,0,0,'buildingImage');
         this.placeBuilding(retBuilding,1,1);
-        retBuilding.moveBuilding('down');
-        retBuilding.moveBuilding('left');
+        // retBuilding.moveBuilding('down');
+        // retBuilding.moveBuilding('left');
     }
 
     createBuilding()//temporary building function
@@ -67,6 +67,11 @@ class Board extends Phaser.GameObjects.Container
         toAdd.setPlacement(currTile);
     }
 
+    // possibly temporary - maybe change to use the standard building remover
+    removeBuilding(x, y) {
+        this.objectArray[x][y] = null;
+    }
+
     initalizeGrid()//test
     {
         for(let y=0;y<this.boardY;y++)
@@ -92,7 +97,9 @@ class Board extends Phaser.GameObjects.Container
             }
         }
     }
-    createArray(length,width) {
+
+    createArray(length,width) 
+    {
         var arr = new Array(length);
 
         for (let i=0;i<length;i++)
@@ -102,5 +109,21 @@ class Board extends Phaser.GameObjects.Container
     
         return arr;
     }
-    
+
+    getNearestTile(worldX, worldY) 
+    {
+        let nearestTile;
+        let nearestDist = Infinity;
+        for (let tileRow of this.tileArray) {
+            for (let tile of tileRow) {
+                let distance = Math.pow(tile.x - worldX, 2) + Math.pow(tile.y - worldY, 2);
+                if (distance < nearestDist && tile.checkEmpty()) {
+                    nearestDist = distance;
+                    nearestTile = tile;
+                    console.log("new nearest: " + tile.tileX + ", " + tile.tileY);
+                }
+            }
+        }
+        return nearestTile;
+    }
 }
