@@ -4,6 +4,21 @@ class Building extends Phaser.GameObjects.Sprite
     {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
+        this.setOrigin(.5, .5);
+
+        this.setInteractive({
+            draggable: true,
+            useHandCursor: true
+        });
+
+        this.on('drag', (pointer, dragX, dragY) => {
+            this.x = dragX;
+            this.y = dragY;
+        });
+
+        this.on('dragend', (pointer, dragX, dragY) => {
+            this.snapToTile();
+        });
         
         this.tileX;
         this.tileY;
@@ -37,6 +52,7 @@ class Building extends Phaser.GameObjects.Sprite
     {
         return this.tileParent.boardRef;
     }
+
     setPlacement(tile)//get the tile, set the tile position
     {
         this.x = tile.x;
@@ -46,6 +62,7 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
     }
+
     moveBuilding(command="none")
     {
         let brd = this.getBoard();
@@ -95,6 +112,15 @@ class Building extends Phaser.GameObjects.Sprite
         return false;
         
     }
+
+    snapToTile() 
+    {
+        let boardRef = this.getBoard();
+        boardRef.removeBuilding(this.tileX, this.tileY);
+        let nearestTile = boardRef.getNearestTile(this.x, this.y);
+        this.setPlacement(nearestTile);
+    }
+
     update()
     {
 
