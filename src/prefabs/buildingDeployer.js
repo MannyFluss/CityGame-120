@@ -1,4 +1,4 @@
-i//the purpose of this class is to place a warning @ designated tile
+//the purpose of this class is to place a warning @ designated tile
 //after some amount of time destroy the building @ tile if there is one there
 //and place the building down
 class BuildingDeployer extends Phaser.GameObjects.Sprite
