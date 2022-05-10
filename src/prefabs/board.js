@@ -12,7 +12,7 @@ class Board extends Phaser.GameObjects.Container
         this.objectArray = this.createArray(this.boardX,this.boardY);
         this.initalizeGrid();
 
-        var retBuilding = new Building(this.sceneRef,0,0,'buildingImage');
+        var retBuilding = new Building(this.sceneRef,0,0,'small-apartment-1');
         this.placeBuilding(retBuilding,1,1);
         // retBuilding.moveBuilding('down');
         // retBuilding.moveBuilding('left');
@@ -20,7 +20,7 @@ class Board extends Phaser.GameObjects.Container
 
     createBuilding()//temporary building function
     {
-        retBuilding = new Building(this.sceneRef,0,0,'buildingImage');
+        retBuilding = new Building(this.sceneRef,0,0,'small-apartment-1');
 
         return retBuilding;
     }
@@ -65,7 +65,7 @@ class Board extends Phaser.GameObjects.Container
         let toAdd = building;
         this.objectArray[x][y] = toAdd;
 
-        //let toTest = this.sceneRef.add.sprite(200,200,'buildingImage');//building isnt showing in front
+        //let toTest = this.sceneRef.add.sprite(200,200,'small-apartment-1');//building isnt showing in front
         toAdd.setPlacement(currTile);
     }
 
