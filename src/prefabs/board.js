@@ -23,7 +23,8 @@ class Board extends Phaser.GameObjects.Container
         retBuilding = new Building(this.sceneRef,0,0,'buildingImage');
 
         return retBuilding;
-    }    
+    }
+
     checkValidTile(x,y)//true = in range false = not in range
     {
         if (this.boardX > x && this.boardY > y)
@@ -32,6 +33,7 @@ class Board extends Phaser.GameObjects.Container
         }
         return false;
     }
+
     clearTile(x,y)
     {
         if (!this.checkValidTile(x,y))
@@ -39,9 +41,8 @@ class Board extends Phaser.GameObjects.Container
             console.log("invalid tile get");
             return;
         }
-        this.tileArray[x][y]=null;
+        this.objectArray[x][y]=null;
     }
-
     
     getTile(x,y)//any interaction start @ 0,0
     {
@@ -52,6 +53,7 @@ class Board extends Phaser.GameObjects.Container
         }
         return this.tileArray[x][y];
     }
+
     placeBuilding(building,x,y)
     {
         if (!this.checkValidTile(x,y))

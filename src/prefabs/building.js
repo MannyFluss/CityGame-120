@@ -56,10 +56,10 @@ class Building extends Phaser.GameObjects.Sprite
     destroyThisBuilding()
     {
         //clear the obj array @ this buildings coordinates of board.js
-        this.boardRef.clearTile(this.tileX,this.tileY);
+        this.getBoard().clearTile(this.tileX,this.tileY);
         this.destroy();
     }
-    
+
     setPlacement(tile)//get the tile, set the tile position
     {
         this.x = tile.x;
@@ -123,7 +123,7 @@ class Building extends Phaser.GameObjects.Sprite
     snapToTile() 
     {
         let boardRef = this.getBoard();
-        boardRef.removeBuilding(this.tileX, this.tileY);
+        boardRef.clearTile(this.tileX, this.tileY);
         let nearestTile = boardRef.getNearestTile(this.x, this.y);
         this.setPlacement(nearestTile);
     }
