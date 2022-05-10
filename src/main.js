@@ -4,8 +4,8 @@ border-radius: 10px; \
 
 let config = {
     type: Phaser.CANVAS,
-    width: 768, // street.png width * export resize factor
-    height: 432,
+    width: 800, // street.png width * export resize factor
+    height: 600,
     scene : [Play],
     backgroundColor : "#393457",
     canvasStyle: canvasStyle

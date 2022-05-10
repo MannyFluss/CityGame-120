@@ -27,7 +27,7 @@ class Play extends Phaser.Scene
         this.boardConfig={
             "sprite" : 'tileSprite',
         }
-        this.board = new Board(this,200,200,[],this.boardConfig);
+        this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
         this.radio = new Radio(this,0,0,[],this.songList);
         this.shop = new Shop(this,0,0,[],this.board);
 

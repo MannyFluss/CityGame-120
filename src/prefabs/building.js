@@ -4,7 +4,7 @@ class Building extends Phaser.GameObjects.Sprite
     {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
-        this.setOrigin(.5, .78);
+        this.setOrigin(.5, 1);
 
         this.setInteractive({
             draggable: true,
@@ -23,7 +23,7 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileX;
         this.tileY;
         this.tileParent;
-        this.setScale(.1);
+        this.setScale(1);
         this.state = "idle";
 
         this.timer = scene.time.addEvent({
