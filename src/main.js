@@ -7,7 +7,7 @@ let config = {
     width: 768, // street.png width * export resize factor
     height: 432,
     scene : [Play],
-    backgroundColor : "#1982FC",
+    backgroundColor : "#393457",
     canvasStyle: canvasStyle
     
 }
