@@ -4,6 +4,7 @@ class Tile extends Phaser.GameObjects.Sprite
     {
         super(scene,x,y,texture);
         scene.add.existing(this);
+        this.setOrigin(.5, .5);
         this.tileX;
         this.tileY;
         this.boardRef;
