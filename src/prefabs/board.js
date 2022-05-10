@@ -123,7 +123,6 @@ class Board extends Phaser.GameObjects.Container
                 if (distance < nearestDist && tile.checkEmpty()) {
                     nearestDist = distance;
                     nearestTile = tile;
-                    console.log("new nearest: " + tile.tileX + ", " + tile.tileY);
                 }
             }
         }
