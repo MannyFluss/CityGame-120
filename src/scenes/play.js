@@ -13,7 +13,7 @@ class Play extends Phaser.Scene
     preload()
     {
         this.load.image('tileSprite','./assets/tile.png');
-        this.load.image('small-apartment-1','/assets/small-apartment-1.png');
+        this.load.image('small-apartment-1','./assets/small-apartment-1.png');
         
         for (let i=0; i< this.songList.length; i++)//this can be unsafe
         {
