@@ -13,8 +13,9 @@ class Board extends Phaser.GameObjects.Container
         this.objectArray = this.createArray(this.boardX,this.boardY);
         this.initalizeGrid();
 
-        var retBuilding = new Building(this.sceneRef,0,0,'small-apartment-1');
-        this.placeBuilding(retBuilding,1,1);
+        
+        this.placeBuilding(new Building(this.sceneRef,0,0,'small-apartment-1'), 0, 0);
+        this.placeBuilding(new Building(this.sceneRef,0,0,'hotel-1'), 1, 0);
         // retBuilding.moveBuilding('down');
         // retBuilding.moveBuilding('left');
     }
