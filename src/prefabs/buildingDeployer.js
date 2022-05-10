@@ -1,4 +1,4 @@
-//the purpose of this class is to place a warning @ designated tile
+i//the purpose of this class is to place a warning @ designated tile
 //after some amount of time destroy the building @ tile if there is one there
 //and place the building down
 class BuildingDeployer extends Phaser.GameObjects.Sprite
@@ -27,7 +27,7 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
         {
             buildingOrNull.destroyThisBuilding();
         }
-        let newBuilding = new this.toDeploy(this.sceneRef,0,0,'buildingImage');
+        let newBuilding = new this.toDeploy(this.sceneRef,0,0,'small-apartment-1');
         this.boardRef.placeBuilding(newBuilding,this.tileX,this.tileY);
         
     }

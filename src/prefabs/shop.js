@@ -33,13 +33,13 @@ class Shop extends Phaser.GameObjects.Container
         //place on random spot on board
         //in future make it so that a seperate meteor like object spawns buildings in
 
-        //let toAdd = new this.availableBuildings[index](this.sceneRef,0,0,'buildingImage');
+        //let toAdd = new this.availableBuildings[index](this.sceneRef,0,0,'small-apartment-1');
 
         let toAdd = this.availableBuildings[index];
         let randX= Phaser.Math.Between(0,this.boardRef.boardX-1);
         let randY= Phaser.Math.Between(0,this.boardRef.boardY-1);
         console.log(randX + " " + randY);
-        this.buildingDeployer = new BuildingDeployer(this.sceneRef,0,2,'buildingImage',toAdd ,4,this.boardRef);
+        // this.buildingDeployer = new BuildingDeployer(this.sceneRef,0,2,'small-apartment-1',toAdd ,4,this.boardRef);
 
         //insert animation here to slide button away
         this.availableBuildings[index]=undefined;

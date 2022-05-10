@@ -5,14 +5,15 @@ class Board extends Phaser.GameObjects.Container
         super(scene,x,y,objs);
         this.config = config; //temp config["sprite"] = texture will be edited to make better boards easily
         this.sceneRef=scene;
-        this.tileOffset = 40.0;
+        this.tileXOffset = 100;
+        this.tileYOffset = this.tileXOffset/2;
         this.boardX=3;//max size x and y
         this.boardY=3;
         this.tileArray = this.createArray(this.boardX,this.boardY); //this is where the board
         this.objectArray = this.createArray(this.boardX,this.boardY);
         this.initalizeGrid();
 
-        var retBuilding = new Building(this.sceneRef,0,0,'buildingImage');
+        var retBuilding = new Building(this.sceneRef,0,0,'small-apartment-1');
         this.placeBuilding(retBuilding,1,1);
         // retBuilding.moveBuilding('down');
         // retBuilding.moveBuilding('left');
@@ -20,7 +21,7 @@ class Board extends Phaser.GameObjects.Container
 
     createBuilding()//temporary building function
     {
-        retBuilding = new Building(this.sceneRef,0,0,'buildingImage');
+        retBuilding = new Building(this.sceneRef,0,0,'small-apartment-1');
 
         return retBuilding;
     }
@@ -65,7 +66,7 @@ class Board extends Phaser.GameObjects.Container
         let toAdd = building;
         this.objectArray[x][y] = toAdd;
 
-        //let toTest = this.sceneRef.add.sprite(200,200,'buildingImage');//building isnt showing in front
+        //let toTest = this.sceneRef.add.sprite(200,200,'small-apartment-1');//building isnt showing in front
         toAdd.setPlacement(currTile);
     }
 
@@ -78,8 +79,8 @@ class Board extends Phaser.GameObjects.Container
     {
         for(let y=0;y<this.boardY;y++)
         {
-            let locX = -(y * this.tileOffset) + this.x;
-            let locY = y * this.tileOffset + this.y;
+            let locX = -(y * this.tileXOffset) + this.x;
+            let locY = y * this.tileYOffset + this.y;
 
             for(let x=0;x<this.boardX;x++)
             {
@@ -94,8 +95,8 @@ class Board extends Phaser.GameObjects.Container
                 let temp = x+','+y;
                 this.sceneRef.add.text(locX,locY,temp);
 
-                locX += this.tileOffset;
-                locY += this.tileOffset;   
+                locX += this.tileXOffset;
+                locY += this.tileYOffset;   
             }
         }
     }
