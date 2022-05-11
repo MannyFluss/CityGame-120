@@ -4,12 +4,21 @@ class Building extends Phaser.Physics.Arcade.Sprite
     {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
+        scene.physics.add.existing(this);
         this.setOrigin(.5, 1);
         
-        // ISSUE: body is null rn
-        // this.body.setCircle(64);
-        // this.setDebugBodyColor(0xFFFF00);
+        let collisionWidth = 126;
+        let collisionHeight = 69;
+        this.body.setSize(collisionWidth, collisionHeight);
+        this.body.setOffset(0, this.height-collisionHeight);
 
+        this.setDebugBodyColor(0xFF0000);
+        
+        this.setCollideWorldBounds(true);
+        this.body.onCollide = true;
+        this.body.immovable = true;
+        this.body.setEnable();
+        
         this.setInteractive({
             draggable: true,
             useHandCursor: true
