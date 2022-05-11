@@ -17,6 +17,7 @@ class Building extends Phaser.GameObjects.Sprite
                 this.oldX = this.x;
                 this.oldY = this.y;
             }
+            this.setDepth(5);
             this.x = dragX;
             this.y = dragY;
             this.state = "dragging";
@@ -146,6 +147,9 @@ class Building extends Phaser.GameObjects.Sprite
 
     update()
     {
-
+        if(this.state == "idle") {
+            this.setDepth(this.tileX + this.tileY);
+        }
+        
     }
 }
