@@ -31,13 +31,26 @@ class winState extends Phaser.GameObjects.GameObject
                 break;
         }
     }
-    updateWinCondition()
+    updateWinCondition(deltaTime)
     {
-
+        switch(condition)
+        {
+            case 'timer':
+                this.timePassed += deltaTime;
+                if (this.timePassed >= this.survivalTime)
+                {
+                    this.conditionMet();
+                }
+                break;
+            default:
+                console.log('this should never be seen. like ever. something has bugged');
+                break;
+        }
     }
     
     conditionMet()
     {
         //create the win button and coffetti pops out from the sky
+        console.log("condition met congrats");
     }
 }
