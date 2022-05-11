@@ -18,10 +18,8 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.on('drag', (pointer, dragX, dragY) => {
             if(this.state == "idle") {
                 console.log("start dragging");
-                this.oldX = this.x;
-                this.oldY = this.y;
             }
-            this.setDepth(8);
+            this.setDepth(10);
             this.x = dragX;
             this.y = dragY;
             this.state = "dragging";
@@ -33,8 +31,8 @@ class Building extends Phaser.Physics.Arcade.Sprite
                 this.snapToTile();
                 this.state = "idle";
             } else {
-                this.x = this.oldX;
-                this.y = this.oldY;
+                this.x = this.tileParent.x;
+                this.y = this.tileParent.y;
                 this.state = "idle";
             }
         });
