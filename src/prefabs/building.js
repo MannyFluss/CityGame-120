@@ -1,10 +1,14 @@
-class Building extends Phaser.GameObjects.Sprite
+class Building extends Phaser.Physics.Arcade.Sprite
 {
     constructor(scene,x,y,texture,frame)
     {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
         this.setOrigin(.5, 1);
+        
+        // ISSUE: body is null rn
+        // this.body.setCircle(64);
+        // this.setDebugBodyColor(0xFFFF00);
 
         this.setInteractive({
             draggable: true,
