@@ -39,12 +39,7 @@ class Building extends Phaser.GameObjects.Sprite
         this.setScale(1);
         this.state = "idle";
 
-        this.timer = scene.time.addEvent({
-            delay: 500,                // ms
-            callback: this.timeElapsed,
-            args: [500],
-            loop: true
-        });
+
     }
 
     timeElapsed(delta)

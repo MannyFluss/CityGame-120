@@ -26,6 +26,8 @@ class Play extends Phaser.Scene
     
     create()
     {
+        this.test = new winState(this,"test");
+
         this.boardConfig={
             "sprite" : 'tileSprite',
         }
