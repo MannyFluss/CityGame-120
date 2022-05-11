@@ -8,8 +8,13 @@ let config = {
     height: 600,
     scene : [Play],
     backgroundColor : "#393457",
-    canvasStyle: canvasStyle
-    
+    canvasStyle: canvasStyle,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true
+        }
+    },
 }
 
 // declare keys
