@@ -15,6 +15,7 @@ class Play extends Phaser.Scene
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
+        this.load.image('warning', './assets/warning.png');
         
         for (let i=0; i< this.songList.length; i++)//this can be unsafe
         {
@@ -31,6 +32,10 @@ class Play extends Phaser.Scene
         this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
         this.radio = new Radio(this,0,0,[],this.songList);
         this.shop = new Shop(this,0,0,[],this.board);
+
+
+        this.warning = new Warning(this,0,0);
+        this.warning.setWarningPlacement(this.board.getTile(0,0));
 
         
         this.initUI()
@@ -53,5 +58,7 @@ class Play extends Phaser.Scene
                 }
             }
         }
+
+        this.warning.update();
     }
 }
