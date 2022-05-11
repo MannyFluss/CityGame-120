@@ -1,29 +1,48 @@
 class Building extends Phaser.Physics.Arcade.Sprite
 {
-    constructor(scene,x,y,texture,frame)
+    constructor(scene,x,y,texture,board,frame)
     {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setOrigin(.5, 1);
         
+        // physics settings
         let collisionWidth = 126;
         let collisionHeight = 69;
         this.body.setSize(collisionWidth, collisionHeight);
         this.body.setOffset(0, this.height-collisionHeight);
-
-        this.setDebugBodyColor(0xFF0000);
-        
         this.setCollideWorldBounds(true);
+        this.body.setImmovable(true);
         this.body.onCollide = true;
-        this.body.immovable = true;
-        this.body.setEnable();
+
+        // debug
+        this.setDebugBodyColor(0xFF0000);
         
         this.setInteractive({
             draggable: true,
             useHandCursor: true
         });
+        
+        this.board = board;
+        this.tileX;
+        this.tileY;
+        this.tileParent;
+        this.setScale(1);
+        this.state = "idle";
 
+        this.timer = scene.time.addEvent({
+            delay: 500,                // ms
+            callback: this.timeElapsed,
+            args: [500],
+            loop: true
+        });
+
+        scene.physics.world.on('collide', (obj1, obj2, body1, body2)=>{
+            console.log(`${obj1.texture.key} is colliding with ${obj2.texture.key} body`);
+        });
+
+        // define events
         this.on('drag', (pointer, dragX, dragY) => {
             if(this.state == "idle") {
                 console.log("start dragging");
@@ -32,6 +51,16 @@ class Building extends Phaser.Physics.Arcade.Sprite
             this.x = dragX;
             this.y = dragY;
             this.state = "dragging";
+
+            // check collision with other buildings
+            for (let row of this.board.objectArray) {
+                for (let building of row) {
+                    if (building != null) {
+                        this.scene.physics.collide(this, building);
+                        console.log("collide!")
+                    }
+                }
+            }
         });
 
         this.on('dragend', (pointer, dragX, dragY) => {
@@ -44,19 +73,6 @@ class Building extends Phaser.Physics.Arcade.Sprite
                 this.y = this.tileParent.y;
                 this.state = "idle";
             }
-        });
-        
-        this.tileX;
-        this.tileY;
-        this.tileParent;
-        this.setScale(1);
-        this.state = "idle";
-
-        this.timer = scene.time.addEvent({
-            delay: 500,                // ms
-            callback: this.timeElapsed,
-            args: [500],
-            loop: true
         });
     }
 
@@ -95,57 +111,6 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
-        this.getBoard().objectArray[tile.tileX][tile.tileY] = this;
-    }
-
-    moveBuilding(command="none")
-    {
-        let brd = this.getBoard();
-        switch(command)
-        {
-            case 'up':
-                if (this.ableToMove(this.tileX,this.tileY-1))
-                {
-                    this.setPlacement(brd.getTile(this.tileX,this.tileY-1));
-                }
-                break;
-            case 'down':
-                if (this.ableToMove(this.tileX,this.tileY+1))
-                {
-                    this.setPlacement(brd.getTile(this.tileX,this.tileY+1));
-                }
-                break;
-            case 'left':
-                if (this.ableToMove(this.tileX-1,this.tileY))
-                {
-                    this.setPlacement(brd.getTile(this.tileX-1,this.tileY));
-                }
-                break;
-            case 'right':
-                if (this.ableToMove(this.tileX+1,this.tileY))
-                {
-                    this.setPlacement(brd.getTile(this.tileX+1,this.tileY));
-                }
-                break;
-            default:
-                break
-            //check if up,d,l,r
-        }
-    }
-    
-    ableToMove(x,y)//function to check if you are able to move to x,y
-    {
-        let boardRef = this.getBoard();
-        if (boardRef.checkValidTile(x,y))
-        {
-            if (boardRef.getTile(x,y).checkEmpty())
-            {
-                
-                return true;
-            }
-        }
-        return false;
-        
     }
 
     snapToTile() 
@@ -154,6 +119,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         boardRef.clearTile(this.tileX, this.tileY);
         let nearestTile = boardRef.getNearestTile(this.x, this.y);
         this.setPlacement(nearestTile);
+        this.board.addToObjectArray(this, this.tileX, this.tileY);
     }
 
     update()
@@ -161,6 +127,5 @@ class Building extends Phaser.Physics.Arcade.Sprite
         if(this.state == "idle") {
             this.setDepth(2 * (this.tileX + this.tileY));
         }
-        
     }
 }
