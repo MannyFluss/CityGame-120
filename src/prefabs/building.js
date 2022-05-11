@@ -12,12 +12,26 @@ class Building extends Phaser.GameObjects.Sprite
         });
 
         this.on('drag', (pointer, dragX, dragY) => {
+            if(this.state == "idle") {
+                console.log("start dragging");
+                this.oldX = this.x;
+                this.oldY = this.y;
+            }
             this.x = dragX;
             this.y = dragY;
+            this.state = "dragging";
         });
 
         this.on('dragend', (pointer, dragX, dragY) => {
-            this.snapToTile();
+            console.log("done dragging");
+            if (this.getBoard().getNearestTile(this.x,this.y).checkEmpty()) {
+                this.snapToTile();
+                this.state = "idle";
+            } else {
+                this.x = this.oldX;
+                this.y = this.oldY;
+                this.state = "idle";
+            }
         });
         
         this.tileX;
@@ -68,6 +82,8 @@ class Building extends Phaser.GameObjects.Sprite
         //this might not be necessary
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
+        console.log("Placing at", tile.tileX, tile.tileY);
+        this.getBoard().objectArray[tile.tileX][tile.tileY] = this;
     }
 
     moveBuilding(command="none")

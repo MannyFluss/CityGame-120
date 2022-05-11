@@ -12,6 +12,7 @@ class Tile extends Phaser.GameObjects.Sprite
     }
     checkEmpty() //true means empty
     {
+        console.log("Tile is empty?", this.boardRef.objectArray[this.tileX][this.tileY]==null);
         if (this.boardRef.objectArray[this.tileX][this.tileY]==null)
         {
             return true;
