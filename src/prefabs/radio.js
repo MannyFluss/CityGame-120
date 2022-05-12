@@ -3,14 +3,23 @@ class Radio extends Phaser.GameObjects.Container
     constructor(scene,x,y,objs=[],songNames=[])
     {
         super(scene,x,y,objs);
+        scene.add.existing(this);
         this.songsArr = songNames;
         this.currentIndex = undefined;
         this.currentlyPlaying;
         this.shuffleType = "none";
         this.sceneRef = scene; //need to know when music is playing/stopping
-
+        
         this.music;
         this.playNext();
+
+        this.radioConsole = new Phaser.GameObjects.Sprite(scene,0,0,'radio-temp');
+        this.playToggle = new Phaser.GameObjects.Sprite(scene,-90,0,'temp-button');
+        this.playPreviousSong = new Phaser.GameObjects.Sprite(scene,-50,0,'temp-button');
+        this.playNextSong = new Phaser.GameObjects.Sprite(scene,50,0,'temp-button');
+        this.shuffleToggleButton  = new Phaser.GameObjects.Sprite(scene,90,0,'temp-button');
+        this.add([this.radioConsole,this.playToggle,this.playPreviousSong,this.playNextSong,this.shuffleToggleButton]);
+
         scene.input.keyboard.on('keydown', (event) => {
             this.handleInput(event.key);
         });

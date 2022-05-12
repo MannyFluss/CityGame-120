@@ -12,27 +12,29 @@ class Play extends Phaser.Scene
     }
     preload()
     {
+        this.load.image('submit-button','./assets/tempArt/check.png');
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
         this.load.image('warning', './assets/warning.png');
+        this.load.image('temp-button','./assets/tempArt/buttonz.png');
+        this.load.image('radio-temp','./assets/tempArt/radioConsole.png');
+
         
         for (let i=0; i< this.songList.length; i++)//this can be unsafe
         {
-            
             let x = this.load.audio(this.songList[i],'./assets/music/radioMusic/'+this.songList[i]);
         }
     }
     
     create()
     {
-        this.test = new winState(this,"test");
-
+        this.test = new winState(this,"timer",{survivalTime : 100});
         this.boardConfig={
             "sprite" : 'tileSprite',
         }
         this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
-        this.radio = new Radio(this,0,0,[],this.songList);
+        this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,0,0,[],this.board);
 
 
