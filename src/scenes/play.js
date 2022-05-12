@@ -19,6 +19,8 @@ class Play extends Phaser.Scene
         this.load.image('warning', './assets/warning.png');
         this.load.image('temp-button','./assets/tempArt/buttonz.png');
         this.load.image('radio-temp','./assets/tempArt/radioConsole.png');
+        this.load.image('shop-temp','./assets/tempArt/shopConsole.png');
+        this.load.image('shop-button-temp','./assets/tempArt/shopButton.png');
 
         
         for (let i=0; i< this.songList.length; i++)//this can be unsafe
@@ -35,7 +37,7 @@ class Play extends Phaser.Scene
         }
         this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
         this.radio = new Radio(this,100,100,[],this.songList);
-        this.shop = new Shop(this,0,0,[],this.board);
+        this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
 
 
         this.warning = new Warning(this,0,0);

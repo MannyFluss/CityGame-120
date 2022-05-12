@@ -14,10 +14,16 @@ class Radio extends Phaser.GameObjects.Container
         this.playNext();
 
         this.radioConsole = new Phaser.GameObjects.Sprite(scene,0,0,'radio-temp');
-        this.playToggle = new Phaser.GameObjects.Sprite(scene,-90,0,'temp-button');
-        this.playPreviousSong = new Phaser.GameObjects.Sprite(scene,-50,0,'temp-button');
-        this.playNextSong = new Phaser.GameObjects.Sprite(scene,50,0,'temp-button');
-        this.shuffleToggleButton  = new Phaser.GameObjects.Sprite(scene,90,0,'temp-button');
+        this.playToggle = new Phaser.GameObjects.Sprite(scene,-90,0,'temp-button').setInteractive();
+        this.playPreviousSong = new Phaser.GameObjects.Sprite(scene,-50,0,'temp-button').setInteractive();
+        this.playNextSong = new Phaser.GameObjects.Sprite(scene,50,0,'temp-button').setInteractive();
+        this.shuffleToggleButton  = new Phaser.GameObjects.Sprite(scene,90,0,'temp-button').setInteractive();
+        this.playToggle.on('pointerdown',()=>{this.handleInput('i')});
+        this.playPreviousSong.on('pointerdown',()=>{this.handleInput('u')});
+        this.playNextSong.on('pointerdown',()=>{this.handleInput('o')});
+        this.shuffleToggleButton.on('pointerdown',()=>{this.handleInput('p')});
+
+
         this.add([this.radioConsole,this.playToggle,this.playPreviousSong,this.playNextSong,this.shuffleToggleButton]);
 
         scene.input.keyboard.on('keydown', (event) => {

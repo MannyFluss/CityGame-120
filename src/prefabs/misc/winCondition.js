@@ -62,7 +62,7 @@ class winState extends Phaser.GameObjects.GameObject
     {
         //create the win button and coffetti pops out from the sky
 
-        new SceneButton(this.sceneRef,300,300,'submit-button','shopScene');
+        new SceneButton(this.sceneRef,150,500,'submit-button','shopScene');
         
     }
     //combine dictionaries from stack overflow

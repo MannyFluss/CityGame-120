@@ -4,11 +4,25 @@ class Shop extends Phaser.GameObjects.Container
     {
         //possible buiding list will be global var
         super(scene,x,y,containerItems);
+        scene.add.existing(this)
         this.sceneRef = scene;
         this.boardRef = boardRef; //we need access to the board within the shop
         this.availableBuildings = [undefined,undefined,undefined];   
         this.refreshShop();
         this.purchaseBuilding(2);
+
+        this.shopConsole = new Phaser.GameObjects.Sprite(scene,0,0,'shop-temp');
+        this.refreshButton = new Phaser.GameObjects.Sprite(scene,80,-160,'temp-button').setInteractive();
+        this.purchase1 = new Phaser.GameObjects.Sprite(scene,0,-80,'shop-button-temp').setInteractive();
+        this.purchase2 = new Phaser.GameObjects.Sprite(scene,0,0,'shop-button-temp').setInteractive();
+        this.purchase3 = new Phaser.GameObjects.Sprite(scene,0,80,'shop-button-temp').setInteractive();
+        
+        this.refreshButton.on('pointerdown',()=>{this.refreshShop();});
+        this.purchase1.on('pointerdown',()=>{this.purchaseBuilding(0);});
+        this.purchase2.on('pointerdown',()=>{this.purchaseBuilding(1);});
+        this.purchase3.on('pointerdown',()=>{this.purchaseBuilding(2);});
+        this.add([this.shopConsole,this.refreshButton,this.purchase1,this.purchase2,this.purchase3]);
+
     }
     refreshShop()
     {
@@ -23,6 +37,7 @@ class Shop extends Phaser.GameObjects.Container
     }
     purchaseBuilding(index = 0)//currently unsafe, can place on a already existing building w/o destroying it
     {
+        console.log("test")
         if (this.availableBuildings[index]==undefined)
         {
             console.log('invalid shop index chosen');
