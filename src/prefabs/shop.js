@@ -54,7 +54,7 @@ class Shop extends Phaser.GameObjects.Container
         let randX= Phaser.Math.Between(0,this.boardRef.boardX-1);
         let randY= Phaser.Math.Between(0,this.boardRef.boardY-1);
         console.log(randX + " " + randY);
-        // this.buildingDeployer = new BuildingDeployer(this.sceneRef,0,2,'small-apartment-1',toAdd ,4,this.boardRef);
+        this.buildingDeployer = new BuildingDeployer(this.sceneRef,0,2,'small-apartment-1',toAdd ,4,this.boardRef);
 
         //insert animation here to slide button away
         this.availableBuildings[index]=undefined;
