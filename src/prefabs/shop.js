@@ -9,7 +9,6 @@ class Shop extends Phaser.GameObjects.Container
         this.boardRef = boardRef; //we need access to the board within the shop
         this.availableBuildings = [undefined,undefined,undefined];   
         this.refreshShop();
-        this.purchaseBuilding(2);
 
         this.shopConsole = new Phaser.GameObjects.Sprite(scene,0,0,'shop-temp');
         this.refreshButton = new Phaser.GameObjects.Sprite(scene,80,-160,'temp-button').setInteractive();
@@ -54,7 +53,7 @@ class Shop extends Phaser.GameObjects.Container
         let randX= Phaser.Math.Between(0,this.boardRef.boardX-1);
         let randY= Phaser.Math.Between(0,this.boardRef.boardY-1);
         console.log(randX + " " + randY);
-        this.buildingDeployer = new BuildingDeployer(this.sceneRef,0,2,'small-apartment-1',toAdd ,4,this.boardRef);
+        this.buildingDeployer = new BuildingDeployer(this.sceneRef,randX,randY,'small-apartment-1',toAdd ,4,this.boardRef);
 
         //insert animation here to slide button away
         this.availableBuildings[index]=undefined;

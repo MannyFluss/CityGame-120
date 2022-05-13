@@ -1,6 +1,6 @@
 class Warning extends Phaser.GameObjects.Sprite
 {
-    constructor(scene,x,y,texture='warning')
+    constructor(scene,x,y,texture='warning', time=3)
     {
         super(scene,x,y,texture);
         scene.add.existing(this);
@@ -11,8 +11,14 @@ class Warning extends Phaser.GameObjects.Sprite
         this.boardRef;
         this.tileObj;
         this.setScale(3);
+        this.time = time;
+        scene.time.delayedCall(time * 1000,()=>{this.warningDissapear();})
     }
 
+    warningDissapear()
+    {
+        this.destroy();
+    }
     setWarningPlacement(tile)//get the tile, set the tile position
     {
         this.parentTile = tile;
