@@ -42,8 +42,18 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileParent;
         this.setScale(1);
         this.state = "idle";
+        this.eventEmitter = new Phaser.Events.EventEmitter();
+        
 
+        //scene.time.delayedCall(1000,()=>{this.testFunc()})
+
+        //this.eventEmitter.emit('buildingPlaced')
+     //   this.setupVirtuals();
+        this.eventEmitter.on('buildingPlaced',this.testFunc,this); //events are not working
+        this.eventEmitter.emit('buildingPlaced');
+        
     }
+    testFunc(){};
 
     timeElapsed(delta)
     {

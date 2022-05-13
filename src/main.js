@@ -22,7 +22,7 @@ let game = new Phaser.Game(config);
 
 let possibleBuildingList = 
 [
-    Building, Hotel
+    Hotel
 ];
 
 let highScore = 0;
