@@ -45,6 +45,14 @@ class Board extends Phaser.GameObjects.Container
         }
         this.objectArray[x][y]=null;
     }
+
+    destroyBuilding(x,y)
+    {
+        if(this.objectArray[x][y] != null) {
+            this.objectArray[x][y].destroy();
+            this.objectArray[x][y] = null;
+        }
+    }
     
     getTile(x,y)//any interaction start @ 0,0
     {
