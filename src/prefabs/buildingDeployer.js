@@ -6,7 +6,7 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
     constructor(scene,tileX,tileY,texture,buildingToDeploy,destructionDelay,boardRef)
     {
         super(scene,0,0,texture);
-        
+        this.boardRef = boardRef;
         this.tileX=tileX
         this.tileY=tileY
         this.deployX = tileX;
@@ -14,22 +14,25 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
         this.tileRef = boardRef.getTile(tileX,tileY);
         this.toDeploy = buildingToDeploy;
         this.sceneRef = scene;
-        this.boardRef = boardRef;
-        
+        //console.log(this.tileRef)
+        this.warning = new Warning(scene,this.tileRef.x,this.tileRef.y,'warning',destructionDelay);
+        this.warning.setWarningPlacement(this.tileRef);
+
         scene.time.delayedCall(destructionDelay * 1000,()=>{this.timeToPlaceBuilding();})
     }
 
     timeToPlaceBuilding()
     {
-        console.log("second");
+        
         let buildingOrNull = this.tileRef.getThisBuilding();
         if (buildingOrNull!=null)
-        {
+        {   
+            console.log('destroying building in order to place');
             buildingOrNull.destroyThisBuilding();
         }
         let newBuilding = new this.toDeploy(this.sceneRef,0,0,'small-apartment-1');
         this.boardRef.placeBuilding(newBuilding,this.tileX,this.tileY);
-        
+
     }
 
 }

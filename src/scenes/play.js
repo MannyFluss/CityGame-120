@@ -41,6 +41,7 @@ class Play extends Phaser.Scene
 
 
         this.warning = new Warning(this,0,0);
+        
         this.warning.setWarningPlacement(this.board.getTile(0,0));
 
         
