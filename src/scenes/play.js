@@ -33,10 +33,14 @@ class Play extends Phaser.Scene
         this.radio = new Radio(this,0,0,[],this.songList);
         this.shop = new Shop(this,0,0,[],this.board);
 
+        this.warningTimer = 0; // Timer until next warning spawn
+        this.warningLength = 5000; // Time until next warning spawn
 
-        this.warning = new Warning(this,0,0);
-        this.warning.setWarningPlacement(this.board.getTile(0,0));
+        this.warnings = [];
+        this.disasters = [];
 
+        this.disasterTimer = 0; // Timer between warning spawn and disaster
+        this.disasterLength = 5000; // Time between warning spawn and disaster
         
         this.initUI()
         //var spritetest = this.add.sprite(100,100,'tileSprite');
@@ -47,8 +51,14 @@ class Play extends Phaser.Scene
         this.UImoney = this.add.text(50, 50, money);
     }
 
-    update()
+    update(timer, delta)
     {
+        this.warningTimer += delta;
+        if (this.warningTimer >= this.warningLength) {
+            this.spawnWarning();
+            this.warningTimer = 0;
+        }
+
         this.UImoney.text = money;
         for(let x=0; x<this.board.boardX; x++) {
             for(let y=0; y<this.board.boardY; y++) {
@@ -59,6 +69,16 @@ class Play extends Phaser.Scene
             }
         }
 
-        this.warning.update();
+        for(let i=0; i < this.warnings.length; i++) {
+            this.warnings[i].update();
+        }
+    }
+
+    spawnWarning() {
+        let warning = new Warning(this,0,0);
+        this.warnings.push(warning);
+        let warningX = Phaser.Math.Between(0, this.board.boardX - 1);
+        let warningY = Phaser.Math.Between(0, this.board.boardY - 1);
+        warning.setWarningPlacement(this.board.getTile(warningX,warningY));
     }
 }
