@@ -2,6 +2,10 @@ class Building extends Phaser.GameObjects.Sprite
 {
     constructor(scene,x,y,texture,frame)
     {
+        if (texture==undefined)
+        {
+            texture = "small-apartment-1";
+        }
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
         this.setOrigin(.5, 1);
@@ -38,7 +42,6 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileParent;
         this.setScale(1);
         this.state = "idle";
-
 
     }
 
