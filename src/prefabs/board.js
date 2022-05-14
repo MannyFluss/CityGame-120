@@ -16,6 +16,7 @@ class Board extends Phaser.GameObjects.Container
         
         this.placeBuilding(new Building(this.sceneRef,0,0,'small-apartment-1', this), 0, 0);
         this.placeBuilding(new Building(this.sceneRef,0,0,'hotel-1', this), 1, 1);
+        this.placeBuilding(new Building(this.sceneRef,0,0,'small-apartment-1', this), 0, 2);
         // retBuilding.moveBuilding('down');
         // retBuilding.moveBuilding('left');
     }

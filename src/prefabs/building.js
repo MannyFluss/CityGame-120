@@ -38,8 +38,27 @@ class Building extends Phaser.Physics.Arcade.Sprite
             loop: true
         });
 
+        for (let row of this.board.objectArray)
+            for (let building of row)
+                if (building != null) {
+                    console.log("adding collider")
+                    scene.physics.add.collider(this, building);
+                }
+
         scene.physics.world.on('collide', (obj1, obj2, body1, body2)=>{
             console.log(`${obj1.texture.key} is colliding with ${obj2.texture.key} body`);
+            
+            // body1.touching = true;
+
+            // if (obj2.x < obj1.x) // blocked on left
+            //     obj1.x += 3;
+            // if (obj2.x > obj1.x) // blocked on right
+            //     obj1.x -= 3;
+            // if (obj2.y < obj1.y) // blocked on top
+            //     obj1.y += 3;
+            // if (obj2.y > obj1.y) // blocked on bottom
+            //     obj1.y -= 3;
+
         });
 
         // define events
@@ -47,20 +66,54 @@ class Building extends Phaser.Physics.Arcade.Sprite
             if(this.state == "idle") {
                 console.log("start dragging");
             }
-            this.setDepth(10);
-            this.x = dragX;
-            this.y = dragY;
-            this.state = "dragging";
+
+            // this.body.blocked.left = false;
+            // this.body.blocked.right = false;
+            // this.body.blocked.top = false;
+            // this.body.blocked.bottom = false;
+            
+            // this.body.touching = false;
+            this.setPosition(dragX, dragY);
 
             // check collision with other buildings
             for (let row of this.board.objectArray) {
                 for (let building of row) {
                     if (building != null) {
                         this.scene.physics.collide(this, building);
-                        console.log("collide!")
+                        console.log("collide!");
                     }
                 }
             }
+            
+            // if (!this.body.touching){
+                // this.x = dragX;
+                // this.y = dragY;
+            // }
+
+            // this.body.setVelocity(dragX - this.x, dragY - this.y);
+
+            // this.x += xDistance/2;
+            // this.y += yDistance/2;
+
+
+            this.state = "dragging";
+            this.setDepth(10);
+
+            // if (this.body.blocked.left && dragX < this.x) {
+            //     this.y = dragY;
+            //     return;
+            // } else if (this.body.blocked.right && dragX > this.x){
+            //     this.y = dragY;
+            //     return;
+            // } else if (this.body.blocked.top && dragY < this.y) {
+            //     this.x = dragX;
+            //     return;
+            // } else if (this.body.blocked.bottom && dragY > this.y){
+            //     this.x = dragX;
+            //     return;
+            // } 
+            
+
         });
 
         this.on('dragend', (pointer, dragX, dragY) => {
