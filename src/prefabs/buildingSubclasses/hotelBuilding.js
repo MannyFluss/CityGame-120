@@ -7,8 +7,8 @@ class Hotel extends Building
         
     }
 
-    testFunc()
+    onPlace()
     {
-        console.log('hotelPlaced');
+        money += 10;
     }
 }
