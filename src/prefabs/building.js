@@ -92,11 +92,14 @@ class Building extends Phaser.GameObjects.Sprite
     {
         //clear the obj array @ this buildings coordinates of board.js
         this.getBoard().clearTile(this.tileX,this.tileY);
+        this.timer.destroy();
         this.destroy();
     }
 
     setPlacement(tile)//get the tile, set the tile position
     {
+
+
         this.x = tile.x;
         this.y = tile.y;
         this.tileParent = tile;
@@ -105,6 +108,24 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
         this.getBoard().objectArray[tile.tileX][tile.tileY] = this;
+        this.placementParticles();
+    }
+
+    placementParticles()
+    {
+        let particles = this.sceneRef.add.particles('small-apartment-1');
+        let test = particles.createEmitter(
+            {
+                x : this.x,
+                y : this.y - 50,
+                speed : {start :300, end:0},
+                count : 100,
+                lifespan: 300,
+                scale : {start:.5, end: 0}
+            }
+        )
+        this.sceneRef.time.delayedCall(100,()=>{test.stop();},this);
+
     }
 
     moveBuilding(command="none")
