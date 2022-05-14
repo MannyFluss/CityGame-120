@@ -8,6 +8,6 @@ class SmallApartment extends Building
     onTimeElapsed()
     {
         money += 1;
-        console.log('mny');
+      
     }
 }

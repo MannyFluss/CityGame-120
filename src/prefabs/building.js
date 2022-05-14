@@ -49,9 +49,7 @@ class Building extends Phaser.GameObjects.Sprite
         //scene.time.delayedCall(1000,()=>{this.testFunc()})
 
         //this.eventEmitter.emit('buildingPlaced')
-     //   this.setupVirtuals();
-
-        
+     this.setupSignals(); 
     }
 
     setupSignals()
@@ -59,17 +57,16 @@ class Building extends Phaser.GameObjects.Sprite
         this.eventEmitter.on('buildingPlaced',this.onPlace,this); //events are not working
         this.eventEmitter.emit('buildingPlaced');
         this.eventEmitter.on('timePassed',this.onTimeElapsed,this); //events are not working
+
         this.timer = this.sceneRef.time.addEvent({
-            delay: 500,// ms
-            callback: this.onTimeElapsed,
-            callbackScope: this,
+            delay: 500,                // ms
+            callback: ()=>{this.eventEmitter.emit('timePassed')},
+            args: [500],
             loop: true
         });
-        
-        this.timer.start();
     }
 
-    onTimeElapsed(){console.log('ttt');};
+    onTimeElapsed(delta){};
     onPlace(){};
 
     timeElapsed(delta)
