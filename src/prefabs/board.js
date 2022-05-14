@@ -14,8 +14,8 @@ class Board extends Phaser.GameObjects.Container
         this.initalizeGrid();
 
         
-        this.placeBuilding(new Building(this.sceneRef,0,0,'small-apartment-1'), 0, 0);
-        this.placeBuilding(new Building(this.sceneRef,0,0,'hotel-1'), 1, 0);
+        this.placeBuilding(new SmallApartment(this.sceneRef,0,0), 0, 0);
+        //this.placeBuilding(new Building(this.sceneRef,0,0,'hotel-1'), 1, 0);
         // retBuilding.moveBuilding('down');
         // retBuilding.moveBuilding('left');
     }
@@ -79,7 +79,7 @@ class Board extends Phaser.GameObjects.Container
         this.objectArray[x][y] = null;
     }
 
-    initalizeGrid()//test
+    initalizeGrid()
     {
         for(let y=0;y<this.boardY;y++)
         {

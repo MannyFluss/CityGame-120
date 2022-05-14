@@ -2,6 +2,10 @@ class Building extends Phaser.GameObjects.Sprite
 {
     constructor(scene,x,y,texture,frame)
     {
+        if (texture==undefined)
+        {
+            texture = "small-apartment-1";
+        }
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
         this.setOrigin(.5, 1);
@@ -38,9 +42,32 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileParent;
         this.setScale(1);
         this.state = "idle";
+        this.sceneRef = scene;
+        this.eventEmitter = new Phaser.Events.EventEmitter();
+        
 
+        //scene.time.delayedCall(1000,()=>{this.testFunc()})
 
+        //this.eventEmitter.emit('buildingPlaced')
+     this.setupSignals(); 
     }
+
+    setupSignals()
+    {
+        this.eventEmitter.on('buildingPlaced',this.onPlace,this); //events are not working
+        this.eventEmitter.emit('buildingPlaced');
+        this.eventEmitter.on('timePassed',this.onTimeElapsed,this); //events are not working
+
+        this.timer = this.sceneRef.time.addEvent({
+            delay: 500,                // ms
+            callback: ()=>{this.eventEmitter.emit('timePassed')},
+            args: [500],
+            loop: true
+        });
+    }
+
+    onTimeElapsed(delta){};
+    onPlace(){};
 
     timeElapsed(delta)
     {
@@ -65,11 +92,14 @@ class Building extends Phaser.GameObjects.Sprite
     {
         //clear the obj array @ this buildings coordinates of board.js
         this.getBoard().clearTile(this.tileX,this.tileY);
+        this.timer.destroy();
         this.destroy();
     }
 
     setPlacement(tile)//get the tile, set the tile position
     {
+
+
         this.x = tile.x;
         this.y = tile.y;
         this.tileParent = tile;
@@ -78,6 +108,24 @@ class Building extends Phaser.GameObjects.Sprite
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
         this.getBoard().objectArray[tile.tileX][tile.tileY] = this;
+        this.placementParticles();
+    }
+
+    placementParticles()
+    {
+        let particles = this.sceneRef.add.particles('small-apartment-1');
+        let test = particles.createEmitter(
+            {
+                x : this.x,
+                y : this.y - 50,
+                speed : {start :300, end:0},
+                count : 100,
+                lifespan: 300,
+                scale : {start:.5, end: 0}
+            }
+        )
+        this.sceneRef.time.delayedCall(100,()=>{test.stop();},this);
+
     }
 
     moveBuilding(command="none")

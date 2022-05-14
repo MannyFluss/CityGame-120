@@ -5,6 +5,7 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
 {
     constructor(scene,tileX,tileY,texture,buildingToDeploy,destructionDelay,boardRef)
     {
+        //texture may be uneccessary how do i spell that word idk
         super(scene,0,0,texture);
         this.boardRef = boardRef;
         this.tileX=tileX
@@ -30,7 +31,7 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
             console.log('destroying building in order to place');
             buildingOrNull.destroyThisBuilding();
         }
-        let newBuilding = new this.toDeploy(this.sceneRef,0,0,'small-apartment-1');
+        let newBuilding = new this.toDeploy(this.sceneRef,0,0,undefined);
         this.boardRef.placeBuilding(newBuilding,this.tileX,this.tileY);
 
     }
