@@ -79,7 +79,7 @@ class Board extends Phaser.GameObjects.Container
         this.objectArray[x][y] = null;
     }
 
-    initalizeGrid()//test
+    initalizeGrid()
     {
         for(let y=0;y<this.boardY;y++)
         {
