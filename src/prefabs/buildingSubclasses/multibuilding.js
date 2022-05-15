@@ -110,8 +110,9 @@ class MultiBuilding extends Building
     {
         let boardRef = this.getBoard();
         boardRef.clearTile(this.tileX, this.tileY);
-        let x = tile.tileX;
-        let y = tile.tileY
+
+        let x = this.tileX;
+        let y = this.tileY;
         for (let i=0;i<this.multi.length;i++)
         {
             switch(this.multi[i])
