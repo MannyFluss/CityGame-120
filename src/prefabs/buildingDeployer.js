@@ -15,11 +15,11 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
         this.tileRef = boardRef.getTile(tileX,tileY);
         this.toDeploy = buildingToDeploy;
         this.sceneRef = scene;
-        //console.log(this.tileRef)
-        this.warning = new Warning(scene,this.tileRef.x,this.tileRef.y,'warning',destructionDelay);
-        this.warning.setWarningPlacement(this.tileRef);
-
+        new Warning(scene,this.tileRef.x,this.tileRef.y,undefined,destructionDelay)
+        
         scene.time.delayedCall(destructionDelay * 1000,()=>{this.timeToPlaceBuilding();})
+        //console.log(this.tileRef)
+
     }
 
     timeToPlaceBuilding()
