@@ -29,7 +29,8 @@ class Building extends Phaser.GameObjects.Sprite
 
         this.on('dragend', (pointer, dragX, dragY) => {
             console.log("done dragging");
-            if (this.getBoard().getNearestTile(this.x,this.y).checkEmpty()) {
+            let tile = this.getBoard().getNearestTile(this.x,this.y);
+            if (this.ableToMove(tile.tileX,tile.tileY)) {//check  if able to move
                 this.snapToTile();
                 this.state = "idle";
             } else {
