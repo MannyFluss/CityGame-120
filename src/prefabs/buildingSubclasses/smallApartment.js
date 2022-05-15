@@ -8,6 +8,5 @@ class SmallApartment extends Building
     onTimeElapsed()
     {
         money += 1;
-      
     }
 }

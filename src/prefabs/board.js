@@ -14,12 +14,16 @@ class Board extends Phaser.GameObjects.Container
         this.initalizeGrid();
 
         
-        this.placeBuilding(new SmallApartment(this.sceneRef,0,0), 0, 0);
+        
         //this.placeBuilding(new Building(this.sceneRef,0,0,'hotel-1'), 1, 0);
         // retBuilding.moveBuilding('down');
         // retBuilding.moveBuilding('left');
     }
 
+    getRandomTile()
+    {
+        return this.getTile(Phaser.Math.Between(0,this.boardX-1),Phaser.Math.Between(0,this.boardY-1))
+    }
     createBuilding()//temporary building function
     {
         retBuilding = new Building(this.sceneRef,0,0,'small-apartment-1');
