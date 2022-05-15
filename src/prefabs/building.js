@@ -40,7 +40,7 @@ class Building extends Phaser.GameObjects.Sprite
                 this.state = "idle";
             }
         });
-        
+        this.multi = [];//this will always be [] for a default building
         this.tileX;
         this.tileY;
         this.tileParent;

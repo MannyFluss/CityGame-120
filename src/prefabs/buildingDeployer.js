@@ -24,6 +24,8 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
 
     timeToPlaceBuilding()
     {
+        let newBuilding = new this.toDeploy(this.sceneRef,0,0,undefined);
+
         
         let buildingOrNull = this.tileRef.getThisBuilding();
         if (buildingOrNull!=null)
@@ -31,7 +33,34 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
             console.log('destroying building in order to place');
             buildingOrNull.destroyThisBuilding();
         }
-        let newBuilding = new this.toDeploy(this.sceneRef,0,0,undefined);
+        let x = this.tileX;
+        let y = this.tileY;
+        for (let i=0;i<newBuilding.multi.length;i++)
+        {
+            switch(newBuilding.multi[i])
+            {
+                case 'up':
+                    y-=1;
+                    break;
+                case 'down':
+                    y +=1;
+                    break;
+                case 'left':
+                    x-=1;
+                    break;
+                case 'right':
+                    x+=1;
+                    break;
+                default:
+                    console.log('error in multibuilding');
+                    break
+            }
+            buildingOrNull = this.boardRef.getTile(x,y).getThisBuilding();
+            if (buildingOrNull!=null)
+            {
+                buildingOrNull.destroyThisBuilding();
+            }
+        }
         this.boardRef.placeBuilding(newBuilding,this.tileX,this.tileY);
 
     }
