@@ -20,6 +20,10 @@ class Board extends Phaser.GameObjects.Container
         // retBuilding.moveBuilding('left');
     }
 
+    getRandomTile()
+    {
+        return this.getTile(Phaser.Math.Between(0,this.boardX-1),Phaser.Math.Between(0,this.boardY-1))
+    }
     createBuilding()//temporary building function
     {
         retBuilding = new Building(this.sceneRef,0,0,'small-apartment-1');
