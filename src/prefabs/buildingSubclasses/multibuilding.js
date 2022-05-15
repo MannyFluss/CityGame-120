@@ -5,7 +5,7 @@
 
 class MultiBuilding extends Building
 {
-    constructor(scene,x,y,texture,multi = [])
+    constructor(scene,x,y,texture,multi=['left'])
     {
         super(scene,x,y,texture);
         this.multi = multi;
@@ -139,6 +139,34 @@ class MultiBuilding extends Building
         this.setPlacement(nearestTile);
     }
 
+    validBuildSpot(x,y)
+    {
+        if (this.getBoard().checkValidTile(x,y)==false){return false;}
+        for (let i=0;i<this.multi.length;i++)
+        {
+            switch(this.multi[i])
+            {
+                case 'up':
+                    y-=1;
+                    break;
+                case 'down':
+                    y +=1;
+                    break;
+                case 'left':
+                    x-=1;
+                    break;
+                case 'right':
+                    x+=1;
+                    break;
+                default:
+                    console.log('error in multibuilding');
+                    break
+            }
+            if (this.getBoard().checkValidTile(x,y)==false){return false;}
+        }
+
+        return true;
+    }
     
 
     // multiIterator()

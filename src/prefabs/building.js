@@ -56,6 +56,11 @@ class Building extends Phaser.GameObjects.Sprite
      this.setupSignals(); 
     }
 
+    validBuildSpot(x,y)
+    {
+        return this.getBoard.getValidTile(x,y);
+    }
+
     setupSignals()
     {
         this.eventEmitter.on('buildingPlaced',this.onPlace,this); //events are not working
