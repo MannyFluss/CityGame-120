@@ -1,3 +1,5 @@
+//these should not be manually added, this is extended upon by other buildings
+
 class Building extends Phaser.GameObjects.Sprite
 {
     constructor(scene,x,y,texture,frame)

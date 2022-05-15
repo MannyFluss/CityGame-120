@@ -10,10 +10,15 @@ class SceneButton extends Phaser.GameObjects.Sprite
         this.on('pointerdown',()=>{
             this.clicked();
         });
+        
     }
     clicked()
     {
-        this.scene.scene.start(this.targetSCN);
+        this.sceneRef.scene.start(this.targetSCN);
+        if (this.sceneRef.type == Play)
+        {
+            console.log('osss')
+        }
     }
 
 }
