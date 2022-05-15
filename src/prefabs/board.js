@@ -62,6 +62,7 @@ class Board extends Phaser.GameObjects.Container
 
     placeBuilding(building,x,y)
     {
+        
         if (!this.checkValidTile(x,y))
         {
             console.log("invalid tile placement");

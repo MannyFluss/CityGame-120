@@ -10,10 +10,21 @@ class MultiBuilding extends Building
         super(scene,x,y,texture);
         this.multi = multi;
         scene.add.existing(this);
-
+        //console.log(this.getBoard())
+    }
+    getBoard()//work around
+    {
+        return this.sceneRef.board;
     }
 
+    ableToMove(x,y)
+    {
+        let board = this.getBoard;
+    
 
+
+        return true;
+    }
     
 
     // multiIterator()

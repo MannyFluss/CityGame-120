@@ -44,6 +44,9 @@ class Play extends Phaser.Scene
         this.board.placeBuilding(new SmallApartment(this,0,0), 0, 0);
 
         this.test = new MultiBuilding(this,0,0,'',[]);
+        this.board.placeBuilding(this.test,1,1);
+
+        
 
 
         //new Meteor(this,0,0,'',5,this.board.getTile(0,0))

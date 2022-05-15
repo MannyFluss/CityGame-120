@@ -102,7 +102,7 @@ class Building extends Phaser.GameObjects.Sprite
     setPlacement(tile)//get the tile, set the tile position
     {
 
-
+        
         this.x = tile.x;
         this.y = tile.y;
         this.tileParent = tile;
