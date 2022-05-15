@@ -7,8 +7,8 @@ class Board extends Phaser.GameObjects.Container
         this.sceneRef=scene;
         this.tileXOffset = 100;
         this.tileYOffset = this.tileXOffset/2;
-        this.boardX=3;//max size x and y
-        this.boardY=3;
+        this.boardX= boardSize;//max size x and y
+        this.boardY= boardSize;
         this.tileArray = this.createArray(this.boardX,this.boardY); //this is where the board
         this.objectArray = this.createArray(this.boardX,this.boardY);
         this.initalizeGrid();

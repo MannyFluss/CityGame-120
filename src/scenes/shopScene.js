@@ -12,9 +12,21 @@ class ShopScene extends Phaser.Scene
     create()
     {
         this.addNewBuilding(Hotel);
+        this.increaseBoardSize();
         new SceneButton(this,50,50,'submit-button','playScene');
 
 
+    }
+
+    
+
+    increaseBoardSize()
+    {
+        if (boardSize < 4)
+        {
+            boardSize += 1;
+        }
+        
     }
 
     addNewBuilding(building)

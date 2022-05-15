@@ -26,7 +26,7 @@ let possibleBuildingList =
 ];
 
 let highScore = 0;
-
+let boardSize = 2;
 let money = 0;
 
 //global variables, see accessed in play.js
