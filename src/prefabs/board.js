@@ -33,7 +33,15 @@ class Board extends Phaser.GameObjects.Container
 
     checkValidTile(x,y)//true = in range false = not in range
     {
-        if (this.boardX > x && this.boardY > y)
+        if ((this.boardX > x && this.boardY > y ) && (x>=0 && y>= 0))
+        {
+            return true;
+        }
+        return false;
+    }
+    checkEmpty(x,y)
+    {
+        if (this.objectArray[x][y]==null)
         {
             return true;
         }
