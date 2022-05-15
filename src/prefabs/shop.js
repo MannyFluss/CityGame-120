@@ -50,8 +50,23 @@ class Shop extends Phaser.GameObjects.Container
         //let toAdd = new this.availableBuildings[index](this.sceneRef,0,0,'small-apartment-1');
 
         let toAdd = this.availableBuildings[index];
+        
+        let checkBuilding = new toAdd(this.sceneRef,0,0,'');         
+        
+
         let randX= Phaser.Math.Between(0,this.boardRef.boardX-1);
         let randY= Phaser.Math.Between(0,this.boardRef.boardY-1);
+
+        while(true)
+        {
+            if (checkBuilding.validBuildSpot(randX,randY)==true)
+            {
+                break;
+            }
+            randX= Phaser.Math.Between(0,this.boardRef.boardX-1);
+            randY= Phaser.Math.Between(0,this.boardRef.boardY-1);
+        }
+        checkBuilding.destroy();
         console.log(randX + " " + randY);
         this.buildingDeployer = new BuildingDeployer(this.sceneRef,randX,randY,undefined,toAdd ,4,this.boardRef);
 
