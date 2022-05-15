@@ -12,6 +12,10 @@ class Play extends Phaser.Scene
     }
     preload()
     {
+        this.load.audio('sfx_buildingThump', './assets/sound/sfx/BuildingThump.wav');
+        this.load.audio('sfx_meteor', './assets/sound/sfx/Meteor.wav');
+        this.load.audio('sfx_warning', './assets/sound/sfx/Warning.wav');
+
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
@@ -20,7 +24,7 @@ class Play extends Phaser.Scene
         for (let i=0; i< this.songList.length; i++)//this can be unsafe
         {
             
-            let x = this.load.audio(this.songList[i],'./assets/music/radioMusic/'+this.songList[i]);
+            let x = this.load.audio(this.songList[i],'./assets/sound/radioMusic/'+this.songList[i]);
         }
     }
     
@@ -42,6 +46,12 @@ class Play extends Phaser.Scene
         this.disasterLength = 5000; // Time between warning spawn and disaster
         
         this.initUI()
+
+        this.sfx_buildingThump = this.sound.add('sfx_buildingThump');
+        this.sfx_meteor = this.sound.add('sfx_meteor');
+        this.sfx_warning = this.sound.add('sfx_warning');
+        this.sfx_warning.setVolume(1.5);
+        this.sfx_meteor.setVolume(1.5);
     }
 
     initUI()
@@ -75,6 +85,7 @@ class Play extends Phaser.Scene
                 let disaster = this.disasters.shift();
                 console.log("Disaster happening at (" + warning.tileX + ", " + warning.tileY + ")!");
                 this.board.destroyBuilding(warning.tileX, warning.tileY);
+                this.sfx_meteor.play();
                 warning.destroy();
                 disaster = null;
             }
@@ -85,6 +96,7 @@ class Play extends Phaser.Scene
     spawnWarning() {
         let warning = new Warning(this,0,0);
         this.warnings.push(warning);
+        this.sfx_warning.play();
         let disaster = 0;
         this.disasters.push(disaster);
         let warningX = Phaser.Math.Between(0, this.board.boardX - 1);

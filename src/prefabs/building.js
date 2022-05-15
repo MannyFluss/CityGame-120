@@ -68,12 +68,15 @@ class Building extends Phaser.Physics.Arcade.Sprite
             if (this.getBoard().getNearestTile(this.x,this.y).checkEmpty()) {
                 this.snapToTile();
                 this.state = "idle";
+                this.sfx_buildingThump.play();
             } else {
                 this.x = this.tileParent.x;
                 this.y = this.tileParent.y;
                 this.state = "idle";
             }
         });
+
+        this.sfx_buildingThump = scene.sound.add('sfx_buildingThump');
     }
 
     timeElapsed(delta)
@@ -111,6 +114,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
+        this.sfx_buildingThump.play();
     }
 
     snapToTile() 
