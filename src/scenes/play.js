@@ -38,11 +38,15 @@ class Play extends Phaser.Scene
         this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
+        this.board.placeBuilding(new SmallApartment(this,0,0), 0, 0);
 
 
-        this.warning = new Warning(this,0,0);
         
-        this.warning.setWarningPlacement(this.board.getTile(0,0));
+        //new Meteor(this,0,0,'',5,this.board.getTile(0,0))
+
+        //this.warning = new Warning(this,0,0);
+        
+        //this.warning.setWarningPlacement(this.board.getTile(0,0));
 
         
         this.initUI()
