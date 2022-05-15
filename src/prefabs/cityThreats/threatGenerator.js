@@ -14,12 +14,15 @@ class ThreatGenerator extends Phaser.GameObjects.Container
             delay: 500,                // ms
             callback: this.timePassed,
             args: [500],
-            loop: true
+            loop: true,
+            callbackScope : this
         });
+        
     }
 
     timePassed(delta)
     {
+        //console.log(this.timeUntilDisaster)
         this.timeUntilDisaster -= delta;
         if (this.timeUntilDisaster <= 0)
         {

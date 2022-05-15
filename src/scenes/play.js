@@ -38,7 +38,9 @@ class Play extends Phaser.Scene
         this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
-        this.disasterGen = new ThreatGenerator(this,0,0,this.board);
+
+        this.threatGen = new ThreatGenerator(this,0,0,this.board);
+        
         this.board.placeBuilding(new SmallApartment(this,0,0), 0, 0);
 
 
