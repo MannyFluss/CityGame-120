@@ -65,6 +65,81 @@ class MultiBuilding extends Building
         return true;
     }
     
+    setPlacement(tile)//get the tile, set the tile position
+    {
+
+        
+        this.x = tile.x;
+        this.y = tile.y;
+        this.tileParent = tile;
+        //this might not be necessary
+        
+        this.tileX = tile.tileX;
+        this.tileY = tile.tileY;
+        console.log("Placing at", tile.tileX, tile.tileY);
+        this.getBoard().objectArray[tile.tileX][tile.tileY] = this;
+        let x = tile.tileX;
+        let y = tile.tileY
+        for (let i=0;i<this.multi.length;i++)
+        {
+            switch(this.multi[i])
+            {
+                case 'up':
+                    y-=1;
+                    break;
+                case 'down':
+                    y +=1;
+                    break;
+                case 'left':
+                    x-=1;
+                    break;
+                case 'right':
+                    x+=1;
+                    break;
+                default:
+                    console.log('error in multibuilding');
+                    break
+            }
+            this.getBoard().objectArray[x][y] = this;
+        }
+        
+
+        this.placementParticles();
+    }
+    snapToTile() 
+    {
+        let boardRef = this.getBoard();
+        boardRef.clearTile(this.tileX, this.tileY);
+        let x = tile.tileX;
+        let y = tile.tileY
+        for (let i=0;i<this.multi.length;i++)
+        {
+            switch(this.multi[i])
+            {
+                case 'up':
+                    y-=1;
+                    break;
+                case 'down':
+                    y +=1;
+                    break;
+                case 'left':
+                    x-=1;
+                    break;
+                case 'right':
+                    x+=1;
+                    break;
+                default:
+                    console.log('error in multibuilding');
+                    break
+            }
+            this.getBoard().clearTile(x,y);
+        }
+
+        let nearestTile = boardRef.getNearestTile(this.x, this.y);
+        this.setPlacement(nearestTile);
+    }
+
+    
 
     // multiIterator()
     // {

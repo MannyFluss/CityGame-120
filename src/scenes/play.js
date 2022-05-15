@@ -45,8 +45,8 @@ class Play extends Phaser.Scene
 
         this.test = new MultiBuilding(this,0,0,'small-apartment-1',['left']);
 
-        this.board.placeBuilding(this.test,1,0);
-        console.log(this.test.ableToMove(1,1));
+        this.board.placeBuilding(this.test,1,1);
+        //console.log(this.test.ableToMove(1,1));
 
         
 
