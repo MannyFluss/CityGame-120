@@ -10,8 +10,11 @@ let config = {
     backgroundColor : "#393457",
     canvasStyle: canvasStyle,
     physics: {
-        default: 'arcade',
-        arcade: {
+        default: 'matter',
+        matter: {
+            gravity: {
+                y: 0
+            },
             debug: true
         }
     },

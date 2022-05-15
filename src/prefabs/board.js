@@ -13,11 +13,11 @@ class Board extends Phaser.GameObjects.Container
         this.objectArray = this.createArray(this.boardX,this.boardY);
         this.initalizeGrid();
 
-        
-        this.placeBuilding(new Building(this.sceneRef,0,0,'small-apartment-1', this), 0, 0);
-        this.placeBuilding(new Building(this.sceneRef,0,0,'hotel-1', this), 1, 1);
-        // retBuilding.moveBuilding('down');
-        // retBuilding.moveBuilding('left');
+        // the {shape: scene.shapes.buildingBody} part is SUPPOSED to shape the hitbox as I defined in the JSON. Right now it seems to do nothing.
+        this.placeBuilding(new Building(this.sceneRef,0,0,'small-apartment-1', {shape: scene.shapes.buildingBody}, this), 0, 0);
+        this.placeBuilding(new Building(this.sceneRef,0,0,'hotel-1', {isStatic: true}, this), 1, 1);
+
+        this.scene.matter.add.mouseSpring();
     }
 
     createBuilding()//temporary building function

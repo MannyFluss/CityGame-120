@@ -16,6 +16,9 @@ class Play extends Phaser.Scene
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
         this.load.image('warning', './assets/warning.png');
+
+        // Load body shapes from JSON file generated using PhysicsEditor
+        this.load.json('shapes', './assets/buildings/buildingBody.json');
         
         for (let i=0; i< this.songList.length; i++)//this can be unsafe
         {
@@ -26,6 +29,10 @@ class Play extends Phaser.Scene
     
     create()
     {
+        this.shapes = this.cache.json.get('shapes');
+
+        this.matter.world.setBounds(0, 0, game.config.width, game.config.height);
+
         this.boardConfig={
             "sprite" : 'tileSprite',
         }
