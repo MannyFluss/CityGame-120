@@ -101,6 +101,31 @@ class Building extends Phaser.GameObjects.Sprite
     {
         //clear the obj array @ this buildings coordinates of board.js
         this.getBoard().clearTile(this.tileX,this.tileY);
+        let x = this.tileX;
+        let y = this.tileY;
+        for (let i=0;i<this.multi.length;i++)
+        {
+            switch(this.multi[i])
+            {
+                case 'up':
+                    y-=1;
+                    break;
+                case 'down':
+                    y +=1;
+                    break;
+                case 'left':
+                    x-=1;
+                    break;
+                case 'right':
+                    x+=1;
+                    break;
+                default:
+                    console.log('error in multibuilding');
+                    break;
+            }
+            this.getBoard().clearTile(x,y);
+        }
+
         this.timer.destroy();
         this.destroy();
     }
