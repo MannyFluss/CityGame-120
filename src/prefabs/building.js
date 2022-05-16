@@ -50,14 +50,22 @@ class Building extends Phaser.Physics.Arcade.Sprite
             
             // body1.touching = true;
             if (obj1.state === "dragging") {
-                if (obj2.x < obj1.x) // blocked on left
+                if (obj2.x < obj1.x) { // blocked on left 
                     obj1.x += 1;
-                if (obj2.x > obj1.x) // blocked on right
+                    this.body.blocked.left = true;
+                }
+                if (obj2.x > obj1.x) { // blocked on right
                     obj1.x -= 1;
-                if (obj2.y < obj1.y) // blocked on top
+                    this.body.blocked.right = true;
+                }
+                if (obj2.y < obj1.y) { // blocked on top
                     obj1.y += 1;
-                if (obj2.y > obj1.y) // blocked on bottom
+                    this.body.blocked.top = true;
+                }
+                if (obj2.y > obj1.y) { // blocked on bottom
                     obj1.y -= 1;
+                    this.body.blocked.bottom = true;
+                }
 
             }
 
@@ -70,14 +78,14 @@ class Building extends Phaser.Physics.Arcade.Sprite
             }
             this.state = "dragging";
             
-            // this.body.blocked.left = false;
-            // this.body.blocked.right = false;
-            // this.body.blocked.top = false;
-            // this.body.blocked.bottom = false;
+            this.body.blocked.left = false;
+            this.body.blocked.right = false;
+            this.body.blocked.top = false;
+            this.body.blocked.bottom = false;
             
             // this.body.touching = false;
-            // this.setPosition(dragX, dragY);
-
+            // if (pointer)
+            
             // check collision with other buildings
             for (let row of this.board.objectArray) {
                 for (let building of row) {
@@ -91,30 +99,31 @@ class Building extends Phaser.Physics.Arcade.Sprite
             // if (!this.body.touching){
                 // this.x = dragX;
                 // this.y = dragY;
-            // }
-
-            this.body.setVelocity(dragX - this.x, dragY - this.y);
-
-            // this.x += xDistance/2;
-            // this.y += yDistance/2;
-
-
-            this.setDepth(10);
-
-            // if (this.body.blocked.left && dragX < this.x) {
-            //     this.y = dragY;
-            //     return;
-            // } else if (this.body.blocked.right && dragX > this.x){
-            //     this.y = dragY;
-            //     return;
-            // } else if (this.body.blocked.top && dragY < this.y) {
-            //     this.x = dragX;
-            //     return;
-            // } else if (this.body.blocked.bottom && dragY > this.y){
-            //     this.x = dragX;
-            //     return;
-            // } 
-            
+                // }
+                
+                // this.body.setVelocity(dragX - this.x, dragY - this.y);
+                
+                // this.x += xDistance/2;
+                // this.y += yDistance/2;
+                
+                
+                this.setDepth(10);
+                
+                if (this.body.blocked.left && dragX < this.x) {
+                    this.y = dragY;
+                    return;
+                } else if (this.body.blocked.right && dragX > this.x){
+                    this.y = dragY;
+                    return;
+                } else if (this.body.blocked.top && dragY < this.y) {
+                    this.x = dragX;
+                    return;
+                } else if (this.body.blocked.bottom && dragY > this.y){
+                    this.x = dragX;
+                    return;
+                } 
+                
+                this.setPosition(dragX, dragY);
 
         });
 
