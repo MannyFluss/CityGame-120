@@ -46,6 +46,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.on('drag', (pointer, dragX, dragY) => {
             if(this.state == "idle") {
                 console.log("start dragging");
+                this.afterimage = scene.add.sprite(this.tileParent.x, this.tileParent.y, texture).setOrigin(0.5, 1).setAlpha(0.5);
             }
             this.setDepth(10);
             this.x = dragX;
@@ -63,6 +64,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
             // must be made immovable to collide correctly
             this.body.setImmovable(true);
+            this.afterimage.destroy();
             
             if (this.board.getNearestTile(this.x,this.y).checkEmpty()) {
                 this.snapToTile();
