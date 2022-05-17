@@ -94,15 +94,6 @@ class winState extends Phaser.GameObjects.GameObject
             alpha : 0,
             duration : 5 * 1000, 
         })
-
-
-        //onComplete(tween, ()=>{console.log("tween completed");})
-
-        //tween.start();
-        //fade the text away here
-        
-
-    
     }
 
     conditionMet()

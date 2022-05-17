@@ -58,7 +58,8 @@ class Building extends Phaser.GameObjects.Sprite
 
     validBuildSpot(x,y)
     {
-        return this.getBoard.getValidTile(x,y);
+        //console.log(this.getBoard)
+        return this.getBoard().checkValidTile(x,y);
     }
 
     setupSignals()
@@ -94,7 +95,7 @@ class Building extends Phaser.GameObjects.Sprite
 
     getBoard()
     {
-        return this.tileParent.boardRef;
+        return this.sceneRef.board;
     }
 
     destroyThisBuilding()
