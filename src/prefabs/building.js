@@ -8,7 +8,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.setOrigin(.5, 1);
         
         // physics settings
-        let collisionRadius = this.width/2.4;
+        let collisionRadius = this.width/2.5;
         this.body.setCircle(collisionRadius);
         this.body.setOffset(this.width/2-collisionRadius, this.height-collisionRadius*2);
         this.setCollideWorldBounds(true);
