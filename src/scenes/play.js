@@ -31,7 +31,7 @@ class Play extends Phaser.Scene
     
     create()
     {
-        this.test = new winState(this,"timer",{survivalTime : 100});
+        this.test = new winState(this,"timer",{survivalTime : 10 * 1000});
         this.boardConfig={
             "sprite" : 'tileSprite',
         }

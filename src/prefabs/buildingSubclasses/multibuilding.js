@@ -29,7 +29,10 @@ class MultiBuilding extends Building
         }
         if (board.checkEmpty(x,y)==false)
         {
-            return false;
+            if (board.getBuildingAt(x,y) != this)
+            {
+                return false;
+            }   
         }
         for (let i=0;i<this.multi.length;i++)
         {
@@ -57,7 +60,11 @@ class MultiBuilding extends Building
             }
             if (board.checkEmpty(x,y)==false)
             {
-                return false;
+                if (board.getBuildingAt(x,y) != this)
+                {
+                    return false;
+                }
+                
             }   
         }
 

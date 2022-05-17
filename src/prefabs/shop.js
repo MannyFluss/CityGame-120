@@ -28,9 +28,7 @@ class Shop extends Phaser.GameObjects.Container
         for (let i = 0; i<3 ;i++)
         {
             this.availableBuildings[i] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
-
             //add cosmetic refresh here
-
             //console.log(this.availableBuildings[i]);
         }
     }
