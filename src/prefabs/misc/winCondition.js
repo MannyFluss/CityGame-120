@@ -1,3 +1,4 @@
+
 class winState extends Phaser.GameObjects.GameObject
 {
     constructor(scene, condition="timer",config={})//config optionally messes with vars
@@ -5,8 +6,12 @@ class winState extends Phaser.GameObjects.GameObject
         super(scene);
         this.condition = condition;
         this.sceneRef = scene;
-        this.workingVariables = {}
+        this.workingVariables = {};
+        this.workingVariables['objectiveMessage'] = 'default objective message';
         this.config = config;
+        this.objectiveComplete = false;
+        this.progressText = this.sceneRef.add.text(game.canvas.width/2,20,'progress goes here').setOrigin(.5,.5); 
+
         this.initializeWinCondition()
         this.timer = scene.time.addEvent({
             delay: 500,                // ms
@@ -27,7 +32,7 @@ class winState extends Phaser.GameObjects.GameObject
             case 'timer':
                 this.workingVariables["timePassed"] = 0;
                 this.workingVariables["survivalTime"] = 0;
-                
+                this.progressText.text = this.workingVariables["timePassed"] + ' / ' + this.workingVariables["survivalTime"];
                 //configure goes here
                 break;
             default:
@@ -35,9 +40,14 @@ class winState extends Phaser.GameObjects.GameObject
                 //goto win condition
                 break;
         }
+        this.showGoal();
+        //have message popup here about objective
         this.workingVariables = this.combineDict(this.workingVariables,this.config);
         
     }
+
+
+
     updateWinCondition(deltaTime)
     {
         
@@ -45,6 +55,8 @@ class winState extends Phaser.GameObjects.GameObject
         {
             case 'timer':
                 this.workingVariables["timePassed"] += deltaTime;
+                //update objective here
+                this.progressText.text = this.workingVariables["timePassed"] + ' / ' + this.workingVariables["survivalTime"];
                 if (this.workingVariables["timePassed"] >= this.workingVariables["survivalTime"])
                 {
                     this.conditionMet();
@@ -58,10 +70,48 @@ class winState extends Phaser.GameObjects.GameObject
 
     }
     
+    showGoal(customMessage=undefined)
+    {
+        let style = {
+            'background-color': 'lime',
+            'width': '220px',
+            'height': '100px',
+            'font': '48px Arial',
+            'font-weight': 'bold',
+            'background-color' : '#0000FF'
+        };
+        
+        let currText = this.workingVariables['objectiveMessage'];
+        if (customMessage!=undefined)
+        {
+            currText=customMessage;
+        }
+        //let displayMessage = new Phaser.GameObjects.Text(this.sceneRef,300,300,currText);
+        let text = this.sceneRef.add.text(game.canvas.width/2,game.canvas.height/2,currText,style).setOrigin(.5,.5);
+        text.setDepth(55);
+        let tween = this.sceneRef.tweens.add({
+            targets: text,
+            alpha : 0,
+            duration : 5 * 1000, 
+        })
+
+
+        //onComplete(tween, ()=>{console.log("tween completed");})
+
+        //tween.start();
+        //fade the text away here
+        
+
+    
+    }
+
     conditionMet()
     {
-        //create the win button and coffetti pops out from the sky
 
+        if (this.objectiveComplete){return;}
+        this.objectiveComplete = true;
+        //create the win button and coffetti pops out from the sky
+        this.showGoal('city-goals met!')
         new SceneButton(this.sceneRef,150,500,'submit-button','shopScene');
         
     }
