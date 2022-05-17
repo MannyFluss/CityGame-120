@@ -57,7 +57,15 @@ class Board extends Phaser.GameObjects.Container
         }
         this.objectArray[x][y]=null;
     }
-    
+    getBuildingAt(x,y)
+    {
+        if (!this.checkValidTile(x,y))
+        {
+            console.log("invalid tile get")
+            return null;
+        }
+        return this.objectArray[x][y];        
+    }
     getTile(x,y)//any interaction start @ 0,0
     {
         if (!this.checkValidTile(x,y))
