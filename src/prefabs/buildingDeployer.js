@@ -3,7 +3,7 @@
 //and place the building down
 class BuildingDeployer extends Phaser.GameObjects.Sprite
 {
-    constructor(scene,tileX,tileY,texture,buildingToDeploy,destructionDelay,boardRef)
+    constructor(scene,boardRef,tileX,tileY,texture,buildingToDeploy,destructionDelay)
     {
         //texture may be uneccessary how do i spell that word idk
         super(scene,0,0,texture);
@@ -24,7 +24,7 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
 
     timeToPlaceBuilding()
     {
-        let newBuilding = new this.toDeploy(this.sceneRef,0,0,undefined);
+        let newBuilding = new this.toDeploy(this.sceneRef,this.boardRef,0,0);
 
         
         let buildingOrNull = this.tileRef.getThisBuilding();

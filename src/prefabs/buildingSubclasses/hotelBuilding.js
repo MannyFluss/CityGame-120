@@ -1,8 +1,8 @@
 class Hotel extends Building
 {
-    constructor(scene,x,y,texture='hotel-1')//this texture will always be hotel
+    constructor(scene,board,x,y,texture='hotel-1')//this texture will always be hotel
     {
-        super(scene,x,y,texture);
+        super(scene,board,x,y,texture);
            
     }
 

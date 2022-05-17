@@ -5,25 +5,21 @@
 
 class MultiBuilding extends Building
 {
-    constructor(scene,x,y,texture,multi=['left'])
+    constructor(scene,board,x,y,texture,multi=['left'])
     {
-        super(scene,x,y,texture);
+        super(scene,board,x,y,texture);
         this.multi = multi;
         scene.add.existing(this);
-        // console.log(this.getBoard())
+        // console.log(this.board)
         // console.log(this.tileX+" "+this.tileY);
         // console.log(this.ableToMove(this.tileX,this.tileY));
-    }
-    getBoard()//work around
-    {
-        return this.sceneRef.board;
     }
 
     ableToMove(x,y)
     {
-        let board = this.getBoard();
+        let board = this.board;
         
-        if (this.getBoard().checkValidTile(x,y) == false)
+        if (this.board.checkValidTile(x,y) == false)
         {
             return false;
         }
@@ -54,7 +50,7 @@ class MultiBuilding extends Building
                     console.log('error in multibuilding');
                     break
             }
-            if (this.getBoard().checkValidTile(x,y) == false)
+            if (this.board.checkValidTile(x,y) == false)
             {
                 return false;
             }
@@ -84,7 +80,7 @@ class MultiBuilding extends Building
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
-        this.getBoard().objectArray[tile.tileX][tile.tileY] = this;
+        this.board.objectArray[tile.tileX][tile.tileY] = this;
         let x = tile.tileX;
         let y = tile.tileY
         for (let i=0;i<this.multi.length;i++)
@@ -107,7 +103,7 @@ class MultiBuilding extends Building
                     console.log('error in multibuilding');
                     break
             }
-            this.getBoard().objectArray[x][y] = this;
+            this.board.objectArray[x][y] = this;
         }
         
 
@@ -115,7 +111,7 @@ class MultiBuilding extends Building
     }
     snapToTile() 
     {
-        let boardRef = this.getBoard();
+        let boardRef = this.board;
         boardRef.clearTile(this.tileX, this.tileY);
 
         let x = this.tileX;
@@ -140,7 +136,7 @@ class MultiBuilding extends Building
                     console.log('error in multibuilding');
                     break
             }
-            this.getBoard().clearTile(x,y);
+            this.board.clearTile(x,y);
         }
 
         let nearestTile = boardRef.getNearestTile(this.x, this.y);
@@ -149,7 +145,7 @@ class MultiBuilding extends Building
 
     validBuildSpot(x,y)
     {
-        if (this.getBoard().checkValidTile(x,y)==false){return false;}
+        if (this.board.checkValidTile(x,y)==false){return false;}
         for (let i=0;i<this.multi.length;i++)
         {
             switch(this.multi[i])
@@ -170,7 +166,7 @@ class MultiBuilding extends Building
                     console.log('error in multibuilding');
                     break
             }
-            if (this.getBoard().checkValidTile(x,y)==false){return false;}
+            if (this.board.checkValidTile(x,y)==false){return false;}
         }
 
         return true;

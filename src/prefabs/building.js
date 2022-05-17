@@ -1,12 +1,12 @@
 class Building extends Phaser.Physics.Arcade.Sprite
 {
-    constructor(scene,x,y,texture,board,frame)
+    constructor(scene,board,x,y,texture)
     {
         if (texture==undefined)
         {
             texture = "small-apartment-1";
         }
-        super(scene,x,y,texture,frame);
+        super(scene,x,y,texture);
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setOrigin(.5, 1);
@@ -64,7 +64,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
             // must be made immovable to collide correctly
             this.body.setImmovable(true);
             
-            if (this.getBoard().getNearestTile(this.x,this.y).checkEmpty()) {
+            if (this.board.getNearestTile(this.x,this.y).checkEmpty()) {
                 this.snapToTile();
             } else {
                 this.x = this.tileParent.x;
@@ -86,8 +86,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     validBuildSpot(x,y)
     {
-        //console.log(this.getBoard)
-        return this.getBoard().checkValidTile(x,y);
+        return this.board.checkValidTile(x,y);
     }
 
     setupSignals()
@@ -121,15 +120,10 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     }
 
-    getBoard()
-    {
-        return this.sceneRef.board;
-    }
-
     destroyThisBuilding()
     {
         //clear the obj array @ this buildings coordinates of board.js
-        this.getBoard().clearTile(this.tileX,this.tileY);
+        this.board.clearTile(this.tileX,this.tileY);
         let x = this.tileX;
         let y = this.tileY;
         for (let i=0;i<this.multi.length;i++)
@@ -152,7 +146,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
                     console.log('error in multibuilding');
                     break;
             }
-            this.getBoard().clearTile(x,y);
+            this.board.clearTile(x,y);
         }
 
         this.timer.destroy();
@@ -171,7 +165,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
-        this.getBoard().objectArray[tile.tileX][tile.tileY] = this;
+        this.board.objectArray[tile.tileX][tile.tileY] = this;
         this.placementParticles();
     }
 
@@ -194,7 +188,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     moveBuilding(command="none")
     {
-        let brd = this.getBoard();
+        let brd = this.board;
         switch(command)
         {
             case 'up':
@@ -229,7 +223,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
     
     ableToMove(x,y)//function to check if you are able to move to x,y
     {
-        let boardRef = this.getBoard();
+        let boardRef = this.board;
         if (boardRef.checkValidTile(x,y))
         {
             if (boardRef.getTile(x,y).checkEmpty())
@@ -244,7 +238,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     snapToTile() 
     {
-        let boardRef = this.getBoard();
+        let boardRef = this.board;
         boardRef.clearTile(this.tileX, this.tileY);
         let nearestTile = boardRef.getNearestTile(this.x, this.y);
         this.setPlacement(nearestTile);

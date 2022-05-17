@@ -66,7 +66,7 @@ class Shop extends Phaser.GameObjects.Container
         }
         checkBuilding.destroy();
         console.log(randX + " " + randY);
-        this.buildingDeployer = new BuildingDeployer(this.sceneRef,randX,randY,undefined,toAdd ,4,this.boardRef);
+        this.buildingDeployer = new BuildingDeployer(this.sceneRef,this.boardRef, randX,randY,undefined,toAdd ,4);
 
         //insert animation here to slide button away
         this.availableBuildings[index]=undefined;

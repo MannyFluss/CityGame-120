@@ -27,8 +27,8 @@ let game = new Phaser.Game(config);
 
 let possibleBuildingList = 
 [
-    //SmallApartment
-    MultiBuilding
+    SmallApartment
+    // MultiBuilding
 ];
 
 let highScore = 0;
