@@ -1,8 +1,6 @@
-//these should not be manually added, this is extended upon by other buildings
-
-class Building extends Phaser.GameObjects.Sprite
+class Building extends Phaser.Physics.Arcade.Sprite
 {
-    constructor(scene,x,y,texture,frame)
+    constructor(scene,x,y,texture,board,frame)
     {
         if (texture==undefined)
         {
@@ -10,13 +8,41 @@ class Building extends Phaser.GameObjects.Sprite
         }
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
+        scene.physics.add.existing(this);
         this.setOrigin(.5, 1);
-
+        
+        // physics settings
+        let collisionRadius = this.width/2.5;
+        this.body.setCircle(collisionRadius);
+        this.body.setOffset(this.width/2-collisionRadius, this.height-collisionRadius*2);
+        this.setCollideWorldBounds(true);
+        this.body.setImmovable(true);
+        this.body.onCollide = true;
+        
         this.setInteractive({
             draggable: true,
             useHandCursor: true
         });
+        
+        this.board = board;
+        this.tileX;
+        this.tileY;
+        this.tileParent;
+        this.setScale(1);
+        this.state = "idle";
 
+        this.timer = scene.time.addEvent({
+            delay: 500,                // ms
+            callback: this.timeElapsed,
+            args: [500],
+            loop: true
+        });
+
+        scene.physics.world.on('collide', (obj1, obj2, body1, body2)=>{
+            console.log(`${obj1.texture.key} is colliding with ${obj2.texture.key} body`);
+        });
+
+        // define events
         this.on('drag', (pointer, dragX, dragY) => {
             if(this.state == "idle") {
                 console.log("start dragging");
@@ -24,28 +50,30 @@ class Building extends Phaser.GameObjects.Sprite
             this.setDepth(10);
             this.x = dragX;
             this.y = dragY;
+            
+            // must be made movable to collide correctly
+            this.body.setImmovable(false);
+
             this.state = "dragging";
         });
 
         this.on('dragend', (pointer, dragX, dragY) => {
             //building never clears?
             console.log("done dragging");
-            let tile = this.getBoard().getNearestTile(this.x,this.y);
-            if (this.ableToMove(tile.tileX,tile.tileY)) {//check  if able to move
+
+            // must be made immovable to collide correctly
+            this.body.setImmovable(true);
+            
+            if (this.getBoard().getNearestTile(this.x,this.y).checkEmpty()) {
                 this.snapToTile();
-                this.state = "idle";
             } else {
                 this.x = this.tileParent.x;
                 this.y = this.tileParent.y;
-                this.state = "idle";
             }
+            this.state = "idle";
         });
+
         this.multi = [];//this will always be [] for a default building
-        this.tileX;
-        this.tileY;
-        this.tileParent;
-        this.setScale(1);
-        this.state = "idle";
         this.sceneRef = scene;
         this.eventEmitter = new Phaser.Events.EventEmitter();
         
@@ -53,7 +81,7 @@ class Building extends Phaser.GameObjects.Sprite
         //scene.time.delayedCall(1000,()=>{this.testFunc()})
 
         //this.eventEmitter.emit('buildingPlaced')
-     this.setupSignals(); 
+        this.setupSignals(); 
     }
 
     validBuildSpot(x,y)
@@ -219,13 +247,22 @@ class Building extends Phaser.GameObjects.Sprite
         boardRef.clearTile(this.tileX, this.tileY);
         let nearestTile = boardRef.getNearestTile(this.x, this.y);
         this.setPlacement(nearestTile);
+        this.board.addToObjectArray(this, this.tileX, this.tileY);
     }
 
     update()
     {
-        if(this.state == "idle") {
-            this.setDepth(2 * (this.tileX + this.tileY));
+        // update the depth of the building based on y coordinate every frame
+        this.setDepth(this.y);
+
+        // check collision with other buildings every frame
+        // MUST be in update for collision to work
+        for (let row of this.board.objectArray) {
+            for (let building of row) {
+                if (building != null) {
+                    this.scene.physics.collide(this, building);
+                }
+            }
         }
-        
     }
 }

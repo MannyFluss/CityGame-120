@@ -78,18 +78,12 @@ class Board extends Phaser.GameObjects.Container
         }
         let currTile = this.getTile(x,y);
 
-        /*
-        let toAdd = building;
-        this.objectArray[x][y] = toAdd;
-        */
-
-        //let toTest = this.sceneRef.add.sprite(200,200,'small-apartment-1');//building isnt showing in front
         building.setPlacement(currTile);
+        this.addToObjectArray(building, x, y);
     }
 
-    // possibly temporary - maybe change to use the standard building remover
-    removeBuilding(x, y) {
-        this.objectArray[x][y] = null;
+    addToObjectArray(object, x, y) {
+        this.objectArray[x][y] = object;
     }
 
     initalizeGrid()
