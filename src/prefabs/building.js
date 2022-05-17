@@ -8,10 +8,9 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.setOrigin(.5, 1);
         
         // physics settings
-        let collisionWidth = 126;
-        let collisionHeight = 69;
-        this.body.setSize(collisionWidth, collisionHeight);
-        this.body.setOffset(0, this.height-collisionHeight);
+        let collisionRadius = this.width/2.4;
+        this.body.setCircle(collisionRadius);
+        this.body.setOffset(this.width/2-collisionRadius, this.height-collisionRadius*2);
         this.setCollideWorldBounds(true);
         this.body.setImmovable(true);
         this.body.onCollide = true;
@@ -50,29 +49,27 @@ class Building extends Phaser.Physics.Arcade.Sprite
             this.setDepth(10);
             this.x = dragX;
             this.y = dragY;
-            this.state = "dragging";
+            
+            // must be made movable to collide correctly
+            this.body.setImmovable(false);
 
-            // check collision with other buildings
-            for (let row of this.board.objectArray) {
-                for (let building of row) {
-                    if (building != null) {
-                        this.scene.physics.collide(this, building);
-                        console.log("collide!")
-                    }
-                }
-            }
+            this.state = "dragging";
         });
 
         this.on('dragend', (pointer, dragX, dragY) => {
             console.log("done dragging");
+
+            // must be made immovable to collide correctly
+            this.body.setImmovable(true);
+            
             if (this.getBoard().getNearestTile(this.x,this.y).checkEmpty()) {
                 this.snapToTile();
-                this.state = "idle";
             } else {
                 this.x = this.tileParent.x;
                 this.y = this.tileParent.y;
-                this.state = "idle";
             }
+
+            this.state = "idle";
         });
     }
 
@@ -124,8 +121,17 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     update()
     {
-        if(this.state == "idle") {
-            this.setDepth(2 * (this.tileX + this.tileY));
+        // update the depth of the building based on y coordinate every frame
+        this.setDepth(this.y);
+
+        // check collision with other buildings every frame
+        // MUST be in update for collision to work
+        for (let row of this.board.objectArray) {
+            for (let building of row) {
+                if (building != null) {
+                    this.scene.physics.collide(this, building);
+                }
+            }
         }
     }
 }
