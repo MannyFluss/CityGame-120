@@ -14,9 +14,6 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.setCollideWorldBounds(true);
         this.body.setImmovable(true);
         this.body.onCollide = true;
-
-        // debug
-        this.setDebugBodyColor(0xFF0000);
         
         this.setInteractive({
             draggable: true,
