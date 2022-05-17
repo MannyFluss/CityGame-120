@@ -10,7 +10,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setOrigin(.5, 1);
-        
+        this.buildingDescription = 'default building description'; //this should always be overwritten.       
         // physics settings
         let collisionRadius = this.width/2.5;
         this.body.setCircle(collisionRadius);

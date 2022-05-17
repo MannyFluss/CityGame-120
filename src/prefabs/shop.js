@@ -8,26 +8,36 @@ class Shop extends Phaser.GameObjects.Container
         this.sceneRef = scene;
         this.boardRef = boardRef; //we need access to the board within the shop
         this.availableBuildings = [undefined,undefined,undefined];   
-        this.refreshShop();
+        
 
         this.shopConsole = new Phaser.GameObjects.Sprite(scene,0,0,'shop-temp');
+
         this.refreshButton = new Phaser.GameObjects.Sprite(scene,80,-160,'temp-button').setInteractive();
-        this.purchase1 = new Phaser.GameObjects.Sprite(scene,0,-80,'shop-button-temp').setInteractive();
-        this.purchase2 = new Phaser.GameObjects.Sprite(scene,0,0,'shop-button-temp').setInteractive();
-        this.purchase3 = new Phaser.GameObjects.Sprite(scene,0,80,'shop-button-temp').setInteractive();
+
+        this.purchase = [];
+        this.purchase[0] = new ShopButton(scene,0,-80);
+        this.purchase[1] = new ShopButton(scene,0,0);
+        this.purchase[2] = new ShopButton(scene,0,80);
         
         this.refreshButton.on('pointerdown',()=>{this.refreshShop();});
-        this.purchase1.on('pointerdown',()=>{this.purchaseBuilding(0);});
-        this.purchase2.on('pointerdown',()=>{this.purchaseBuilding(1);});
-        this.purchase3.on('pointerdown',()=>{this.purchaseBuilding(2);});
-        this.add([this.shopConsole,this.refreshButton,this.purchase1,this.purchase2,this.purchase3]);
+        this.purchase[0].on('pointerdown',()=>{this.purchaseBuilding(0);});
+        this.purchase[1].on('pointerdown',()=>{this.purchaseBuilding(1);});
+        this.purchase[2].on('pointerdown',()=>{this.purchaseBuilding(2);});
+        this.add([this.shopConsole,this.refreshButton]);
+        this.add(this.purchase);
+
+
+        this.refreshShop();
 
     }
     refreshShop()
     {
+
         for (let i = 0; i<3 ;i++)
         {
             this.availableBuildings[i] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
+            
+            //this.purchase[i].updateIcons(this.availableBuildings[i]);
             //add cosmetic refresh here
             //console.log(this.availableBuildings[i]);
         }
@@ -49,7 +59,7 @@ class Shop extends Phaser.GameObjects.Container
 
         let toAdd = this.availableBuildings[index];
         
-        let checkBuilding = new toAdd(this.sceneRef,0,0,'');         
+        let checkBuilding = new toAdd(this.sceneRef,this.boardRef,0,0,'');         
         
 
         let randX= Phaser.Math.Between(0,this.boardRef.boardX-1);
