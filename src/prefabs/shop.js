@@ -36,21 +36,34 @@ class Shop extends Phaser.GameObjects.Container
         for (let i = 0; i<3 ;i++)
         {
             this.availableBuildings[i] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
-            
-            //this.purchase[i].updateIcons(this.availableBuildings[i]);
+            this.purchase[i].updateIcons(this.availableBuildings[i]);
+            let tween = this.sceneRef.tweens.add({
+                targets: this.purchase[i],
+                alpha : 1,
+                x : 0,
+                duration : 1 *1000,
+    
+            })
+            //this.purchase[i];
             //add cosmetic refresh here
             //console.log(this.availableBuildings[i]);
         }
     }
     purchaseBuilding(index = 0)//currently unsafe, can place on a already existing building w/o destroying it
     {
-        console.log("test")
         if (this.availableBuildings[index]==undefined)
         {
             console.log('invalid shop index chosen');
             return;
         }
+        let tween = this.sceneRef.tweens.add({
+            targets: this.purchase[index],
+            alpha : 0,
+            x : 200,
+            duration : 1 *1000,
 
+        })
+        
         //create new building
         //place on random spot on board
         //in future make it so that a seperate meteor like object spawns buildings in

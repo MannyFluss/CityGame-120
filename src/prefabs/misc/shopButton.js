@@ -5,7 +5,7 @@ class ShopButton extends Phaser.GameObjects.Container
         super(scene,x,y);
         scene.add.existing(this);
         this.backgroundPanel = new Phaser.GameObjects.Sprite(scene,0,0,'shop-button-temp');
-        this.buildingIcon = new Phaser.GameObjects.Sprite(scene, -40 ,0 ,'small-apartment-1');
+        this.buildingIcon = new Phaser.GameObjects.Sprite(scene, -80 ,0 ,'small-apartment-1');
         this.buildingIcon.setDisplaySize(50,50);
         this.setSize(this.backgroundPanel.displayWidth,this.backgroundPanel.displayHeight);
 
@@ -20,6 +20,7 @@ class ShopButton extends Phaser.GameObjects.Container
     updateIcons(building)
     {
         let temp = new building(this.sceneRef,this.sceneRef.board,-500,-500);
+        console.log(temp.texture)
         this.buildingIcon.setTexture(temp.texture);
         temp.destroy();
     }
