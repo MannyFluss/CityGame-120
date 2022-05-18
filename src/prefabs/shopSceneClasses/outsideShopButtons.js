@@ -1,6 +1,6 @@
 class ShopSceneButtons extends Phaser.GameObjects.Container
 {
-    constructor(scene,x,y, targetFunction=undefined)
+    constructor(scene,x,y, targetFunction=undefined, targetArguments=undefined)
     {
         super(scene,x,y);
         scene.add.existing(this);
@@ -16,7 +16,7 @@ class ShopSceneButtons extends Phaser.GameObjects.Container
         this.sceneRef = scene;
         this.on('pointerdown',()=>{this.executeFunction();})
         this.targetFunction = targetFunction;
-
+        this.targetArguments = targetArguments;
     }
 
     executeFunction()
