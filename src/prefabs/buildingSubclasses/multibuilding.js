@@ -10,6 +10,17 @@ class MultiBuilding extends Building
         super(scene,board,x,y,texture);
         this.multi = multi;
         scene.add.existing(this);
+
+        this.setOrigin(.725, 1);
+
+        // temporary smaller collision radius - we really need 2 circles, one for each tile
+        let collisionRadius = this.width/5;
+        this.body.setCircle(collisionRadius);
+        this.body.setOffset(this.width/2-collisionRadius, this.height-collisionRadius*2);
+        this.setCollideWorldBounds(true);
+        this.body.setImmovable(true);
+        this.body.onCollide = true;
+
         // console.log(this.board)
         // console.log(this.tileX+" "+this.tileY);
         // console.log(this.ableToMove(this.tileX,this.tileY));
@@ -17,15 +28,13 @@ class MultiBuilding extends Building
 
     ableToMove(x,y)
     {
-        let board = this.board;
-        
         if (this.board.checkValidTile(x,y) == false)
         {
             return false;
         }
-        if (board.checkEmpty(x,y)==false)
+        if (this.board.checkEmpty(x,y)==false)
         {
-            if (board.getBuildingAt(x,y) != this)
+            if (this.board.getBuildingAt(x,y) != this)
             {
                 return false;
             }   
@@ -54,9 +63,9 @@ class MultiBuilding extends Building
             {
                 return false;
             }
-            if (board.checkEmpty(x,y)==false)
+            if (this.board.checkEmpty(x,y)==false)
             {
-                if (board.getBuildingAt(x,y) != this)
+                if (this.board.getBuildingAt(x,y) != this)
                 {
                     return false;
                 }
@@ -81,10 +90,10 @@ class MultiBuilding extends Building
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
         this.board.objectArray[tile.tileX][tile.tileY] = this;
-        let x = tile.tileX;
-        let y = tile.tileY
         for (let i=0;i<this.multi.length;i++)
         {
+            let x = tile.tileX;
+            let y = tile.tileY;
             switch(this.multi[i])
             {
                 case 'up':
@@ -101,9 +110,10 @@ class MultiBuilding extends Building
                     break;
                 default:
                     console.log('error in multibuilding');
-                    break
+                    break;
             }
-            this.board.objectArray[x][y] = this;
+            // this.board.objectArray[x][y] = this;
+            this.board.addToObjectArray(this, x, y)
         }
         
 
@@ -111,8 +121,7 @@ class MultiBuilding extends Building
     }
     snapToTile() 
     {
-        let boardRef = this.board;
-        boardRef.clearTile(this.tileX, this.tileY);
+        this.board.clearTile(this.tileX, this.tileY);
 
         let x = this.tileX;
         let y = this.tileY;
@@ -134,12 +143,12 @@ class MultiBuilding extends Building
                     break;
                 default:
                     console.log('error in multibuilding');
-                    break
+                    break;
             }
             this.board.clearTile(x,y);
         }
 
-        let nearestTile = boardRef.getNearestTile(this.x, this.y);
+        let nearestTile = this.board.getNearestTile(this.x, this.y);
         this.setPlacement(nearestTile);
     }
 
@@ -164,7 +173,7 @@ class MultiBuilding extends Building
                     break;
                 default:
                     console.log('error in multibuilding');
-                    break
+                    break;
             }
             if (this.board.checkValidTile(x,y)==false){return false;}
         }

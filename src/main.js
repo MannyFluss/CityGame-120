@@ -11,9 +11,9 @@ let config = {
     canvasStyle: canvasStyle,
     physics: {
         default: 'arcade',
-        // arcade: {
-        //     debug: true
-        // }
+        arcade: {
+            debug: true
+        }
     },
 }
 

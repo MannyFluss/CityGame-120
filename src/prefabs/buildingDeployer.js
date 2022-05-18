@@ -53,7 +53,7 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
                     break;
                 default:
                     console.log('error in multibuilding');
-                    break
+                    break;
             }
             buildingOrNull = this.boardRef.getTile(x,y).getThisBuilding();
             if (buildingOrNull!=null)

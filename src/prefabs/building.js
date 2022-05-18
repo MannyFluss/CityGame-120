@@ -221,17 +221,16 @@ class Building extends Phaser.Physics.Arcade.Sprite
                 }
                 break;
             default:
-                break
+                break;
             //check if up,d,l,r
         }
     }
     
     ableToMove(x,y)//function to check if you are able to move to x,y
     {
-        let boardRef = this.board;
-        if (boardRef.checkValidTile(x,y))
+        if (this.board.checkValidTile(x,y))
         {
-            if (boardRef.getTile(x,y).checkEmpty())
+            if (this.board.getTile(x,y).checkEmpty())
             {
                 
                 return true;
@@ -243,9 +242,8 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     snapToTile() 
     {
-        let boardRef = this.board;
-        boardRef.clearTile(this.tileX, this.tileY);
-        let nearestTile = boardRef.getNearestTile(this.x, this.y);
+        this.board.clearTile(this.tileX, this.tileY);
+        let nearestTile = this.board.getNearestTile(this.x, this.y);
         this.setPlacement(nearestTile);
         this.board.addToObjectArray(this, this.tileX, this.tileY);
     }

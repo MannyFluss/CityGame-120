@@ -15,7 +15,7 @@ class Board extends Phaser.GameObjects.Container
 
         
         
-        //this.placeBuilding(new Building(this.sceneRef,0,0,'hotel-1'), 1, 0);
+        // this.placeBuilding(new MultiBuilding(this.sceneRef,this,0,0,'large-apartment-1'), 1, 0);
         // retBuilding.moveBuilding('down');
         // retBuilding.moveBuilding('left');
     }
@@ -26,7 +26,7 @@ class Board extends Phaser.GameObjects.Container
     }
     createBuilding()//temporary building function
     {
-        retBuilding = new Building(this.sceneRef,0,0,'small-apartment-1');
+        retBuilding = new Building(this.sceneRef,this,0,0,'small-apartment-1');
 
         return retBuilding;
     }

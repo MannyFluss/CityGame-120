@@ -16,6 +16,7 @@ class Play extends Phaser.Scene
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
+        this.load.image('large-apartment-1','./assets/buildings/large-apartment-1.png');
         this.load.image('warning', './assets/warning.png');
         this.load.image('temp-button','./assets/tempArt/buttonz.png');
         this.load.image('radio-temp','./assets/tempArt/radioConsole.png');
@@ -43,10 +44,10 @@ class Play extends Phaser.Scene
         
         this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
 
-        this.test = new MultiBuilding(this,this.board,0,0,'small-apartment-1',['left']);
+        this.test = new MultiBuilding(this,this.board,0,0,'large-apartment-1',['left']);
 
         this.board.placeBuilding(this.test,1,1);
-        //console.log(this.test.ableToMove(1,1));
+        console.log(this.test.ableToMove(1,1));
 
         
 
