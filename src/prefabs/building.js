@@ -249,9 +249,6 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     update()
     {
-        // update the depth of the building based on y coordinate every frame
-        this.setDepth(this.y);
-
         // check collision with other buildings every frame
         // MUST be in update for collision to work
         for (let row of this.board.objectArray) {
