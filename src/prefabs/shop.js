@@ -19,10 +19,10 @@ class Shop extends Phaser.GameObjects.Container
         this.purchase[1] = new ShopButton(scene,0,0);
         this.purchase[2] = new ShopButton(scene,0,80);
         
-        this.refreshButton.on('pointerdown',()=>{this.refreshShop();});
-        this.purchase[0].on('pointerdown',()=>{this.purchaseBuilding(0);});
-        this.purchase[1].on('pointerdown',()=>{this.purchaseBuilding(1);});
-        this.purchase[2].on('pointerdown',()=>{this.purchaseBuilding(2);});
+        this.refreshButton.on('pointerup',()=>{this.refreshShop();});
+        this.purchase[0].on('pointerup',()=>{this.purchaseBuilding(0);});
+        this.purchase[1].on('pointerup',()=>{this.purchaseBuilding(1);});
+        this.purchase[2].on('pointerup',()=>{this.purchaseBuilding(2);});
         this.add([this.shopConsole,this.refreshButton]);
         this.add(this.purchase);
 

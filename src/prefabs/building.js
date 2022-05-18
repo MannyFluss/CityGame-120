@@ -1,5 +1,15 @@
 class Building extends Phaser.Physics.Arcade.Sprite
 {
+
+    static metaData = 
+    {
+        "texture" : 'small-apartment-1',
+        "description" : "this building generates money when placed",
+
+        "shopCost" : 100,
+        "shopFunction" : "addNewBuilding",
+        "shopArguments" : [Building],
+    };
     constructor(scene,board,x,y,texture)
     {
         if (texture==undefined)
