@@ -48,7 +48,7 @@ class MultiBuilding extends Building
                     break;
                 default:
                     console.log('error in multibuilding');
-                    break
+                    break;
             }
             if (this.board.checkValidTile(x,y) == false)
             {
