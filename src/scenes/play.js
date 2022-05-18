@@ -32,7 +32,7 @@ class Play extends Phaser.Scene
     
     create()
     {
-        this.test = new winState(this,"timer",{survivalTime : 10 * 1000});
+        this.test = new winState(this,"timer",{survivalTime : 1 * 1000});
         this.boardConfig={
             "sprite" : 'tileSprite',
         }
@@ -40,14 +40,16 @@ class Play extends Phaser.Scene
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
 
+        //this.tesbutton = new ShopButton(this,300,300).setDepth(500);
+        
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
         
         this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
 
-        this.test = new MultiBuilding(this,this.board,0,0,'large-apartment-1',['left']);
+        // this.test = new MultiBuilding(this,this.board,0,0,'small-apartment-1',['left']);
 
-        this.board.placeBuilding(this.test,1,1);
-        console.log(this.test.ableToMove(1,1));
+        // this.board.placeBuilding(this.test,1,1);
+        // //console.log(this.test.ableToMove(1,1));
 
         
 

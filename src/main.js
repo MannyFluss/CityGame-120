@@ -31,6 +31,10 @@ let possibleBuildingList =
     // MultiBuilding
 ];
 
+let shopSceneAvailableList = //this is an array filled with the METADATA for the shop
+[
+    Hotel.metaData,
+];
 let highScore = 0;
 let boardSize = 2;
 let money = 0;

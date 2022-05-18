@@ -8,39 +8,62 @@ class Shop extends Phaser.GameObjects.Container
         this.sceneRef = scene;
         this.boardRef = boardRef; //we need access to the board within the shop
         this.availableBuildings = [undefined,undefined,undefined];   
-        this.refreshShop();
+        
 
         this.shopConsole = new Phaser.GameObjects.Sprite(scene,0,0,'shop-temp');
+
         this.refreshButton = new Phaser.GameObjects.Sprite(scene,80,-160,'temp-button').setInteractive();
-        this.purchase1 = new Phaser.GameObjects.Sprite(scene,0,-80,'shop-button-temp').setInteractive();
-        this.purchase2 = new Phaser.GameObjects.Sprite(scene,0,0,'shop-button-temp').setInteractive();
-        this.purchase3 = new Phaser.GameObjects.Sprite(scene,0,80,'shop-button-temp').setInteractive();
+
+        this.purchase = [];
+        this.purchase[0] = new ShopButton(scene,0,-80);
+        this.purchase[1] = new ShopButton(scene,0,0);
+        this.purchase[2] = new ShopButton(scene,0,80);
         
-        this.refreshButton.on('pointerdown',()=>{this.refreshShop();});
-        this.purchase1.on('pointerdown',()=>{this.purchaseBuilding(0);});
-        this.purchase2.on('pointerdown',()=>{this.purchaseBuilding(1);});
-        this.purchase3.on('pointerdown',()=>{this.purchaseBuilding(2);});
-        this.add([this.shopConsole,this.refreshButton,this.purchase1,this.purchase2,this.purchase3]);
+        this.refreshButton.on('pointerup',()=>{this.refreshShop();});
+        this.purchase[0].on('pointerup',()=>{this.purchaseBuilding(0);});
+        this.purchase[1].on('pointerup',()=>{this.purchaseBuilding(1);});
+        this.purchase[2].on('pointerup',()=>{this.purchaseBuilding(2);});
+        this.add([this.shopConsole,this.refreshButton]);
+        this.add(this.purchase);
+
+
+        this.refreshShop();
 
     }
     refreshShop()
     {
+
         for (let i = 0; i<3 ;i++)
         {
             this.availableBuildings[i] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
+            this.purchase[i].updateIcons(this.availableBuildings[i]);
+            let tween = this.sceneRef.tweens.add({
+                targets: this.purchase[i],
+                alpha : 1,
+                x : 0,
+                duration : 1 *1000,
+    
+            })
+            //this.purchase[i];
             //add cosmetic refresh here
             //console.log(this.availableBuildings[i]);
         }
     }
     purchaseBuilding(index = 0)//currently unsafe, can place on a already existing building w/o destroying it
     {
-        console.log("test")
         if (this.availableBuildings[index]==undefined)
         {
             console.log('invalid shop index chosen');
             return;
         }
+        let tween = this.sceneRef.tweens.add({
+            targets: this.purchase[index],
+            alpha : 0,
+            x : 200,
+            duration : 1 *1000,
 
+        })
+        
         //create new building
         //place on random spot on board
         //in future make it so that a seperate meteor like object spawns buildings in
