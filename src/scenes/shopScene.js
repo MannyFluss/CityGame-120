@@ -12,13 +12,29 @@ class ShopScene extends Phaser.Scene
     create()
     {
         this.addNewBuilding(Hotel);
-        this.increaseBoardSize();
+        //this.increaseBoardSize();
         new SceneButton(this,50,50,'submit-button','playScene');
 
+        new ShopSceneButtons(this,100,100,'increaseBoardSize');
 
     }
 
-    
+    executeViaString(func='',args=[])
+    {
+        switch(func)
+        {
+            case "increaseBoardSize":
+                this.increaseBoardSize();
+                break
+
+            default:
+                console.log('shop given invalid execution string');
+                break;
+        }
+    }
+
+
+
 
     increaseBoardSize()
     {
