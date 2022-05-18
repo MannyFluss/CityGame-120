@@ -78,5 +78,7 @@ class Play extends Phaser.Scene
                 }
             }
         }
+
+        this.threatGen.update();
     }
 }

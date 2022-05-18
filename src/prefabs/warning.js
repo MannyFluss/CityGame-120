@@ -12,7 +12,6 @@ class Warning extends Phaser.GameObjects.Sprite
         this.tileObj;
         this.setScale(3);
         this.time = time;
-        this.setDepth(2 * (this.tileX + this.tileY) + 1);
         scene.time.delayedCall(time * 1000,()=>{this.warningDissapear();})
     }
 
@@ -32,5 +31,6 @@ class Warning extends Phaser.GameObjects.Sprite
     }
 
     update() {
+        this.setDepth(2 * (this.tileX + this.tileY) + 1);
     }
 }

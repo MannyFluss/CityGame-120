@@ -151,6 +151,9 @@ class Building extends Phaser.Physics.Arcade.Sprite
             this.board.clearTile(x,y);
         }
 
+        if(this.afterimage != null) {
+            this.afterimage.destroy();
+        }
         this.timer.destroy();
         this.destroy();
     }
@@ -249,6 +252,10 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     update()
     {
+        if(this.state == "idle") {
+            this.setDepth(2 * (this.tileX + this.tileY));
+        }
+
         // check collision with other buildings every frame
         // MUST be in update for collision to work
         for (let row of this.board.objectArray) {

@@ -37,5 +37,9 @@ class Meteor extends Phaser.GameObjects.Sprite
         this.sceneRef.time.delayedCall(100,()=>{emitter.stop();},this);
     }
 
+    update()
+    {
+        this.warning.update();
+    }
 
 }

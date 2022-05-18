@@ -9,6 +9,7 @@ class ThreatGenerator extends Phaser.GameObjects.Container
         this.boardRef = boardRef;
         this.timeUntilDisaster = 1000;
         this.timeReset = 12 * 1000;
+        this.disasters = [];
 
         this.timer = this.sceneRef.time.addEvent({
             delay: 500,                // ms
@@ -36,8 +37,15 @@ class ThreatGenerator extends Phaser.GameObjects.Container
     {
         console.log('disastertime')
         let targTile = this.boardRef.getRandomTile();
-        new Meteor(this.sceneRef,0,0,'',5,targTile);
+        this.disasters.push(new Meteor(this.sceneRef,0,0,'',5,targTile));
 
+    }
+
+    update()
+    {
+        for(let i=0; i<this.disasters.length; i++) {
+            this.disasters[i].update();
+        }
     }
 
 }
