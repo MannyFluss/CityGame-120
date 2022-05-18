@@ -5,7 +5,7 @@ class Board extends Phaser.GameObjects.Container
         super(scene,x,y,objs);
         this.config = config; //temp config["sprite"] = texture will be edited to make better boards easily
         this.sceneRef=scene;
-        this.tileXOffset = 100;
+        this.tileXOffset = 102;
         this.tileYOffset = this.tileXOffset/2;
         this.boardX= boardSize;//max size x and y
         this.boardY= boardSize;
