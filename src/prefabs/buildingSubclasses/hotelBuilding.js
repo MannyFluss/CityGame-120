@@ -5,7 +5,7 @@ class Hotel extends Building
     {
         "texture" : 'hotel-1',
         "description" : "this building generates money when placed",
-
+        "name" : "hotel",
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Hotel],
