@@ -75,8 +75,8 @@ class Building extends Phaser.Physics.Arcade.Sprite
             // must be made immovable to collide correctly
             this.body.setImmovable(true);
             this.afterimage.destroy();
-            
-            if (this.board.getNearestTile(this.x,this.y).checkEmpty()) {
+           // let tile =
+            if (this.board.getNearestTile(this.x,this.y).checkEmpty()) {// ithink this needs to be changed to able to move
                 this.snapToTile();
             } else {
                 this.x = this.tileParent.x;
@@ -247,8 +247,9 @@ class Building extends Phaser.Physics.Arcade.Sprite
             }
         }
         return false;
-        
     }
+
+
 
     snapToTile() 
     {

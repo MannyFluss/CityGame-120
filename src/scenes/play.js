@@ -41,7 +41,7 @@ class Play extends Phaser.Scene
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
 
 
-        this.test = new ShopGhost(this,100,100,Hotel);
+       // this.test = new ShopGhost(this,100,100,Hotel);
         //this.tesbutton = new ShopButton(this,300,300).setDepth(500);
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
