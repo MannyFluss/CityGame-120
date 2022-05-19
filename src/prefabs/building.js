@@ -5,7 +5,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
     {
         "texture" : 'small-apartment-1',
         "description" : "this building generates money when placed",
-
+        "name" : 'default building',
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Building],
@@ -75,8 +75,8 @@ class Building extends Phaser.Physics.Arcade.Sprite
             // must be made immovable to collide correctly
             this.body.setImmovable(true);
             this.afterimage.destroy();
-            
-            if (this.board.getNearestTile(this.x,this.y).checkEmpty()) {
+           let tile = this.board.getNearestTile(this.x,this.y)
+            if (this.ableToMove(tile.tileX,tile.tileY)) {// ithink this needs to be changed to able to move
                 this.snapToTile();
             } else {
                 this.x = this.tileParent.x;
@@ -247,8 +247,9 @@ class Building extends Phaser.Physics.Arcade.Sprite
             }
         }
         return false;
-        
     }
+
+
 
     snapToTile() 
     {

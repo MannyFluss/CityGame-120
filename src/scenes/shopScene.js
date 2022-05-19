@@ -41,11 +41,13 @@ class ShopScene extends Phaser.Scene
         for (let i = 0; i<buttonCount;i++)
         {
             let curr = shopSceneAvailableList[i];
+            console.log(ShopSceneButton);
             let newButton = new ShopSceneButton(this,x,y,curr);
             newButton.on('pointerover',()=>{
                 this.previewIcon.setTexture(curr["texture"]);
                 this.costText.text = curr['shopCost'];
                 this.descriptText.text = curr['description'];
+                this.previewName.text = curr['name'];
             })
             y += 100;
         }
@@ -56,10 +58,12 @@ class ShopScene extends Phaser.Scene
     initPreview()
     {
         this.previewBackground = this.add.sprite(0,0,'temp-background');
+        this.previewName = this.add.text(0,-170,'sample text').setOrigin(.5,.5);
         this.previewIcon = this.add.sprite(0,-100,'small-apartment-1').setDisplaySize(100,100);
         this.costText = this.add.text(0,20,'sample cost text').setOrigin(.5,.5);
         this.descriptText = this.add.text(0,60,'sample description text').setOrigin(.5,.5);
-        this.shopPreview = this.add.container(this.game.canvas.width/2,this.game.canvas.height/2,[this.previewBackground,this.previewIcon,this.costText,this.descriptText]);
+        this.shopPreview = this.add.container(this.game.canvas.width/2,this.game.canvas.height/2,
+            [this.previewBackground,this.previewIcon,this.costText,this.descriptText,this.previewName]);
     }
     executeViaString(func='',args=[])
     {

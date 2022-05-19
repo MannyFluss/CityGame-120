@@ -5,14 +5,23 @@
 
 class MultiBuilding extends Building
 {
-    constructor(scene,board,x,y,texture,multi=['left'])
+    static metaData = 
+    {
+        "texture" : 'large-apartment-1',
+        "description" : "this building is epic and large",
+        "name" : 'multibuilding',
+        "shopCost" : 100,
+        "shopFunction" : "addNewBuilding",
+        "shopArguments" : [MultiBuilding],
+    };
+    constructor(scene,board,x,y,texture='large-apartment-1',multi=['left'])
     {
         super(scene,board,x,y,texture);
         this.multi = multi;
         scene.add.existing(this);
 
         this.setOrigin(.725, 1);
-
+        
         // temporary smaller collision radius - we really need 2 circles, one for each tile
         let collisionRadius = this.width/5;
         this.body.setCircle(collisionRadius);

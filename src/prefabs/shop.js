@@ -20,9 +20,9 @@ class Shop extends Phaser.GameObjects.Container
         this.purchase[2] = new ShopButton(scene,0,80);
         
         this.refreshButton.on('pointerup',()=>{this.refreshShop();});
-        this.purchase[0].on('pointerup',()=>{this.purchaseBuilding(0);});
-        this.purchase[1].on('pointerup',()=>{this.purchaseBuilding(1);});
-        this.purchase[2].on('pointerup',()=>{this.purchaseBuilding(2);});
+        this.purchase[0].on('pointerdown',()=>{this.purchaseBuilding(0);});
+        this.purchase[1].on('pointerdown',()=>{this.purchaseBuilding(1);});
+        this.purchase[2].on('pointerdown',()=>{this.purchaseBuilding(2);});
         this.add([this.shopConsole,this.refreshButton]);
         this.add(this.purchase);
 
@@ -49,6 +49,23 @@ class Shop extends Phaser.GameObjects.Container
             //console.log(this.availableBuildings[i]);
         }
     }
+    buildingPlaced(index)
+    {
+        //takes ur monies here
+
+        let tween = this.sceneRef.tweens.add({
+            targets: this.purchase[index],
+            alpha : 0,
+            x : 100,
+            duration : 1 *1000,
+        })     
+
+    }
+    test()
+    {
+        console.log('test');
+    }
+
     purchaseBuilding(index = 0)//currently unsafe, can place on a already existing building w/o destroying it
     {
         if (this.availableBuildings[index]==undefined)
@@ -56,43 +73,19 @@ class Shop extends Phaser.GameObjects.Container
             console.log('invalid shop index chosen');
             return;
         }
-        let tween = this.sceneRef.tweens.add({
-            targets: this.purchase[index],
-            alpha : 0,
-            x : 200,
-            duration : 1 *1000,
-
-        })
         
         //create new building
         //place on random spot on board
         //in future make it so that a seperate meteor like object spawns buildings in
 
         //let toAdd = new this.availableBuildings[index](this.sceneRef,this.boardRef,0,0,'small-apartment-1');
+        
 
         let toAdd = this.availableBuildings[index];
-        
-        let checkBuilding = new toAdd(this.sceneRef,this.boardRef,0,0,'');         
-        
-
-        let randX= Phaser.Math.Between(0,this.boardRef.boardX-1);
-        let randY= Phaser.Math.Between(0,this.boardRef.boardY-1);
-
-        while(true)
-        {
-            if (checkBuilding.validBuildSpot(randX,randY)==true)
-            {
-                break;
-            }
-            randX= Phaser.Math.Between(0,this.boardRef.boardX-1);
-            randY= Phaser.Math.Between(0,this.boardRef.boardY-1);
-        }
-        checkBuilding.destroy();
-        console.log(randX + " " + randY);
-        this.buildingDeployer = new BuildingDeployer(this.sceneRef,this.boardRef, randX,randY,undefined,toAdd ,4);
+        let buildingGhost = new ShopGhost(this.sceneRef,this.x,this.y,toAdd,this,index);
 
         //insert animation here to slide button away
-        this.availableBuildings[index]=undefined;
+        
         //this.boardRef.placeBuilding(toAdd,randX,randY);
 
     }

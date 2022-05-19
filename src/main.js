@@ -33,10 +33,21 @@ let possibleBuildingList =
 
 let shopSceneAvailableList = //this is an array filled with the METADATA for the shop
 [
-    Hotel.metaData,
+    Hotel.metaData,MultiBuilding.metaData, ShopEntries.tilePurchase1, ShopEntries.tilePurchase2
 ];
 let highScore = 0;
 let boardSize = 2;
 let money = 0;
 
+
+
 //global variables, see accessed in play.js
+// {
+//     "texture" : 'hotel-1',
+//     "description" : "this building generates money when placed",
+//     "name" : "hotel",
+//     "shopCost" : 100,
+//     "shopFunction" : "addNewBuilding",
+//     "shopArguments" : [Hotel],
+// };
+
