@@ -120,7 +120,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     timeElapsed(delta)
     {
-        money += 1;
+        
         switch(this.state)
         {
             case 'idle':

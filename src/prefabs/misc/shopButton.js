@@ -19,9 +19,9 @@ class ShopButton extends Phaser.GameObjects.Container
 
     updateIcons(building)
     {
-        let temp = new building(this.sceneRef,this.sceneRef.board,-500,-500);
-        console.log(temp.texture)
-        this.buildingIcon.setTexture(temp.texture);
-        temp.destroy();
+        //let temp = new building(this.sceneRef,this.sceneRef.board,-500,-500);
+        //console.log(temp.texture)
+        this.buildingIcon.setTexture(building.metaData['texture']);
+        //temp.destroyThisBu();
     }
 }

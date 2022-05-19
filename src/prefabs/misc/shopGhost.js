@@ -29,13 +29,12 @@ class ShopGhost extends Phaser.GameObjects.Sprite
             {
                 console.log('able 2 place');
                 this.buildingDeployer = new BuildingDeployer(this.sceneRef,board, tile.tileX,tile.tileY,undefined,buildingType,0);
-                //wont let use shopref functions?
-                //this is bad but idk why the shopref doesnt work
+
                 scene.shop.buildingPlaced(index);
                 
                 //build here
             }else{console.log('cannot place');}
-            checkBuilding.destroy();
+            checkBuilding.destroyThisBuilding();
             this.destroy()
         })
 
