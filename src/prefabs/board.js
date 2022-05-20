@@ -47,7 +47,19 @@ class Board extends Phaser.GameObjects.Container
         }
         return false;
     }
+    checkForBuildingType(type)
+    {
 
+        for (let x=0;x<this.boardX;x++)
+        {
+            for(let y=0;y<this.boardY;y++)
+            {
+                if (this.getBuildingAt(x,y)==null){continue;}
+                if (this.getBuildingAt(x,y).constructor.name == type.name){return true;}
+            }
+        }
+        return false;
+    }
     clearTile(x,y)
     {
         if (!this.checkValidTile(x,y))
@@ -61,7 +73,7 @@ class Board extends Phaser.GameObjects.Container
     {
         if (!this.checkValidTile(x,y))
         {
-            console.log("invalid tile get")
+            //console.log("invalid tile get")
             return null;
         }
         return this.objectArray[x][y];        

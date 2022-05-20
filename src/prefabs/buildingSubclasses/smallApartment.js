@@ -4,7 +4,7 @@ class SmallApartment extends Building
     {
         "texture" : 'small-apartment-1',
         "description" : "this building generates money when placed",
-        "name" : 'default building',
+        "name" : 'Small Apartment',
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [SmallApartment],
@@ -14,8 +14,8 @@ class SmallApartment extends Building
         super(scene,board,x,y,texture);
     }
 
-    onTimeElapsed()
+    onTimeElapsed(delta)
     {
-        money += 1;
+        money += 1 * this.resourceMultiplier;
     }
 }

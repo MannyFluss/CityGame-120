@@ -28,7 +28,8 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.setCollideWorldBounds(true);
         this.body.setImmovable(true);
         this.body.onCollide = true;
-        
+        this.name = this.constructor.name;//identifier
+        console.log(this.name);
         this.setInteractive({
             draggable: true,
             useHandCursor: true
@@ -40,7 +41,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.tileParent;
         this.setScale(1);
         this.state = "idle";
-
+        this.resourceMultiplier = 1;
         this.timer = scene.time.addEvent({
             delay: 500,                // ms
             callback: this.timeElapsed,
@@ -115,6 +116,22 @@ class Building extends Phaser.Physics.Arcade.Sprite
         });
     }
 
+
+
+    getSurroundoundingBuildings()//gets buildings in a + shape
+    {
+        if (this.boar==undefined)
+        {
+            return [];
+        }
+        let x = this.tileX;
+        let y = this.tileY;
+        let board = this.board;
+        
+        let to_return = [board.getBuildingAt(x+1,y),board.getBuildingAt(x-1,y),board.getBuildingAt(x,y+1),board.getBuildingAt(x,y-1)];
+        
+        return to_return;
+    }
     onTimeElapsed(delta){};
     onPlace(){};
 
@@ -176,7 +193,6 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.y = tile.y;
         this.tileParent = tile;
         //this might not be necessary
-
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);

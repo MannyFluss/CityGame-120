@@ -32,7 +32,11 @@ class Shop extends Phaser.GameObjects.Container
     }
     refreshShop()
     {
-
+        if (this.boardRef.checkForBuildingType(WinmillBuilding))
+        {
+            console.log('windmill alert');
+        }
+        
         for (let i = 0; i<3 ;i++)
         {
             this.availableBuildings[i] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
