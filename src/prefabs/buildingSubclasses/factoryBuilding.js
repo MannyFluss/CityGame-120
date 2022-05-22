@@ -35,7 +35,7 @@ class SmallFactory extends Building
                 }
             }
             console.log(buildings);
-            money += count * 2;
+            this.economyRef.earnMoney(count * 2,this);
             //checksurroundingbuildings
         }
     }

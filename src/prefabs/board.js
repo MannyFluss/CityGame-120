@@ -68,6 +68,7 @@ class Board extends Phaser.GameObjects.Container
             return;
         }
         this.objectArray[x][y]=null;
+        this.emit('boardStateChanged',this.objectArray);
     }
     getBuildingAt(x,y)
     {
@@ -90,7 +91,7 @@ class Board extends Phaser.GameObjects.Container
 
     placeBuilding(building,x,y)
     {
-        
+        this.emit('fortniteBattlePass');
         if (!this.checkValidTile(x,y))
         {
             console.log("invalid tile placement");
@@ -100,6 +101,7 @@ class Board extends Phaser.GameObjects.Container
 
         building.setPlacement(currTile);
         this.addToObjectArray(building, x, y);
+        this.emit('boardStateChanged',this.objectArray);
     }
 
     addToObjectArray(object, x, y) {

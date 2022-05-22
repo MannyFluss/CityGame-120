@@ -18,6 +18,6 @@ class Hotel extends Building
 
     onPlace()
     {
-        money += 10;
+        this.economyRef.earnMoney(10,this);
     }
 }

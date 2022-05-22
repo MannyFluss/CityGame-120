@@ -13,6 +13,13 @@ class ParkBuilding extends Building
     constructor(scene,board,x,y,texture=ParkBuilding.metaData['texture'])
     {
         super(scene,board,x,y,texture);
+        //this.emit(,this.objectArray);
+        this.board.on('boardStateChanged', (object)=>{this.checkBoard(object);})
+    }
+
+    checkBoard(objectArr)
+    {
+        console.log(objectArr);
     }
 
     setPlacement(tile)//get the tile, set the tile position

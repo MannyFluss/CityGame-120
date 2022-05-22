@@ -16,6 +16,7 @@ class SmallApartment extends Building
 
     onTimeElapsed(delta)
     {
-        money += 1 * this.resourceMultiplier;
+        //money += 1 * this.resourceMultiplier;
+        this.economyRef.earnMoney(1,this);
     }
 }
