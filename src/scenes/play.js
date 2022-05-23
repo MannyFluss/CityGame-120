@@ -17,6 +17,9 @@ class Play extends Phaser.Scene
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
         this.load.image('large-apartment-1','./assets/buildings/large-apartment-1.png');
+        this.load.image('casino','./assets/buildings/casino.png');
+        this.load.image('shop-1','./assets/buildings/shop-1.png');
+        this.load.image('dollar-sign','./assets/ui/dollar-sign.png');
         this.load.image('warning', './assets/warning.png');
         this.load.image('temp-button','./assets/tempArt/buttonz.png');
         this.load.image('radio-temp','./assets/tempArt/radioConsole.png');
