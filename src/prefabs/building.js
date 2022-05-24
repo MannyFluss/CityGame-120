@@ -25,6 +25,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.setOrigin(.5, 1);
         this.buildingDescription = 'default building description'; //this should always be overwritten.       
         // physics settings
+        this.tag = 'none';
         let collisionRadius = this.width/2.5;
         this.economyRef = scene.economy;
         this.body.setCircle(collisionRadius);
@@ -124,7 +125,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     getSurroundoundingBuildings()//gets buildings in a + shape
     {
-        if (this.boar==undefined)
+        if (this.board==undefined)
         {
             return [];
         }

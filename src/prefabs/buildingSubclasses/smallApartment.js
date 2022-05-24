@@ -17,6 +17,7 @@ class SmallApartment extends Building
         super(scene,board,x,y,texture);
         this.counter = 0;
         this.earningInterval = 10 * 1000;
+        this.tag = 'housing';
     }
 
     onTimeElapsed(delta)
@@ -50,6 +51,7 @@ class LargeApartment extends MultiBuilding
         super(scene,board,x,y,texture,['left']);
         this.counter = 0;
         this.earningInterval = 5 * 1000;
+        this.tag = 'housing';
     }
 
     onTimeElapsed(delta)

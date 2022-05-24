@@ -27,13 +27,16 @@ class Hotel extends Building
         {
             let buildings = this.getSurroundoundingBuildings();
             let bottomLine = 4;
-            for (let i=0;i<buildings.length();i++)
+            console.log(buildings);
+            for (let i=0;i<buildings.length;i++)
             {
+                if (buildings[i]==null || buildings[i]==undefined){continue;}
                 if (buildings[i].tag == 'housing')
                 {
                     bottomLine -=1;
                 }
             }
+            console.log('earning this much ' + bottomLine)
             this.economyRef.earnMoney(bottomLine,this);
             this.counter = 0;
         }
