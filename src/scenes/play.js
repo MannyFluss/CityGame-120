@@ -35,7 +35,7 @@ class Play extends Phaser.Scene
     
     create()
     {
-        this.winCondition = new winState(this,"timer",{survivalTime : 1 * 1000});
+        this.winCondition = new winState(this,"timer",{survivalTime : 30 * 1000});
         this.boardConfig={
             "sprite" : 'tileSprite',
         }
@@ -75,12 +75,12 @@ class Play extends Phaser.Scene
 
     initUI()
     {
-        this.UImoney = this.add.text(50, 50, money);
+        this.UImoney = this.add.text(50, 50, this.economy.getCurrMoney());
     }
 
     update()
     {
-        this.UImoney.text = money;
+        this.UImoney.text = this.economy.getCurrMoney();
         for(let x=0; x<this.board.boardX; x++) {
             for(let y=0; y<this.board.boardY; y++) {
                 let building = this.board.objectArray[x][y];
