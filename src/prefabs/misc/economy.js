@@ -14,7 +14,10 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
 
         this.currentMoney += amount
     }
-
+    getCurrMoney()
+    {
+        return this.currentMoney;
+    }
     spendMoney(amount=0)
     {
         this.currentMoney -= amount;
