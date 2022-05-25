@@ -59,6 +59,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         });
 
         // define events
+        this.immovable = false;
         this.on('drag', (pointer, dragX, dragY) => {
             if(this.state == "idle") {
                 console.log("start dragging");
@@ -82,7 +83,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
             this.body.setImmovable(true);
             this.afterimage.destroy();
            let tile = this.board.getNearestTile(this.x,this.y)
-            if (this.ableToMove(tile.tileX,tile.tileY)) {// ithink this needs to be changed to able to move
+            if (this.ableToMove(tile.tileX,tile.tileY) && this.immovable == false) {// ithink this needs to be changed to able to move
                 this.snapToTile();
             } else {
                 this.x = this.tileParent.x;
@@ -157,6 +158,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         let buildingsCheck = this.getSurroundoundingBuildings();
         for (let i=0;i<buildingsCheck.length;i++)
         {
+            if (buildingsCheck[i]==null || buildingsCheck[i]==undefined){continue;}
             if (buildingsCheck[i].tag == 'repair-crew')
             {
                 let curr = buildingsCheck[i];
@@ -218,6 +220,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.board.objectArray[tile.tileX][tile.tileY] = this;
         this.placementParticles();
         this.onMove();
+        this.board.emit('boardStateChanged',this.board.objectArray);
     }
 
     onMove(){//this is a horrible solution to my problem but idc

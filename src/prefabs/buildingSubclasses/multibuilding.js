@@ -99,6 +99,7 @@ class MultiBuilding extends Building
     setPlacement(tile)//get the tile, set the tile position
     {
 
+        
         this.x = tile.x;
         this.y = tile.y;
         this.tileParent = tile;

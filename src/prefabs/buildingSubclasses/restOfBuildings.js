@@ -67,7 +67,7 @@ class Garden extends Building
         this.counter += 500;
         if (this.counter >= this.earningInterval)
         {
-            this.economyRef.earnMoney(1,this);
+            //this.economyRef.earnMoney(1,this);
             let buildings = this.getSurroundoundingBuildings();
             let types = new Phaser.Structs.Set();
             for (let i=0;i<buildings.length;i++)
@@ -75,9 +75,39 @@ class Garden extends Building
                 if (buildings[i]==undefined || buildings[i]==null){continue;}
                 types.set(buildings[i].name);
             }
+
             this.economyRef.earnMoney(types.size, this);
             this.counter = 0;
         }
     }
-    
+}
+class Mine extends MultiBuilding
+{    
+    static metaData = 
+    {
+        "texture" : 'small-apartment-1',
+        "description" : "generates lots of money!",
+        "name" : 'Mine',
+        "placeCost" : 40,
+        "shopCost" : 100,
+        "shopFunction" : "addNewBuilding",
+        "shopArguments" : [Mine],
+    };
+    constructor(scene,x,y,texture = Mine.metaData['texture'])
+    {
+        super(scene,x,y,texture,['left','down','right']);
+        this.counter = 0;
+        this.earningInterval = 2 * 1000;
+        this.immovable = true;
+    }
+
+    onTimeElapsed(delta)
+    {
+        //money += 1 * this.resourceMultiplier;
+        this.counter += 500;
+        if (this.counter >= this.earningInterval)
+        {
+            this.economyRef.earnMoney(1,this);
+        }
+    }
 }
