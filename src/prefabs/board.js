@@ -108,6 +108,11 @@ class Board extends Phaser.GameObjects.Container
         this.objectArray[x][y] = object;
     }
 
+    onBuildingDestroy(building = undefined)
+    {
+        this.emit('onBuildingDestroy',[building]);
+    }
+
     initalizeGrid()
     {
         for(let y=0;y<this.boardY;y++)

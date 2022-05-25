@@ -123,14 +123,12 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
 
 
-    getSurroundoundingBuildings()//gets buildings in a + shape
+    getSurroundoundingBuildings(x=this.tileX,y=this.tileY)//gets buildings in a + shape
     {
         if (this.board==undefined)
         {
             return [];
         }
-        let x = this.tileX;
-        let y = this.tileY;
         let board = this.board;
         
         let to_return = [board.getBuildingAt(x+1,y),board.getBuildingAt(x-1,y),board.getBuildingAt(x,y+1),board.getBuildingAt(x,y-1)];
@@ -156,7 +154,23 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     destroyThisBuilding()
     {
+        let buildingsCheck = this.getSurroundoundingBuildings();
+        for (let i=0;i<buildingsCheck.length;i++)
+        {
+            if (buildingsCheck[i].tag == 'repair-crew')
+            {
+                let curr = buildingsCheck[i];
+                if (curr.protectionCount > 0)
+                {
+                    curr.protectionCount -= 1;
+                    return;
+                }
+            }
+        }
+        //if its made it past here it is getting destroyed()
         //clear the obj array @ this buildings coordinates of board.js
+
+        this.board.onBuildingDestroy(this);
         this.board.clearTile(this.tileX,this.tileY);
         let x = this.tileX;
         let y = this.tileY;
@@ -203,6 +217,26 @@ class Building extends Phaser.Physics.Arcade.Sprite
         console.log("Placing at", tile.tileX, tile.tileY);
         this.board.objectArray[tile.tileX][tile.tileY] = this;
         this.placementParticles();
+        this.onMove();
+    }
+
+    onMove(){//this is a horrible solution to my problem but idc
+        console.log(this.tag)
+        if (this.tag == 'casino')
+        {
+            let toGamble = this.economyRef.getCurrMoney() * 0.05;
+            let random = Phaser.Math.FloatBetween(0.0 , 2.5);
+            let value = Math.round(toGamble * random);
+
+            if (Phaser.Math.Between(0,1)==0)
+            {
+                this.economyRef.earnMoney(value);
+            }else
+            {
+                this.economyRef.spendMoney(value);
+            }
+            console.log('gambled solution: ' + value)
+        }
     }
 
     placementParticles()
