@@ -35,6 +35,11 @@ class MultiBuilding extends Building
         // console.log(this.ableToMove(this.tileX,this.tileY));
     }
 
+    onMove()
+    {
+        super.onMove();
+    }
+
     ableToMove(x,y)
     {
         if (this.board.checkValidTile(x,y) == false)
@@ -86,6 +91,11 @@ class MultiBuilding extends Building
         return true;
     }
     
+    getSurroundoundingBuildings()
+    {
+        return super.getSurroundoundingBuildings();
+    }
+
     setPlacement(tile)//get the tile, set the tile position
     {
 
@@ -97,8 +107,9 @@ class MultiBuilding extends Building
         
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
-        console.log("Placing at", tile.tileX, tile.tileY);
+        //console.log("Placing at", tile.tileX, tile.tileY);
         this.board.objectArray[tile.tileX][tile.tileY] = this;
+        this.onMove();
         for (let i=0;i<this.multi.length;i++)
         {
             let x = tile.tileX;

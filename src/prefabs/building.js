@@ -6,9 +6,12 @@ class Building extends Phaser.Physics.Arcade.Sprite
         "texture" : 'small-apartment-1',
         "description" : "this building generates money when placed",
         "name" : 'default building',
+        "tag" : undefined,
+        "placeCost" : 10,
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Building],
+        
     };
     constructor(scene,board,x,y,texture)
     {
@@ -22,13 +25,16 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.setOrigin(.5, 1);
         this.buildingDescription = 'default building description'; //this should always be overwritten.       
         // physics settings
+        this.tag = 'none';
         let collisionRadius = this.width/2.5;
+        this.economyRef = scene.economy;
         this.body.setCircle(collisionRadius);
         this.body.setOffset(this.width/2-collisionRadius, this.height-collisionRadius*2);
         this.setCollideWorldBounds(true);
         this.body.setImmovable(true);
         this.body.onCollide = true;
-        
+        this.name = this.constructor.name;//identifier
+        console.log(this.name);
         this.setInteractive({
             draggable: true,
             useHandCursor: true
@@ -40,7 +46,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.tileParent;
         this.setScale(1);
         this.state = "idle";
-
+        this.resourceMultiplier = 1;
         this.timer = scene.time.addEvent({
             delay: 500,                // ms
             callback: this.timeElapsed,
@@ -53,6 +59,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         });
 
         // define events
+        this.immovable = false;
         this.on('drag', (pointer, dragX, dragY) => {
             if(this.state == "idle") {
                 console.log("start dragging");
@@ -76,7 +83,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
             this.body.setImmovable(true);
             this.afterimage.destroy();
            let tile = this.board.getNearestTile(this.x,this.y)
-            if (this.ableToMove(tile.tileX,tile.tileY)) {// ithink this needs to be changed to able to move
+            if (this.ableToMove(tile.tileX,tile.tileY) && this.immovable == false) {// ithink this needs to be changed to able to move
                 this.snapToTile();
             } else {
                 this.x = this.tileParent.x;
@@ -115,6 +122,20 @@ class Building extends Phaser.Physics.Arcade.Sprite
         });
     }
 
+
+
+    getSurroundoundingBuildings(x=this.tileX,y=this.tileY)//gets buildings in a + shape
+    {
+        if (this.board==undefined)
+        {
+            return [];
+        }
+        let board = this.board;
+        
+        let to_return = [board.getBuildingAt(x+1,y),board.getBuildingAt(x-1,y),board.getBuildingAt(x,y+1),board.getBuildingAt(x,y-1)];
+        
+        return to_return;
+    }
     onTimeElapsed(delta){};
     onPlace(){};
 
@@ -134,7 +155,24 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
     destroyThisBuilding()
     {
+        let buildingsCheck = this.getSurroundoundingBuildings();
+        for (let i=0;i<buildingsCheck.length;i++)
+        {
+            if (buildingsCheck[i]==null || buildingsCheck[i]==undefined){continue;}
+            if (buildingsCheck[i].tag == 'repair-crew')
+            {
+                let curr = buildingsCheck[i];
+                if (curr.protectionCount > 0)
+                {
+                    curr.protectionCount -= 1;
+                    return;
+                }
+            }
+        }
+        //if its made it past here it is getting destroyed()
         //clear the obj array @ this buildings coordinates of board.js
+
+        this.board.onBuildingDestroy(this);
         this.board.clearTile(this.tileX,this.tileY);
         let x = this.tileX;
         let y = this.tileY;
@@ -176,12 +214,32 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.y = tile.y;
         this.tileParent = tile;
         //this might not be necessary
-
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
         this.board.objectArray[tile.tileX][tile.tileY] = this;
         this.placementParticles();
+        this.onMove();
+        this.board.emit('boardStateChanged',this.board.objectArray);
+    }
+
+    onMove(){//this is a horrible solution to my problem but idc
+        console.log(this.tag)
+        if (this.tag == 'casino')
+        {
+            let toGamble = this.economyRef.getCurrMoney() * 0.05;
+            let random = Phaser.Math.FloatBetween(0.0 , 2.5);
+            let value = Math.round(toGamble * random);
+
+            if (Phaser.Math.Between(0,1)==0)
+            {
+                this.economyRef.earnMoney(value);
+            }else
+            {
+                this.economyRef.spendMoney(value);
+            }
+            console.log('gambled solution: ' + value)
+        }
     }
 
     placementParticles()
