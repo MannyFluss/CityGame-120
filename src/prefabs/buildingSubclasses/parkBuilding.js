@@ -14,14 +14,18 @@ class ParkBuilding extends Building
     {
         super(scene,board,x,y,texture);
         this.collisionSet = new Phaser.Structs.Set();
+        this.tag = 'park';
         //this.emit(,this.objectArray);
         this.board.on('boardStateChanged', (object)=>{this.checkBoard(object);})
     }
 
     objOrNULL(objectArray,x,y)
     {
-        if ((this.boardX > x && this.boardY > y ) && (x>=0 && y>= 0))
+
+        //console.log(objectArray);
+        if ((this.board.boardX > x && this.board.boardY > y ) && (x>=0 && y>= 0))
         {
+
             return objectArray[x][y];
         }
         return null;
@@ -29,35 +33,37 @@ class ParkBuilding extends Building
 
     checkBoard(objectArr)
     {
-        console.log('checking the board on PARK')
-        let buildings = [this.objOrNULL(objectArr,this.tileX+1,this.tileY),this.objOrNULL(objectArr,this.tileX-1,this.tileY),
-            this.objOrNULL(objectArr,this.tileX,this.tileY-1),this.objOrNULL(objectArr,this.tileX,this.tileY+1)];
-        console.log(buildings);
-        let new_set = new Phaser.Structs.Set();
-        for (let i=0;i<buildings.length;i++)
-        {
-            if(buildings[i]==null || buildings[i]==undefined){continue;}
-            if(this.collisionSet.contains(buildings[i]))
-            {
-                new_set.set(buildings[i]);
-                continue;
-            }
-            if (this.collisionSet.contains(buildings[i])==false)
-            {
-                //emit signal
-                new_set.set(buildings[i]);
-                this.buildingEnteredArea(buildings[i]);
-            }
-        }
-        let remaining_buildings = this.collisionSet.difference(this.new_set);
-        //console.log(new_set.diff);
-        //console.log(this.collisionSet);
-        for (let i=0;i<remaining_buildings.length;i++)
-        {
-            this.buildingExitedArea(remaining_buildings[i]);
-            //console.log(remaining_buildings[i]);
-        }
-        //console.log(remaining_buildings);
+        // console.log('checking the board on PARK')
+
+
+        // let buildings = [this.objOrNULL(objectArr,this.tileX+1,this.tileY),this.objOrNULL(objectArr,this.tileX-1,this.tileY),
+        //     this.objOrNULL(objectArr,this.tileX,this.tileY-1),this.objOrNULL(objectArr,this.tileX,this.tileY+1)];
+        // //console.log(buildings);
+        // let new_set = new Phaser.Structs.Set();
+        // for (let i=0;i<buildings.length;i++)
+        // {
+        //     if(buildings[i]==null || buildings[i]==undefined){continue;}
+        //     if(this.collisionSet.contains(buildings[i]))
+        //     {
+        //         new_set.set(buildings[i]);
+        //         continue;
+        //     }
+        //     if (this.collisionSet.contains(buildings[i])==false)
+        //     {
+        //         //emit signal
+        //         new_set.set(buildings[i]);
+        //         this.buildingEnteredArea(buildings[i]);
+        //     }
+        // }
+        // let remaining_buildings = this.collisionSet.difference(this.new_set);
+        // //console.log(new_set.diff);
+        // //console.log(this.collisionSet);
+        // for (let i=0;i<remaining_buildings.length;i++)
+        // {
+        //     this.buildingExitedArea(remaining_buildings[i]);
+        //     //console.log(remaining_buildings[i]);
+        // }
+        // //console.log(remaining_buildings);
 
     }
 

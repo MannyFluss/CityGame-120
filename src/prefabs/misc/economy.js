@@ -11,7 +11,23 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
     
     earnMoney(amount=0,buildingSendingMoney=undefined)
     {
+        let flag = false;
+        if (buildingSendingMoney!=undefined)
+        {
+            let buildings = buildingSendingMoney.getSurroundoundingBuildings();
+            for(let i=0;i<buildings.length;i++)
+            {
+                if (buildings[i]==null || buildings[i]==undefined){continue;}
+                if (buildings[i].tag == 'park')
+                {
+                    flag = true;
+                    break;
+                }
+            }
 
+        }
+        if (flag){amount+=1;}
+        //console.log('aura')
         this.currentMoney += amount
     }
     getCurrMoney()
