@@ -36,6 +36,7 @@ class ThreatGenerator extends Phaser.GameObjects.Container
     generateDisaster()
     {
         console.log('disastertime')
+        this.boardRef.emit('onDisaster');
         let targTile = this.boardRef.getRandomTile();
         this.disasters.push(new Meteor(this.sceneRef,0,0,'',5,targTile));
 
