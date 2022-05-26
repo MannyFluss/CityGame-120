@@ -14,7 +14,7 @@ class ShopScene extends Phaser.Scene
     {
         //this.addNewBuilding(Hotel);
         //this.increaseBoardSize();
-        new SceneButton(this,50,50,'submit-button','playScene');
+        new SceneButton(this,game.config.width-20,game.config.height-20,'submit-button','playScene').setOrigin(1, 1);
         this.initPreview();
         this.initPurchases();
         // static metaData = 

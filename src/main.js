@@ -15,6 +15,7 @@ let config = {
         //     debug: true
         // }
     },
+    resolution: window.devicePixelRatio,
 }
 
 // declare keys

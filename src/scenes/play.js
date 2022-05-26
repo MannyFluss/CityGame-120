@@ -15,7 +15,7 @@ class Play extends Phaser.Scene
         this.load.image('small-factory','./assets/buildings/small-factory.png');
         this.load.image('small-windmill','./assets/buildings/small-windmill.png');
         this.load.image('small-park','./assets/buildings/small-park.png');
-        this.load.image('submit-button','./assets/tempArt/check.png');
+        this.load.image('submit-button','./assets/ui/finish-button.png');
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
