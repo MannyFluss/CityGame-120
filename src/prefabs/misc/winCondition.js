@@ -6,6 +6,7 @@ class winState extends Phaser.GameObjects.GameObject
         super(scene);
         this.condition = condition;
         this.sceneRef = scene;
+        this.boardRef = scene.board;
         this.workingVariables = {};
         this.workingVariables['objectiveMessage'] = 'default objective message';
         this.config = config;
@@ -35,6 +36,15 @@ class winState extends Phaser.GameObjects.GameObject
                 this.progressText.text = this.workingVariables["timePassed"] + ' / ' + this.workingVariables["survivalTime"];
                 //configure goes here
                 break;
+            case 'building':
+                this.workingVariables['buildingsBuilt'] = 0;
+                this.workingVariables['totalBuildings'] = 0;
+                this.workingVariables['buildingType'] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
+                this.boardRef.on('newBuildingPlaced',(buildingType)=>{
+                    this.buildingUpdateWinCondition(buildingType);
+                });
+                this.progressText.text = 'building time';
+
             default:
                 console.log('win condition failed to setup');
                 //goto win condition
@@ -44,6 +54,19 @@ class winState extends Phaser.GameObjects.GameObject
         //have message popup here about objective
         this.workingVariables = this.combineDict(this.workingVariables,this.config);
         
+    }
+
+
+    buildingUpdateWinCondition(type)
+    {
+        if (type == this.workingVariables['buildingType'])
+        {
+            this.workingVariables['buildingsBuilt'] += 1;
+        }
+        if (this.workingVariables['buildingsBuilt'] >= this.workingVariables['totalBuildings'])
+        {
+            this.conditionMet();
+        }
     }
 
 
