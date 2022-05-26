@@ -25,8 +25,16 @@ class KingRay extends Phaser.GameObjects.Sprite
             callbackScope : this
         });
 
+
     }
 
+    
+    customDestroy()
+    {
+        this.timer.destroy();
+        this.anotherTimer.destroy();
+        this.destroy();
+    }
     checkPlacement()
     {
         if (this.boardRef.checkEmpty(this.tileX,this.tiley)==false)

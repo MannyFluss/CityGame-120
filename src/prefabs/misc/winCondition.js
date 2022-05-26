@@ -62,8 +62,9 @@ class winState extends Phaser.GameObjects.GameObject
             case 'koth':
                 this.workingVariables['kothEarned'] = 0;
                 this.workingVariables['kothTotal'] = 0;
-                let koth = new KingRay(this.sceneRef,0,0,undefined);
-                koth.on('onKothTick',()=>{
+                this.koth = new KingRay(this.sceneRef,0,0,undefined);
+
+                this.koth.on('onKothTick',()=>{
                     this.updateKoth();
                 })
 
@@ -84,6 +85,7 @@ class winState extends Phaser.GameObjects.GameObject
         if (this.workingVariables['kothEarned'] >= this.workingVariables['kothTotal'])
         {
             this.conditionMet();
+            this.koth.customDestroy();
         }  
     }
     capitalismUpdate(amount)
