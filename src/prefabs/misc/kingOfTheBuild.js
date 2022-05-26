@@ -7,9 +7,10 @@ class KingRay extends Phaser.GameObjects.Sprite
         //place me on random tile
         this.tileX;
         this.tileY;
-        this.setPlacement();
+        this.setScale(3);
+        this.setOrigin(.5, 1);
         this.boardRef = scene.board;
-
+        this.setPlacement();
         this.timer = scene.time.addEvent({
             delay: 1000,                // ms
             callback: this.checkPlacement,
