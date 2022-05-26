@@ -13,6 +13,7 @@ class Play extends Phaser.Scene
     preload()
     {
         this.load.image("koth-marker",'./assets/goodwarning.png');
+        this.load.image('tornado','./assets/tempArt/bad-tornado.png');
         this.load.image('small-factory','./assets/buildings/small-factory.png');
         this.load.image('small-windmill','./assets/buildings/small-windmill.png');
         this.load.image('small-park','./assets/buildings/small-park.png');
@@ -57,6 +58,7 @@ class Play extends Phaser.Scene
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
         
+        this.test = new Tornado(this,0,0,'');
         this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
 
         // this.test = new MultiBuilding(this,this.board,0,0,'small-apartment-1',['left']);
