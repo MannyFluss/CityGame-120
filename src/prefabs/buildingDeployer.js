@@ -24,6 +24,7 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
 
     timeToPlaceBuilding()
     {
+        let type = this.toDeploy;
         let newBuilding = new this.toDeploy(this.sceneRef,this.boardRef,0,0);
 
         
@@ -61,6 +62,7 @@ class BuildingDeployer extends Phaser.GameObjects.Sprite
                 buildingOrNull.destroyThisBuilding();
             }
         }
+        this.boardRef.emit('newBuildingPlaced',type);
         this.boardRef.placeBuilding(newBuilding,this.tileX,this.tileY);
 
     }

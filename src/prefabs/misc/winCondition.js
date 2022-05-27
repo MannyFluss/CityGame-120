@@ -6,6 +6,8 @@ class winState extends Phaser.GameObjects.GameObject
         super(scene);
         this.condition = condition;
         this.sceneRef = scene;
+        this.boardRef = scene.board;
+        this.economyRef = scene.economy;
         this.workingVariables = {};
         this.workingVariables['objectiveMessage'] = 'default objective message';
         this.config = config;
@@ -35,6 +37,37 @@ class winState extends Phaser.GameObjects.GameObject
                 this.progressText.text = this.workingVariables["timePassed"] + ' / ' + this.workingVariables["survivalTime"];
                 //configure goes here
                 break;
+            case 'building':
+                this.workingVariables['buildingsBuilt'] = 0;
+                this.workingVariables['totalBuildings'] = 0;
+                this.workingVariables['buildingType'] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
+                this.boardRef.on('newBuildingPlaced',(buildingType)=>{
+                    this.buildingUpdateWinCondition(buildingType);
+                });
+                this.progressText.text = 'building time';
+                break;
+            case 'disasters':
+                this.workingVariables['disastersEndured'] = 0;
+                this.workingVariables['totalDisasters'] = 0;
+                this.boardRef.on('onDisaster',()=>{
+                    this.disasterUpdates();
+                })    
+                break;
+            case 'capitalism':
+                this.workingVariables['moneyEarned'] = 0;
+                this.workingVariables['moneyTotal'] = 0;
+                this.economyRef.on('onMoneyMade',(amount)=>{
+                    this.capitalismUpdate(amount);
+                })
+            case 'koth':
+                this.workingVariables['kothEarned'] = 0;
+                this.workingVariables['kothTotal'] = 0;
+                this.koth = new KingRay(this.sceneRef,0,0,undefined);
+
+                this.koth.on('onKothTick',()=>{
+                    this.updateKoth();
+                })
+
             default:
                 console.log('win condition failed to setup');
                 //goto win condition
@@ -44,6 +77,48 @@ class winState extends Phaser.GameObjects.GameObject
         //have message popup here about objective
         this.workingVariables = this.combineDict(this.workingVariables,this.config);
         
+    }
+    updateKoth()
+    {
+        this.workingVariables['kothEarned'] += 1;
+        //this.workingVariables['kothTotal'] = 0; 
+        if (this.workingVariables['kothEarned'] >= this.workingVariables['kothTotal'])
+        {
+            this.conditionMet();
+            this.koth.customDestroy();
+        }  
+    }
+    capitalismUpdate(amount)
+    {
+        this.workingVariables['moneyEarned'] += amount;
+        //this.workingVariables['moneyTotal'] = 0;
+        if (this.workingVariables['moneyEarned'] >= this.workingVariables['moneyTotal'])
+        {
+            this.conditionMet();    
+        }
+    }
+
+    disasterUpdates()
+    {
+        this.workingVariables['disastersEndured']+=1;
+        //this.workingVariables['totalDisasters'] = 0;
+        if (this.workingVariables['disastersEndured']>=this.workingVariables['totalDisasters'])
+        {
+            this.conditionMet();
+        }
+
+    }
+
+    buildingUpdateWinCondition(type)
+    {
+        if (type == this.workingVariables['buildingType'])
+        {
+            this.workingVariables['buildingsBuilt'] += 1;
+        }
+        if (this.workingVariables['buildingsBuilt'] >= this.workingVariables['totalBuildings'])
+        {
+            this.conditionMet();
+        }
     }
 
 
@@ -61,6 +136,8 @@ class winState extends Phaser.GameObjects.GameObject
                 {
                     this.conditionMet();
                 }
+                break;
+            case 'building':
                 break;
             default:
                 console.log('this should never be seen. like ever. something has bugged');

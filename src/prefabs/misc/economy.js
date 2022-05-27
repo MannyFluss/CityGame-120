@@ -28,6 +28,8 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
         }
         if (flag){amount+=1;}
         //console.log('aura')
+
+        this.emit('onMoneyMade',amount);
         this.currentMoney += amount
     }
     getCurrMoney()
