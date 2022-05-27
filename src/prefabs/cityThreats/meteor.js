@@ -112,11 +112,25 @@ class Fog extends Phaser.GameObjects.Sprite
         this.warnings[2] = new Warning(scene,0,0,'warning',destructionDelay).setWarningPlacement(this.boardRef.getTile(randX,randY+1));
         this.warnings[3] = new Warning(scene,0,0,'warning',destructionDelay).setWarningPlacement(this.boardRef.getTile(randX+1,randY+1));
 
-        scene.time.delayedCall(destructionDelay * 1000,()=>{this.fogDestruction();});
+        scene.time.delayedCall((destructionDelay * 1000)-5,()=>{this.fogDestruction();});
     }
 
     fogDestruction()
     {
+        for(let i=0;i<this.warnings.length;i++)
+        {
+     //       console.log(this.warnings[i]);
+            let x = this.warnings[i].tileX;
+            let y = this.warnings[i].tileY;
+
+            let buildingOrNull = this.boardRef.getBuildingAt(x,y);
+            if (buildingOrNull != null)
+            {
+                buildingOrNull.destroyThisBuilding();
+            }
+
+        }
+        this.destroy();
         //
     }
 

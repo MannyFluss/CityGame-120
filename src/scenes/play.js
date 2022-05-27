@@ -58,7 +58,7 @@ class Play extends Phaser.Scene
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
         
-        this.test = new Tornado(this,0,0,'');
+        this.test = new Fog(this,0,0,'');
         this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
 
         // this.test = new MultiBuilding(this,this.board,0,0,'small-apartment-1',['left']);
