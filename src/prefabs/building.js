@@ -15,10 +15,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
     };
     constructor(scene,board,x,y,texture)
     {
-        if (texture==undefined)
-        {
-            texture = "small-apartment-1";
-        }
+        
         super(scene,x,y,texture);
         scene.add.existing(this);
         scene.physics.add.existing(this);

@@ -1,6 +1,5 @@
 class Hotel extends Building
 {
-    static textureName = 'hotel-1';
     static metaData = 
     {
         "texture" : 'hotel-1',
@@ -14,7 +13,8 @@ class Hotel extends Building
     };
     constructor(scene,board,x,y,texture='hotel-1')//this texture will always be hotel
     {
-        super(scene,board,x,y,Hotel.textureName);
+        
+        super(scene,board,x,y,texture);
         this.counter = 0;
         this.earningInterval = 10 * 1000;
         this.tag = 'hotel';
@@ -48,29 +48,28 @@ class Hotel extends Building
     }
 }
 
+
 class Casino extends MultiBuilding
 {
     static metaData = 
     {
-        "texture" : 'hotel-1',
+        "texture" : 'casino',
         "description" : "this building generates extra income from hotels nearby,"+ 
         "additionally gambles part a part of your income any time it is moved",
         "name" : "casino",
-        
         'placeCost' : 30,
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Casino],
     };
-    constructor(scene,board,x,y,texture='hotel-1')//this texture will always be hotel
+    constructor(scene,board,x,y,texture=Casino.metaData['texture'])//this texture will always be hotel
     {
-        super(scene,board,x,y,Casino.textureName,['left']);
+
+        super(scene,board,x,y,texture,['left']);
         this.counter = 0;
         this.earningInterval = 10 * 1000;
         this.tag = 'casino';
-        
-        //this.tag = 'hotel';
-           
+
     }
     onTimeElapsed()
     {
