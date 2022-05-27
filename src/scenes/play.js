@@ -14,6 +14,7 @@ class Play extends Phaser.Scene
     {
         this.load.image('small-factory','./assets/buildings/small-factory.png');
         this.load.image('small-windmill','./assets/buildings/small-windmill.png');
+        this.load.image('repair-crew-1','./assets/buildings/repair-crew-1.png');
         this.load.image('small-park','./assets/buildings/small-park.png');
         this.load.image('submit-button','./assets/ui/finish-button.png');
         this.load.image('tileSprite','./assets/tile.png');
