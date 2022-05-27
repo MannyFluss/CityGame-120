@@ -40,7 +40,7 @@ let shopSceneAvailableList = //this is an array filled with the METADATA for the
 
 //    SmallFactory.metaData,ParkBuilding.metaData,WinmillBuilding.metaData,
 ];
-let sceneInitMoney = 0;
+let sceneInitMoney = 10;
 let highScore = 0;
 let boardSize = 2;
 let money = 0;

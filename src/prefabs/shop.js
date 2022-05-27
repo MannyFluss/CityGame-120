@@ -14,6 +14,7 @@ class Shop extends Phaser.GameObjects.Container
 
         this.refreshButton = new Phaser.GameObjects.Sprite(scene,80,-160,'temp-button').setInteractive();
 
+        this.economyRef = scene.economy;
         this.purchase = [];
         this.purchase[0] = new ShopButton(scene,0,-80);
         this.purchase[1] = new ShopButton(scene,0,0);
@@ -53,9 +54,12 @@ class Shop extends Phaser.GameObjects.Container
             //console.log(this.availableBuildings[i]);
         }
     }
-    buildingPlaced(index)
+    buildingPlaced(index, buildingType)
     {
         //takes ur monies here
+        this.availableBuildings[index] = undefined;
+
+        this.economyRef.spendMoney(buildingType.metaData['placeCost']);
 
         let tween = this.sceneRef.tweens.add({
             targets: this.purchase[index],
@@ -65,10 +69,6 @@ class Shop extends Phaser.GameObjects.Container
         })     
 
     }
-    test()
-    {
-        console.log('test');
-    }
 
     purchaseBuilding(index = 0)//currently unsafe, can place on a already existing building w/o destroying it
     {
@@ -77,7 +77,13 @@ class Shop extends Phaser.GameObjects.Container
             console.log('invalid shop index chosen');
             return;
         }
-        
+        console.log(this.availableBuildings[index].metaData['placeCost']);
+        if (this.economyRef.checkSpendMoney(this.availableBuildings[index].metaData['placeCost'])==false)
+        {
+            console.log('not enough money')
+            return; //not enough money
+        }        
+
         //create new building
         //place on random spot on board
         //in future make it so that a seperate meteor like object spawns buildings in
