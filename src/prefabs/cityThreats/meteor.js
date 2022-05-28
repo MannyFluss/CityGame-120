@@ -1,19 +1,29 @@
 class Meteor extends Phaser.GameObjects.Sprite
 {
-    constructor(scene,x,y,texture,destructionDelay=5,tile)
+    constructor(scene,x,y,texture = 'meteor',destructionDelay=5,tile)
     {
         super(scene,x,y,texture);
         scene.add.existing(this);
-        this.setOrigin(.5, 1);
+        this.setOrigin(.5, .5);
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
         this.boardRef;
         this.tileRef = tile;
         this.sceneRef = scene;
-
         this.warning = new Warning(scene,this.tileRef.x,this.tileRef.y,'warning',destructionDelay);
         this.warning.setWarningPlacement(this.tileRef);
         scene.time.delayedCall(destructionDelay * 1000,()=>{this.meteorExplosion();});
+
+        this.x = this.tileRef.x;
+        this.y = this.tileRef.y - 500;
+        
+        this.sceneRef.tweens.add({
+            targets: this,
+            ease: 'Sine.easeInOut',
+            y : this.tileRef.y - 50,
+            duration : destructionDelay *1000,
+            angle : 1000,
+        })     
     }
 
     meteorExplosion()
@@ -35,6 +45,7 @@ class Meteor extends Phaser.GameObjects.Sprite
             lifeSpan : 100
         })
         this.sceneRef.time.delayedCall(100,()=>{emitter.stop();},this);
+        this.destroy();
     }
 
     update()
