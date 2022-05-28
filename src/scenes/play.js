@@ -12,6 +12,7 @@ class Play extends Phaser.Scene
     }
     preload()
     {
+        this.load.image('money','./assets/ui/dollar-sign.png');
         this.load.image('meteor','./assets/other/meteor.png');
         this.load.image('fireFX','./assets/other/fireFX.png');
         this.load.image("koth-marker",'./assets/goodwarning.png');
