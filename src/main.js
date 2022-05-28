@@ -34,10 +34,13 @@ let possibleBuildingList =
 
 let shopSceneAvailableList = //this is an array filled with the METADATA for the shop
 [
-    Casino.metaData, Hotel.metaData,SmallFactory.metaData,ParkBuilding.metaData,WinmillBuilding.metaData,
-     MultiBuilding.metaData, RepairCrew.metadata, ShopEntries.tilePurchase1, ShopEntries.tilePurchase2
+    ShopEntries.tilePurchase1,Hotel.metaData, MultiBuilding.metaData,
+    Casino.metaData, RepairCrew.metaData,
+    ShopEntries.tilePurchase2,
+
+//    SmallFactory.metaData,ParkBuilding.metaData,WinmillBuilding.metaData,
 ];
-let sceneInitMoney = 0;
+let sceneInitMoney = 10;
 let highScore = 0;
 let boardSize = 2;
 let money = 0;

@@ -47,19 +47,17 @@ class Play extends Phaser.Scene
         }
         
         this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
-        
+        this.economy = new PlayEconomy(this,0,0);
         //this.board.on('fortniteBattlePass',()=>{console.log('i will breaking your bad')})
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
-        this.economy = new PlayEconomy(this,0,0);
-        this.winCondition = new winState(this,"koth",{'kothTotal' : 5});
+        
+        this.winCondition = new winState(this,"koth",{'kothTotal' : 20});
 
        // this.test = new ShopGhost(this,100,100,Hotel);
         //this.tesbutton = new ShopButton(this,300,300).setDepth(500);
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
-        
-        this.test = new Fog(this,0,0,'');
         this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
 
         // this.test = new MultiBuilding(this,this.board,0,0,'small-apartment-1',['left']);

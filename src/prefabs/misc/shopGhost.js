@@ -30,7 +30,7 @@ class ShopGhost extends Phaser.GameObjects.Sprite
                 console.log('able 2 place');
                 this.buildingDeployer = new BuildingDeployer(this.sceneRef,board, tile.tileX,tile.tileY,undefined,buildingType,0);
 
-                scene.shop.buildingPlaced(index);
+                scene.shop.buildingPlaced(index,buildingType);
                 
                 //build here
             }else{console.log('cannot place');}

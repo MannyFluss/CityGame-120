@@ -11,12 +11,13 @@ class RepairCrew extends Building
         "shopArguments" : [RepairCrew],
         "tag" : "housing",
     };
-    constructor(scene,x,y,texture = RepairCrew.metaData['texture'])
+    constructor(scene,board,x,y,texture = 'repair-crew-1')
     {
-        super(scene,x,y,texture);
+        super(scene,board,x,y,'repair-crew-1');
         this.protectionCount = 3;
         this.tag = 'repair-crew';
     }
+
 }
 
 class InsuranceCo extends Building
@@ -31,9 +32,9 @@ class InsuranceCo extends Building
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [InsuranceCo],
     };
-    constructor(scene,x,y,texture = InsuranceCo.metaData['texture'])
+    constructor(scene,board,x,y,texture = InsuranceCo.metaData['texture'])
     {
-        super(scene,x,y,texture);
+        super(scene,board,x,y,texture);
         this.money2Earn = 5;
         //this.protectionCount = 3;
         //this.tag = 'repair-crew';
@@ -54,9 +55,9 @@ class Garden extends Building
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Garden],
     };
-    constructor(scene,x,y,texture = Garden.metaData['texture'])
+    constructor(scene,board,x,y,texture = Garden.metaData['texture'])
     {
-        super(scene,x,y,texture);
+        super(scene,board,x,y,texture);
         this.counter = 0;
         this.earningInterval = 10 * 1000;
     }
@@ -93,9 +94,9 @@ class Mine extends MultiBuilding
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Mine],
     };
-    constructor(scene,x,y,texture = Mine.metaData['texture'])
+    constructor(scene,board,x,y,texture = Mine.metaData['texture'])
     {
-        super(scene,x,y,texture,['left','down','right']);
+        super(scene,board,x,y,texture,['left','down','right']);
         this.counter = 0;
         this.earningInterval = 2 * 1000;
         this.immovable = true;

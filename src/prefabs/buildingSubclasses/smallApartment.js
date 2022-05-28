@@ -6,7 +6,6 @@ class SmallApartment extends Building
         "description" : "this building generates money when placed",
         "name" : 'Small Apartment',
         "placeCost" : 10,
-
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [SmallApartment],
