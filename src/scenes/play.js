@@ -13,6 +13,7 @@ class Play extends Phaser.Scene
     preload()
     {
         this.load.image('meteor','./assets/other/meteor.png');
+        this.load.image('fireFX','./assets/other/fireFX.png');
         this.load.image("koth-marker",'./assets/goodwarning.png');
         this.load.image('tornado','./assets/tempArt/bad-tornado.png');
         this.load.image('small-factory','./assets/buildings/small-factory.png');
