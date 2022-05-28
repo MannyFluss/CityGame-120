@@ -82,6 +82,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
            let tile = this.board.getNearestTile(this.x,this.y)
             if (this.ableToMove(tile.tileX,tile.tileY) && this.immovable == false) {// ithink this needs to be changed to able to move
                 this.snapToTile();
+                this.placementAnimation();
             } else {
                 this.x = this.tileParent.x;
                 this.y = this.tileParent.y;
@@ -98,6 +99,22 @@ class Building extends Phaser.Physics.Arcade.Sprite
 
         //this.eventEmitter.emit('buildingPlaced')
         this.setupSignals(); 
+    }
+
+    placementAnimation()
+    {
+        let amount = 40
+        let dur = .15 * 1000;
+        this.y = this.y -amount;
+        this.sceneRef.tweens.add({
+            targets: this,
+            ease: 'Sine.easeIn',
+//            scale : {start : 2, end : 1.5},
+            y : this.y + amount,
+            duration : dur,
+        })
+        this.sceneRef.time.delayedCall(dur,()=>{this.placementParticles();},this);
+        
     }
 
     validBuildSpot(x,y)
@@ -215,7 +232,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
         this.board.objectArray[tile.tileX][tile.tileY] = this;
-        this.placementParticles();
+        
         this.onMove();
         this.board.emit('boardStateChanged',this.board.objectArray);
     }
