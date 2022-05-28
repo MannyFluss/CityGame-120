@@ -81,6 +81,7 @@ class Shop extends Phaser.GameObjects.Container
         if (this.economyRef.checkSpendMoney(this.availableBuildings[index].metaData['placeCost'])==false)
         {
             console.log('not enough money')
+            
             return; //not enough money
         }        
 

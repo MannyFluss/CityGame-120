@@ -140,7 +140,7 @@ class winState extends Phaser.GameObjects.GameObject
             case 'building':
                 break;
             default:
-                console.log('this should never be seen. like ever. something has bugged');
+               // console.log('this should never be seen. like ever. something has bugged');
                 break;
         }
         //go through each key
