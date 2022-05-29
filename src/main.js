@@ -8,7 +8,7 @@ let config = {
     height: 600,
     scene : [Play,ShopScene],
     backgroundColor : "#393457",
-    canvasStyle: canvasStyle,
+    // canvasStyle: canvasStyle,
     physics: {
         default: 'arcade',
         // arcade: {
