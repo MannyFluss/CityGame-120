@@ -7,6 +7,16 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
         scene.add.existing(scene);
         this.currentMoney = 0;
         this.earnMoney(sceneInitMoney);
+
+        this.particles = scene.add.particles('money');
+        
+        this.moneyEmitter = this.particles.createEmitter({
+            alpha : {start : 1, end : .25},
+            duration : 3 * 1000,
+            speed : {min : 75, max : 100},
+            angle : {min : 250, max : 290},
+        }).stop();
+        
     }
     
     earnMoney(amount=0,buildingSendingMoney=undefined)
@@ -28,9 +38,18 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
         }
         if (flag){amount+=1;}
         //console.log('aura')
-
+        //set animation here
+        if (buildingSendingMoney != undefined)
+        {
+            this.emitParticles(amount, buildingSendingMoney);
+        }
         this.emit('onMoneyMade',amount);
         this.currentMoney += amount
+    }
+    emitParticles(amount,building)
+    {
+        this.particles.setDepth(building.depth+1);
+        this.moneyEmitter.emitParticle(amount,building.x,building.y - 20);
     }
     getCurrMoney()
     {

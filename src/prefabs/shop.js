@@ -46,7 +46,8 @@ class Shop extends Phaser.GameObjects.Container
                 targets: this.purchase[i],
                 alpha : 1,
                 x : 0,
-                duration : 1 *1000,
+                ease: 'Sine.easeInOut',
+                duration : .25 *1000,
     
             })
             //this.purchase[i];
@@ -65,7 +66,8 @@ class Shop extends Phaser.GameObjects.Container
             targets: this.purchase[index],
             alpha : 0,
             x : 100,
-            duration : 1 *1000,
+            ease: 'Sine.easeInOut',
+            duration : .25 *1000,
         })     
 
     }
@@ -81,6 +83,7 @@ class Shop extends Phaser.GameObjects.Container
         if (this.economyRef.checkSpendMoney(this.availableBuildings[index].metaData['placeCost'])==false)
         {
             console.log('not enough money')
+            
             return; //not enough money
         }        
 

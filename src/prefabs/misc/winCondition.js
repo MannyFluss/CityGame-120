@@ -140,7 +140,7 @@ class winState extends Phaser.GameObjects.GameObject
             case 'building':
                 break;
             default:
-                console.log('this should never be seen. like ever. something has bugged');
+               // console.log('this should never be seen. like ever. something has bugged');
                 break;
         }
         //go through each key
@@ -171,12 +171,32 @@ class winState extends Phaser.GameObjects.GameObject
             alpha : 0,
             duration : 5 * 1000, 
         })
+        
     }
 
     conditionMet()
     {
 
         if (this.objectiveComplete){return;}
+
+        //'pink','red','yellow','green','blue'
+
+        let particles = this.sceneRef.add.particles("particles");
+        
+        this.emitter = particles.createEmitter({
+
+            x : game.canvas.width/2,
+            y : -50,
+            frame : ['pink.png','red.png','yellow.png','blue.png','green.png'],
+            scale : {min : .5, max : 2 },
+            speed : {min : 100, max : 200},
+            lifespan : 10 * 1000,
+            gravityY : 100, 
+
+
+        });
+        this.sceneRef.time.delayedCall(7 * 1000,()=>{this.emitter.stop();},this);
+        //this.emitter.x = game.canvas.width/2;
         this.objectiveComplete = true;
         //create the win button and coffetti pops out from the sky
         this.showGoal('city-goals met!')

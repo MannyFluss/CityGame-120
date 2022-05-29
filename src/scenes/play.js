@@ -12,6 +12,18 @@ class Play extends Phaser.Scene
     }
     preload()
     {
+        //particles 
+        this.load.image('pink','./assets/particles/pink.png');
+        this.load.image('blue','./assets/particles/blue.png');
+        this.load.image('green','./assets/particles/green.png');
+        this.load.image('red','./assets/particles/red.png');
+        this.load.image('yellow','./assets/particles/yellow.png');
+        
+        this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
+
+        this.load.image('money','./assets/ui/dollar-sign.png');
+        this.load.image('meteor','./assets/other/meteor.png');
+        this.load.image('fireFX','./assets/other/fireFX.png');
         this.load.image("koth-marker",'./assets/goodwarning.png');
         this.load.image('tornado','./assets/tempArt/bad-tornado.png');
         this.load.image('small-factory','./assets/buildings/small-factory.png');
@@ -52,7 +64,7 @@ class Play extends Phaser.Scene
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
         
-        this.winCondition = new winState(this,"koth",{'kothTotal' : 20});
+        this.winCondition = new winState(this,"koth",{'kothTotal' : 0});
 
        // this.test = new ShopGhost(this,100,100,Hotel);
         //this.tesbutton = new ShopButton(this,300,300).setDepth(500);
