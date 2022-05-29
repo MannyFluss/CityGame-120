@@ -5,7 +5,7 @@ class RepairCrew extends Building
         "texture" : 'repair-crew-1',
         "description" : "protects adjacent buildings from threats",
         "name" : 'Repair Crew',
-        "placeCost" : 10,
+        "placeCost" : 5,
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [RepairCrew],
@@ -27,7 +27,7 @@ class InsuranceCo extends Building
         "texture" : 'small-apartment-1',
         "description" : "gives you money whenever a building is destroyed",
         "name" : 'Insurance Company',
-        "placeCost" : 12,
+        "placeCost" : 5,
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [InsuranceCo],
@@ -35,7 +35,7 @@ class InsuranceCo extends Building
     constructor(scene,board,x,y,texture = InsuranceCo.metaData['texture'])
     {
         super(scene,board,x,y,texture);
-        this.money2Earn = 5;
+        this.money2Earn = 10;
         //this.protectionCount = 3;
         //this.tag = 'repair-crew';
         this.board.on('onBuildingDestroy',()=>{
@@ -43,13 +43,14 @@ class InsuranceCo extends Building
         })
     }
 }
+
 class Garden extends Building
 {    
     static metaData = 
     {
         "texture" : 'small-apartment-1',
         "description" : "gives you money based on how many building types surround it",
-        "name" : 'Insurance Company',
+        "name" : 'Garden',
         "placeCost" : 18,
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
@@ -65,7 +66,7 @@ class Garden extends Building
     onTimeElapsed(delta)
     {
         //money += 1 * this.resourceMultiplier;
-        this.counter += 500;
+        this.counter += 250;
         if (this.counter >= this.earningInterval)
         {
             //this.economyRef.earnMoney(1,this);
@@ -82,6 +83,7 @@ class Garden extends Building
         }
     }
 }
+
 class Mine extends MultiBuilding
 {    
     static metaData = 
@@ -89,7 +91,7 @@ class Mine extends MultiBuilding
         "texture" : 'small-apartment-1',
         "description" : "generates lots of money!",
         "name" : 'Mine',
-        "placeCost" : 40,
+        "placeCost" : 25,
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Mine],
@@ -98,17 +100,18 @@ class Mine extends MultiBuilding
     {
         super(scene,board,x,y,texture,['left','down','right']);
         this.counter = 0;
-        this.earningInterval = 2 * 1000;
+        this.earningInterval = .25 * 1000;
         this.immovable = true;
     }
 
     onTimeElapsed(delta)
     {
         //money += 1 * this.resourceMultiplier;
-        this.counter += 500;
+        this.counter += 250;
         if (this.counter >= this.earningInterval)
         {
             this.economyRef.earnMoney(1,this);
+            this.counter = 0;
         }
     }
 }

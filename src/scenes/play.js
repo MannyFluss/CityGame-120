@@ -66,7 +66,7 @@ class Play extends Phaser.Scene
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
         
-        this.winCondition = new winState(this,"capitalism",{'moneyTotal' : 1050});
+        this.winCondition = new winState(this,"capitalism",{'moneyTotal' : 10});
 
        // this.test = new ShopGhost(this,100,100,Hotel);
         //this.tesbutton = new ShopButton(this,300,300).setDepth(500);
