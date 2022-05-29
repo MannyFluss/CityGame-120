@@ -1,8 +1,8 @@
-class Title extends Phaser.Scene
+class Menu extends Phaser.Scene
 {
     constructor()
     {
-        super("titleScene");
+        super("menuScene");
     }
 
     preload()
@@ -28,13 +28,15 @@ class Title extends Phaser.Scene
 
         this.emitter = new Phaser.Events.EventEmitter();
         this.emitter.on("sceneSelected", this.selectScene);
+
+        this.cameras.main.fadeIn(500, 57, 52, 87);
     }
 
     update()
     {
         if(this.menuBuilding.tileParent == this.playTile)
         {
-            this.emitter.emit('sceneSelected', this.cameras.main);
+            this.emitter.emit('sceneSelected', this.cameras.main, 1000);
             this.menuBuilding.tileParent = this.defaultTile;
             this.time.delayedCall(1000, () => {
                 this.scene.start('playScene');
@@ -42,14 +44,17 @@ class Title extends Phaser.Scene
         }
         if(this.menuBuilding.tileParent == this.creditsTile)
         {
-            this.emitter.emit('sceneSelected', 'creditsScene', this.cameras.main);
+            this.emitter.emit('sceneSelected', this.cameras.main, 500);
             this.menuBuilding.tileParent = this.defaultTile;
+            this.time.delayedCall(500, () => {
+                this.scene.start('creditsScene');
+            });
         }
     }
 
-    selectScene(camera)
+    selectScene(camera, fadeTime)
     {
-        camera.fadeOut(1000,57,52,87);
+        camera.fadeOut(fadeTime,57,52,87);
     }
 
     getNearestTile(worldX, worldY) 
