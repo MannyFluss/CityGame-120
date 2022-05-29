@@ -11,8 +11,9 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
         this.particles = scene.add.particles('money');
         
         this.moneyEmitter = this.particles.createEmitter({
+            scale : 2,
             alpha : {start : 1, end : .25},
-            duration : 3 * 1000,
+            life : 5 * 1000,
             speed : {min : 75, max : 100},
             angle : {min : 250, max : 290},
         }).stop();
@@ -49,7 +50,7 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
     emitParticles(amount,building)
     {
         this.particles.setDepth(building.depth+1);
-        this.moneyEmitter.emitParticle(amount,building.x,building.y - 20);
+        this.moneyEmitter.emitParticle(amount,building.x,building.y - 40);
     }
     getCurrMoney()
     {
