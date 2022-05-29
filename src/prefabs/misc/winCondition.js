@@ -12,7 +12,7 @@ class winState extends Phaser.GameObjects.GameObject
         this.workingVariables['objectiveMessage'] = 'default objective message';
         this.config = config;
         this.objectiveComplete = false;
-        this.progressText = this.sceneRef.add.text(game.canvas.width/2,20,'progress goes here').setOrigin(.5, 0); 
+        this.progressText = this.sceneRef.add.text(game.canvas.width/2,5,'Progress Towards Goal').setOrigin(.5, 0); 
 
         this.initializeWinCondition()
         this.timer = scene.time.addEvent({
