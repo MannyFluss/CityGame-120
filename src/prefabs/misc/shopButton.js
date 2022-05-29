@@ -11,17 +11,18 @@ class ShopButton extends Phaser.GameObjects.Container
 
         this.setInteractive();
         //this.buildingIcon.height = 50;
-        this.textIcon = scene.add.text(40,0,'sample text');
+        this.textIcon = scene.add.text(40,0,'sample text', { fontSize: 32 });
         this.add([this.backgroundPanel,this.buildingIcon,this.textIcon]);
         this.sceneRef = scene;
     }
 
 
-    updateIcons(building)
+    updateBuildings(building)
     {
         //let temp = new building(this.sceneRef,this.sceneRef.board,-500,-500);
         //console.log(temp.texture)
         this.buildingIcon.setTexture(building.metaData['texture']);
+        this.textIcon.setText(building.metaData["placeCost"]);
         //temp.destroyThisBu();
     }
 }

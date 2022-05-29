@@ -41,7 +41,7 @@ class Shop extends Phaser.GameObjects.Container
         for (let i = 0; i<3 ;i++)
         {
             this.availableBuildings[i] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
-            this.purchase[i].updateIcons(this.availableBuildings[i]);
+            this.purchase[i].updateBuildings(this.availableBuildings[i]);
             let tween = this.sceneRef.tweens.add({
                 targets: this.purchase[i],
                 alpha : 1,
