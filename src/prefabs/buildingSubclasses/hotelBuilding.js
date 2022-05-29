@@ -57,7 +57,7 @@ class Casino extends MultiBuilding
         "description" : "this building generates extra income from hotels nearby,"+ 
         "additionally gambles part a part of your income any time it is moved",
         "name" : "casino",
-        'placeCost' : 30,
+        'placeCost' : 20,
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Casino],
@@ -67,7 +67,7 @@ class Casino extends MultiBuilding
 
         super(scene,board,x,y,texture,['left']);
         this.counter = 0;
-        this.earningInterval = 10 * 1000;
+        this.earningInterval = 3 * 1000;
         this.tag = 'casino';
 
     }
