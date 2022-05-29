@@ -31,6 +31,8 @@ class Play extends Phaser.Scene
         this.load.image('repair-crew-1','./assets/buildings/repair-crew-1.png');
         this.load.image('small-park','./assets/buildings/small-park.png');
         this.load.image('submit-button','./assets/ui/finish-button.png');
+        this.load.image('progress-frame','./assets/ui/progress-frame.png');
+        this.load.image('progress-measure','./assets/ui/progress-measure.png');
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
@@ -64,7 +66,7 @@ class Play extends Phaser.Scene
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
         
-        this.winCondition = new winState(this,"koth",{'kothTotal' : 0});
+        this.winCondition = new winState(this,"capitalism",{'moneyTotal' : 1050});
 
        // this.test = new ShopGhost(this,100,100,Hotel);
         //this.tesbutton = new ShopButton(this,300,300).setDepth(500);
