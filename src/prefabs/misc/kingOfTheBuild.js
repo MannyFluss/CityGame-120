@@ -58,6 +58,7 @@ class KingRay extends Phaser.GameObjects.Sprite
         this.y = tile.y;
         this.tileX = tile.tileX;
         this.tiley = tile.tileY;
+        this.depth = 2 * (this.tileX + this.tileY) + 1;
 
     
         //set thi

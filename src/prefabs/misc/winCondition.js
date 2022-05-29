@@ -14,7 +14,7 @@ class winState extends Phaser.GameObjects.GameObject
         this.objectiveComplete = false;
         this.progressText = this.sceneRef.add.text(game.canvas.width/2,20,'progress goes here').setOrigin(.5,.5); 
 
-        this.initializeWinCondition()
+        this.initializeWinCondition();
         this.timer = scene.time.addEvent({
             delay: 500,                // ms
             callback: this.updateWinCondition,
