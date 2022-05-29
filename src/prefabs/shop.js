@@ -46,7 +46,8 @@ class Shop extends Phaser.GameObjects.Container
                 targets: this.purchase[i],
                 alpha : 1,
                 x : 0,
-                duration : 1 *1000,
+                ease: 'Sine.easeInOut',
+                duration : .25 *1000,
     
             })
             //this.purchase[i];
@@ -65,7 +66,8 @@ class Shop extends Phaser.GameObjects.Container
             targets: this.purchase[index],
             alpha : 0,
             x : 100,
-            duration : 1 *1000,
+            ease: 'Sine.easeInOut',
+            duration : .25 *1000,
         })     
 
     }

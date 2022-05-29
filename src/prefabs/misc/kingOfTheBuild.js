@@ -5,6 +5,7 @@ class KingRay extends Phaser.GameObjects.Sprite
         super(scene,x,y,texture);
         scene.add.existing(this);
         //place me on random tile
+        this.alpha = 0;
         this.tileX;
         this.tileY;
         this.setScale(3);
@@ -24,6 +25,12 @@ class KingRay extends Phaser.GameObjects.Sprite
             loop: true,
             callbackScope : this
         });
+        scene.tweens.add({
+            targets: this,
+            alpha : 1,
+            duration : 1 * 1000, 
+            ease: 'Sine.easeInOut',
+        })
 
 
     }

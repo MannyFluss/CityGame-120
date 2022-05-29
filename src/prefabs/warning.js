@@ -5,6 +5,7 @@ class Warning extends Phaser.GameObjects.Sprite
         super(scene,x,y,texture);
         scene.add.existing(this);
         this.setOrigin(.5, 1);
+        this.alpha = 0;
         this.tileX;
         this.tileY;
         this.parentTile;
@@ -13,6 +14,13 @@ class Warning extends Phaser.GameObjects.Sprite
         this.setScale(3);
         this.time = time;
         scene.time.delayedCall(time * 1000,()=>{this.warningDissapear();})
+        
+        scene.tweens.add({
+            targets: this,
+            alpha : 1,
+            duration : 1 * 1000, 
+            ease: 'Sine.easeInOut',
+        })
     }
 
     warningDissapear()

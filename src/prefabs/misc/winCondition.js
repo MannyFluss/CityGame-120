@@ -171,6 +171,7 @@ class winState extends Phaser.GameObjects.GameObject
             alpha : 0,
             duration : 5 * 1000, 
         })
+        
     }
 
     conditionMet()
@@ -194,7 +195,7 @@ class winState extends Phaser.GameObjects.GameObject
 
 
         });
-
+        this.sceneRef.time.delayedCall(7 * 1000,()=>{this.emitter.stop();},this);
         //this.emitter.x = game.canvas.width/2;
         this.objectiveComplete = true;
         //create the win button and coffetti pops out from the sky
