@@ -13,13 +13,13 @@ class Menu extends Phaser.Scene
 
     create()
     {
-        this.defaultTile = new Tile(this, 400, 300, 'tile');
+        this.defaultTile = new Tile(this, 400, 460, 'tile'); // y-value used to be 300
         
-        this.playTile = new Tile(this, 250, 450, 'tile');
-        this.playText = this.add.text(250, 450, 'PLAY', { fontSize: 64 }).setOrigin(0.5, 0);
+        this.playTile = new Tile(this, 250, 540, 'tile'); // y-value used to be 450
+        this.playText = this.add.text(250, 540, 'PLAY', { fontSize: 64 }).setOrigin(0.5, 0);
 
-        this.creditsTile = new Tile(this, 550, 450, 'tile');
-        this.creditsText = this.add.text(550, 450, 'CREDITS', { fontSize: 64 }).setOrigin(0.5, 0);
+        this.creditsTile = new Tile(this, 550, 540, 'tile'); // y-value used to be 450
+        this.creditsText = this.add.text(550, 540, 'CREDITS', { fontSize: 64 }).setOrigin(0.5, 0);
 
         this.tileRow = [this.defaultTile, this.playTile, this.creditsTile];
 
