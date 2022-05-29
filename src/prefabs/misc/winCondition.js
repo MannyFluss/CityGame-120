@@ -177,6 +177,25 @@ class winState extends Phaser.GameObjects.GameObject
     {
 
         if (this.objectiveComplete){return;}
+
+        //'pink','red','yellow','green','blue'
+
+        let particles = this.sceneRef.add.particles("particles");
+        
+        this.emitter = particles.createEmitter({
+
+            x : game.canvas.width/2,
+            y : -50,
+            frame : ['pink.png','red.png','yellow.png','blue.png','green.png'],
+            scale : {min : .5, max : 2 },
+            speed : {min : 100, max : 200},
+            lifespan : 10 * 1000,
+            gravityY : 100, 
+
+
+        });
+
+        //this.emitter.x = game.canvas.width/2;
         this.objectiveComplete = true;
         //create the win button and coffetti pops out from the sky
         this.showGoal('city-goals met!')

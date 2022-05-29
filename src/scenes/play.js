@@ -12,6 +12,15 @@ class Play extends Phaser.Scene
     }
     preload()
     {
+        //particles 
+        this.load.image('pink','./assets/particles/pink.png');
+        this.load.image('blue','./assets/particles/blue.png');
+        this.load.image('green','./assets/particles/green.png');
+        this.load.image('red','./assets/particles/red.png');
+        this.load.image('yellow','./assets/particles/yellow.png');
+        
+        this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
+
         this.load.image('money','./assets/ui/dollar-sign.png');
         this.load.image('meteor','./assets/other/meteor.png');
         this.load.image('fireFX','./assets/other/fireFX.png');

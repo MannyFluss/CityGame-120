@@ -33,7 +33,7 @@ class Meteor extends Phaser.GameObjects.Sprite
             alpha : {start : 1, end : .5},
             scale : {start : 2, end : 1.5},
             blendMode : 'ADD',
-            lifeSpan : 1000,
+            lifespan : 1000,
         }) 
     }
 
