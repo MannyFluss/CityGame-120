@@ -10,7 +10,6 @@ class Warning extends Phaser.GameObjects.Sprite
         this.parentTile;
         this.boardRef;
         this.tileObj;
-        this.setScale(3);
         this.time = time;
         scene.time.delayedCall(time * 1000,()=>{this.warningDissapear();})
     }
