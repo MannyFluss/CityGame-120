@@ -89,6 +89,8 @@ class Play extends Phaser.Scene
         
         this.initUI()
         //var spritetest = this.add.sprite(100,100,'tileSprite');
+
+        this.cameras.main.fadeIn(1000, 57, 52, 87);
     }
 
     initUI()
