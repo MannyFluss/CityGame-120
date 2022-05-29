@@ -60,35 +60,20 @@ class Play extends Phaser.Scene
         
         this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
         this.economy = new PlayEconomy(this,0,0);
-        //this.board.on('fortniteBattlePass',()=>{console.log('i will breaking your bad')})
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
         
-        this.winCondition = new winState(this,"koth",{'kothTotal' : 15});
-
-       // this.test = new ShopGhost(this,100,100,Hotel);
-        //this.tesbutton = new ShopButton(this,300,300).setDepth(500);
-        
+        this.initWinCondition();
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
         this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
+        this.initUI();
+    }
 
-        // this.test = new MultiBuilding(this,this.board,0,0,'small-apartment-1',['left']);
-
-        // this.board.placeBuilding(this.test,1,1);
-        // //console.log(this.test.ableToMove(1,1));
-
+    initWinCondition()
+    {
         
+        this.winCondition = new winState(this,"koth",{'kothTotal' : 15});
 
-
-        //new Meteor(this,0,0,'',5,this.board.getTile(0,0))
-
-        //this.warning = new Warning(this,0,0);
-        
-        //this.warning.setWarningPlacement(this.board.getTile(0,0));
-
-        
-        this.initUI()
-        //var spritetest = this.add.sprite(100,100,'tileSprite');
     }
 
     initUI()

@@ -33,7 +33,7 @@ let possibleBuildingList =
 ];
 let availableThreats = 
 [
-    'meteor',//'fog','lightning','tornado'
+    'meteor'//,'fog','lightning','tornado'
 ];
 
 let shopSceneAvailableList = //this is an array filled with the METADATA for the shop
