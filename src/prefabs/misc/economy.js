@@ -1,8 +1,8 @@
 class PlayEconomy extends Phaser.GameObjects.GameObject
 {
-    constructor(scene,x,y)
+    constructor(scene)
     {
-        super(scene,x,y)
+        super(scene)
         
         scene.add.existing(scene);
         this.currentMoney = 0;
