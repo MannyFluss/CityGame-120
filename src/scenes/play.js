@@ -18,6 +18,7 @@ class Play extends Phaser.Scene
         this.load.image('green','./assets/particles/green.png');
         this.load.image('red','./assets/particles/red.png');
         this.load.image('yellow','./assets/particles/yellow.png');
+        this.load.image('temp-background','./assets/tempArt/shopPrev.png');
         
         this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
 
@@ -72,7 +73,7 @@ class Play extends Phaser.Scene
     initWinCondition()
     {
         
-        this.winCondition = new winState(this,"koth",{'kothTotal' : 15});
+        this.winCondition = new winState(this,"koth",{'kothTotal' : 1});
 
     }
 

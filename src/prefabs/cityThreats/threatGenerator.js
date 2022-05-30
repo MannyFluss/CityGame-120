@@ -5,6 +5,7 @@ class ThreatGenerator extends Phaser.GameObjects.Container
         super(scene,x,y);
         scene.add.existing(this);
 
+        this.economyRef = scene.economy;
         this.sceneRef = scene;
         this.boardRef = boardRef;
         this.timeUntilDisaster = 1000;
@@ -37,6 +38,7 @@ class ThreatGenerator extends Phaser.GameObjects.Container
     {
         console.log('disastertime')
         this.boardRef.emit('onDisaster');
+        this.economyRef += 1;
         let decision = availableThreats[Phaser.Math.Between(0,availableThreats.length - 1)];
 
         switch (decision)

@@ -1,4 +1,3 @@
-
 class winState extends Phaser.GameObjects.GameObject
 {
     constructor(scene, condition="timer",config={})//config optionally messes with vars

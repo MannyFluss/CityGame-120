@@ -8,7 +8,6 @@ class ShopScene extends Phaser.Scene
     preload()
     {
         this.load.image('submit-button','./assets/tempArt/check.png');
-        this.load.image('temp-background','./assets/tempArt/shopPrev.png');
     }
     create()
     {
@@ -41,8 +40,6 @@ class ShopScene extends Phaser.Scene
         for (let i = 0; i<buttonCount;i++)
         {
             let curr = shopSceneAvailableList[i];
-
-            console.log(curr);
             let newButton = new ShopSceneButton(this,x,y,curr);
             newButton.on('pointerover',()=>{
                 this.previewIcon.setTexture(curr['texture']);
