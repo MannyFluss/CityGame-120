@@ -7,19 +7,22 @@ class Menu extends Phaser.Scene
 
     preload()
     {
+        this.load.image('logo', './assets/promo/logo.png');
         this.load.image('tile','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
     }
 
     create()
     {
-        this.defaultTile = new Tile(this, 400, 460, 'tile'); // y-value used to be 300
-        
-        this.playTile = new Tile(this, 250, 540, 'tile'); // y-value used to be 450
-        this.playText = this.add.text(250, 540, 'PLAY', { fontSize: 64 }).setOrigin(0.5, 0);
+        this.add.image(config.width / 2 + 200, 0, 'logo').setOrigin(0.5,0);
 
-        this.creditsTile = new Tile(this, 550, 540, 'tile'); // y-value used to be 450
-        this.creditsText = this.add.text(550, 540, 'CREDITS', { fontSize: 64 }).setOrigin(0.5, 0);
+        this.defaultTile = new Tile(this, config.width / 2 - 80, config.height - 290, 'tile'); // y-value used to be 300
+        
+        this.playTile = new Tile(this, config.width / 2 - 150 - 80, config.height - 210, 'tile'); // y-value used to be 450
+        this.playText = this.add.text(config.width / 2 - 150 - 80, config.height - 210, 'PLAY', { fontSize: 64 }).setOrigin(0.5, 0);
+
+        this.creditsTile = new Tile(this, config.width / 2 + 150 - 80, config.height - 210, 'tile'); // y-value used to be 450
+        this.creditsText = this.add.text(config.width / 2 + 150 - 80, config.height - 210, 'CREDITS', { fontSize: 64 }).setOrigin(0.5, 0);
 
         this.tileRow = [this.defaultTile, this.playTile, this.creditsTile];
 
