@@ -11,7 +11,7 @@ class ThreatGenerator extends Phaser.GameObjects.Container
         this.timeUntilDisaster = 1000;
         this.timeReset = 12 * 1000;
         this.disasters = [];
-
+        this.enabled = true;
         this.timer = this.sceneRef.time.addEvent({
             delay: 500,                // ms
             callback: this.timePassed,
@@ -24,6 +24,10 @@ class ThreatGenerator extends Phaser.GameObjects.Container
 
     timePassed(delta)
     {
+        if (!this.enabled)
+        {
+            return;
+        }   
         //console.log(this.timeUntilDisaster)
         this.timeUntilDisaster -= delta;
         if (this.timeUntilDisaster <= 0)
@@ -34,12 +38,16 @@ class ThreatGenerator extends Phaser.GameObjects.Container
 
     }
 
-    generateDisaster()
+    generateDisaster(deci=undefined)
     {
         console.log('disastertime')
         this.boardRef.emit('onDisaster');
         this.economyRef += 1;
         let decision = availableThreats[Phaser.Math.Between(0,availableThreats.length - 1)];
+        if(deci!=undefined)
+        {
+            decision=deci;
+        }
 
         switch (decision)
         {
