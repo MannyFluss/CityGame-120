@@ -75,7 +75,6 @@ class Play extends Phaser.Scene
         
         this.winCondition = new winState(this,"koth",{'kothTotal' : 1});
 
-<<<<<<< HEAD
 
         //new Meteor(this,0,0,'',5,this.board.getTile(0,0))
 
@@ -88,8 +87,6 @@ class Play extends Phaser.Scene
         //var spritetest = this.add.sprite(100,100,'tileSprite');
 
         this.cameras.main.fadeIn(1000, 57, 52, 87);
-=======
->>>>>>> animation-branch
     }
 
     initUI()
