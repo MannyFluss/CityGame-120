@@ -4,10 +4,12 @@ border-radius: 10px; \
 
 let config = {
     type: Phaser.CANVAS,
-    width: 1200, // street.png width * export resize factor
-    height: 1000,
+    width: 1400,
+    height: 800,
     scale: {
         mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        fullscreen: true,
     },
     scene : [Menu, Credits, Play, ShopScene],
     backgroundColor : "#393457",
