@@ -13,6 +13,8 @@ class Menu extends Phaser.Scene
         this.load.image('pixel','./assets/other/pixel.png');
         this.load.image('credits-text','./assets/ui/credits-text.png');
         this.load.image('play-text','./assets/ui/play-text.png');
+        this.load.image('drag-here','./assets/ui/drag-here.png');
+        this.load.image('drag-arrow','./assets/ui/drag-arrow.png');
     }
 
     create()
@@ -22,10 +24,10 @@ class Menu extends Phaser.Scene
         this.defaultTile = new Tile(this, config.width / 2, config.height/2, 'tile'); // y-value used to be 300
         
         this.playTile = new Tile(this, config.width / 2 - tileOffset, config.height/2 + tileOffset/2, 'tile'); // y-value used to be 450
-        this.playText = new BasicSprite(this, config.width / 2 - tileOffset, config.height/2 + tileOffset/2 + 10, 'play-text').setOrigin(0.5, 0);
+        this.playText = new BasicSprite(this, config.width / 2 - tileOffset, config.height/2 + tileOffset/2 + 15, 'play-text').setOrigin(0.5, 0);
 
         this.creditsTile = new Tile(this, config.width / 2 + tileOffset, config.height/2 + tileOffset/2, 'tile'); // y-value used to be 450
-        this.creditsText = new BasicSprite(this, config.width / 2 + tileOffset, config.height/2 + tileOffset/2 + 10, 'credits-text').setOrigin(0.5, 0);
+        this.creditsText = new BasicSprite(this, config.width / 2 + tileOffset, config.height/2 + tileOffset/2 + 15, 'credits-text').setOrigin(0.5, 0);
 
         this.tileRow = [this.defaultTile, this.playTile, this.creditsTile];
 
@@ -48,7 +50,7 @@ class Menu extends Phaser.Scene
         this.tweens.add({
             targets: this.logo,
             scale: 1,
-            y: 0,
+            y: 40,
             ease: Phaser.Math.Easing.Quadratic.Out,
             duration : 1000,
         });
@@ -66,9 +68,33 @@ class Menu extends Phaser.Scene
         this.tweens.add({
             targets: this.logo,
             scale: .5,
+            y: 0,
             ease: Phaser.Math.Easing.Quartic.InOut,
             duration : 1000,
             delay: 1800,
+        });
+
+        this.dragTooltip = new BasicSprite(this, config.width / 2 - tileOffset - 90, config.height/2 - 90, 'drag-here').setOrigin(0.5, 0.5).setScale(.5).setAlpha(0);
+        this.dragArrow = new BasicSprite(this, config.width / 2 - tileOffset + 25, config.height/2 - 50, 'drag-arrow').setOrigin(0.5, 0.5).setAlpha(0);
+        
+        // stage 3: fade in the drag tooltip
+        this.tweens.add({
+            targets: [this.dragTooltip, this.dragArrow],
+            alpha: 1,
+            ease: Phaser.Math.Easing.Quartic.InOut,
+            duration : 2000,
+            delay: 3500,
+        });
+
+        // stage 4: softly flash the drag tooltip
+        this.tweens.add({
+            targets: [this.dragTooltip, this.dragArrow],
+            alpha: .5,
+            ease: Phaser.Math.Easing.Quadratic.In,
+            duration : 800,
+            delay: 5500,
+            yoyo: true,
+            repeat: -1,
         });
 
         this.emitter = new Phaser.Events.EventEmitter();
