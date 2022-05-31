@@ -101,7 +101,7 @@ class Play extends Phaser.Scene
 
     update()
     {
-        this.UImoney.text = this.economy.getCurrMoney();
+        this.UImoney.setText(this.economy.getCurrMoney());
         for(let x=0; x<this.board.boardX; x++) {
             for(let y=0; y<this.board.boardY; y++) {
                 let building = this.board.objectArray[x][y];
