@@ -75,7 +75,7 @@ class Play extends Phaser.Scene
     initWinCondition()
     {
         
-        this.winCondition = new winState(this,"koth",{'kothTotal' : 1});
+        this.winCondition = new winState(this,"capitalism",{'moneyTotal' : 15});
 
 
         //new Meteor(this,0,0,'',5,this.board.getTile(0,0))
