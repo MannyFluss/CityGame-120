@@ -18,9 +18,9 @@ class Meteor extends Phaser.GameObjects.Sprite
 
         this.sceneRef.tweens.add({
             targets: this,
-            ease: 'Sine.easeInOut',
+            ease: 'Sine.easeIn',
             y : this.tileRef.y - 50,
-            duration : destructionDelay *1000,
+            duration : destructionDelay * 1000,
             angle : 1000,
         })
 
@@ -30,8 +30,9 @@ class Meteor extends Phaser.GameObjects.Sprite
             x : this.x,
             y : this.y - 20,
             speed : 50,
-            alpha : {start : 1, end : .5},
-            scale : {start : 2, end : 1.5},
+            alpha : {start : .5, end : 0},
+            scale : {start : 3, end : 1.5},
+            frequency : 1,
             blendMode : 'ADD',
             lifespan : 1000,
         }) 

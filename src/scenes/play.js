@@ -18,6 +18,7 @@ class Play extends Phaser.Scene
         this.load.image('green','./assets/particles/green.png');
         this.load.image('red','./assets/particles/red.png');
         this.load.image('yellow','./assets/particles/yellow.png');
+        this.load.image('temp-background','./assets/tempArt/shopPrev.png');
         
         this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
 
@@ -60,25 +61,21 @@ class Play extends Phaser.Scene
         
         this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
         this.economy = new PlayEconomy(this,0,0);
-        //this.board.on('fortniteBattlePass',()=>{console.log('i will breaking your bad')})
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
         
-        this.winCondition = new winState(this,"koth",{'kothTotal' : 0});
-
-       // this.test = new ShopGhost(this,100,100,Hotel);
-        //this.tesbutton = new ShopButton(this,300,300).setDepth(500);
-        
+        this.initWinCondition();
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
         this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
+        this.initUI();
+    }
 
-        // this.test = new MultiBuilding(this,this.board,0,0,'small-apartment-1',['left']);
-
-        // this.board.placeBuilding(this.test,1,1);
-        // //console.log(this.test.ableToMove(1,1));
-
+    initWinCondition()
+    {
         
+        this.winCondition = new winState(this,"koth",{'kothTotal' : 1});
 
+<<<<<<< HEAD
 
         //new Meteor(this,0,0,'',5,this.board.getTile(0,0))
 
@@ -91,6 +88,8 @@ class Play extends Phaser.Scene
         //var spritetest = this.add.sprite(100,100,'tileSprite');
 
         this.cameras.main.fadeIn(1000, 57, 52, 87);
+=======
+>>>>>>> animation-branch
     }
 
     initUI()

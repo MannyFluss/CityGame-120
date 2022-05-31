@@ -1,4 +1,3 @@
-
 class winState extends Phaser.GameObjects.GameObject
 {
     constructor(scene, condition="timer",config={})//config optionally messes with vars
@@ -200,7 +199,7 @@ class winState extends Phaser.GameObjects.GameObject
         this.objectiveComplete = true;
         //create the win button and coffetti pops out from the sky
         this.showGoal('city-goals met!')
-        new SceneButton(this.sceneRef,20,game.config.height-20,'submit-button','shopScene').setOrigin(0, 1);
+        new FinishButton(this.sceneRef,20,game.config.height-20,'submit-button','shopScene').setOrigin(0, 1);
         
     }
     //combine dictionaries from stack overflow

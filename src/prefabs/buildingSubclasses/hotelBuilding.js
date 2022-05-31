@@ -81,7 +81,7 @@ class Casino extends MultiBuilding
             console.log(buildings);
             for (let i=0;i<buildings.length;i++)
             {
-                if (buildings[i]==null || buildings[i]==undefined){continue;}
+                if (buildings[i] == null || buildings[i]==undefined){continue;}
                 if (buildings[i].tag == 'hotel')
                 {
                     bottomLine +=1;

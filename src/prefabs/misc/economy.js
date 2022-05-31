@@ -6,17 +6,27 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
         
         scene.add.existing(scene);
         this.currentMoney = 0;
+        this.disastersEndured = 0;
+        this.timeSpent = 0;
+        
         this.earnMoney(sceneInitMoney);
 
         this.particles = scene.add.particles('money');
-        
         this.moneyEmitter = this.particles.createEmitter({
+            scale : 2,
             alpha : {start : 1, end : .25},
-            duration : 3 * 1000,
+            life : 5 * 1000,
             speed : {min : 75, max : 100},
             angle : {min : 250, max : 290},
         }).stop();
-        
+
+
+        this.timer = scene.time.addEvent({
+            delay: 1000,                // ms
+            callback: ()=>{this.timeSpent += 1;},
+            loop: true
+        });
+
     }
     
     earnMoney(amount=0,buildingSendingMoney=undefined)
@@ -49,7 +59,7 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
     emitParticles(amount,building)
     {
         this.particles.setDepth(building.depth+1);
-        this.moneyEmitter.emitParticle(amount,building.x,building.y - 20);
+        this.moneyEmitter.emitParticle(amount,building.x,building.y - 40);
     }
     getCurrMoney()
     {
@@ -70,7 +80,7 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
 
     sceneEnd()
     {
-        money += this.currentMoney;
+        money += this.currentMoney * moneyMultiplier;
         this.currentMoney = 0;
     }
 }
