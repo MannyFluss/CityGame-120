@@ -22,6 +22,8 @@ class Play extends Phaser.Scene
         
         this.load.image('shop-console','./assets/ui/shopOutline.png');
         this.load.image('shop-button','./assets/ui/shopButton.png');
+        this.load.image('tutorialJohnson', './assets/other/tutorialJohnson.png');
+        this.load.image('speech-bubble','./assets/ui/speechBubble.png');
 
         this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
 
@@ -66,12 +68,24 @@ class Play extends Phaser.Scene
         this.economy = new PlayEconomy(this,0,0);
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,1000,400,[],this.board).setScale(3);
-        
-        this.initWinCondition();
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
+        if (boardSize == 2)
+        {
+            this.initTutorial();
+        }else
+        {
+            this.initWinCondition();
+        }
+        
         this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
         this.initUI();
     }
+
+    initTutorial()
+    {
+        new Tutorial(this,300,800);
+    }
+
 
     initWinCondition()
     {
