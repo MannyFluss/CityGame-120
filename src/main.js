@@ -4,7 +4,7 @@ border-radius: 10px; \
 
 let config = {
     type: Phaser.CANVAS,
-    width: 1400,
+    width: 1300,
     height: 800,
     scale: {
         mode: Phaser.Scale.FIT,

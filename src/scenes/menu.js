@@ -10,24 +10,66 @@ class Menu extends Phaser.Scene
         this.load.image('logo', './assets/promo/logo.png');
         this.load.image('tile','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
+        this.load.image('pixel','./assets/other/pixel.png');
+        this.load.image('credits-text','./assets/ui/credits-text.png');
+        this.load.image('play-text','./assets/ui/play-text.png');
     }
 
     create()
     {
-        this.add.image(config.width / 2 + 200, 0, 'logo').setOrigin(0.5,0);
+        let tileOffset = 150;
 
-        this.defaultTile = new Tile(this, config.width / 2 - 80, config.height - 290, 'tile'); // y-value used to be 300
+        this.defaultTile = new Tile(this, config.width / 2, config.height/2, 'tile'); // y-value used to be 300
         
-        this.playTile = new Tile(this, config.width / 2 - 150 - 80, config.height - 210, 'tile'); // y-value used to be 450
-        this.playText = this.add.text(config.width / 2 - 150 - 80, config.height - 210, 'PLAY', { fontSize: 64 }).setOrigin(0.5, 0);
+        this.playTile = new Tile(this, config.width / 2 - tileOffset, config.height/2 + tileOffset/2, 'tile'); // y-value used to be 450
+        this.playText = new BasicSprite(this, config.width / 2 - tileOffset, config.height/2 + tileOffset/2 + 10, 'play-text').setOrigin(0.5, 0);
 
-        this.creditsTile = new Tile(this, config.width / 2 + 150 - 80, config.height - 210, 'tile'); // y-value used to be 450
-        this.creditsText = this.add.text(config.width / 2 + 150 - 80, config.height - 210, 'CREDITS', { fontSize: 64 }).setOrigin(0.5, 0);
+        this.creditsTile = new Tile(this, config.width / 2 + tileOffset, config.height/2 + tileOffset/2, 'tile'); // y-value used to be 450
+        this.creditsText = new BasicSprite(this, config.width / 2 + tileOffset, config.height/2 + tileOffset/2 + 10, 'credits-text').setOrigin(0.5, 0);
 
         this.tileRow = [this.defaultTile, this.playTile, this.creditsTile];
 
         this.menuBuilding = new MenuBuilding(this, this.defaultTile.x, this.defaultTile.y, "small-apartment-1");
         this.menuBuilding.tileParent = this.defaultTile;
+
+        this.menuBlocker = new BasicSprite(this, config.width/2, config.height/2, 'pixel').setScale(config.width);
+        this.tweens.add({
+            targets: this.menuBlocker,
+            alpha: 0,
+            ease: 'Power2',
+            duration : 1000,
+            delay: 2400,
+        });
+
+        let logoScale = .5;
+        this.logo = this.add.image(config.width/2, config.height/2, 'logo').setOrigin(.5,0).setScale(0);
+
+        // stage 1: logo zooms towards camera
+        this.tweens.add({
+            targets: this.logo,
+            scale: 1,
+            y: 0,
+            ease: Phaser.Math.Easing.Quadratic.Out,
+            duration : 1000,
+        });
+
+        // stage 2: logo goes right
+        this.tweens.add({
+            targets: this.logo,
+            x : config.width - this.logo.width/2*logoScale,
+            ease: Phaser.Math.Easing.Quadratic.InOut,
+            duration : 1000,
+            delay: 1800,
+        });
+
+        // stage 2: logo shrinks
+        this.tweens.add({
+            targets: this.logo,
+            scale: .5,
+            ease: Phaser.Math.Easing.Quartic.InOut,
+            duration : 1000,
+            delay: 1800,
+        });
 
         this.emitter = new Phaser.Events.EventEmitter();
         this.emitter.on("sceneSelected", this.selectScene);
