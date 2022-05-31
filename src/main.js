@@ -11,7 +11,7 @@ let config = {
     },
     scene : [Menu, Credits, Play, ShopScene],
     backgroundColor : "#393457",
-    canvasStyle: canvasStyle,
+    // canvasStyle: canvasStyle,
     physics: {
         default: 'arcade',
         // arcade: {
@@ -41,15 +41,15 @@ let availableThreats =
 
 let shopSceneAvailableList = //this is an array filled with the METADATA for the shop
 [
-
-    ShopEntries.tilePurchase1,Hotel.metaData, MultiBuilding.metaData,
+    
+    ShopEntries.tilePurchase1,Hotel.metaData, LargeApartment.metaData,
     Casino.metaData, RepairCrew.metaData,
     ShopEntries.tilePurchase2,
 
 //    SmallFactory.metaData,ParkBuilding.metaData,WinmillBuilding.metaData,
 ];
 let moneyMultiplier = 1;
-let sceneInitMoney = 1000;
+let sceneInitMoney = 5;
 let highScore = 0;
 let boardSize = 2;
 let money = 0;

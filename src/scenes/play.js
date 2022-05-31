@@ -32,6 +32,8 @@ class Play extends Phaser.Scene
         this.load.image('repair-crew-1','./assets/buildings/repair-crew-1.png');
         this.load.image('small-park','./assets/buildings/small-park.png');
         this.load.image('submit-button','./assets/ui/finish-button.png');
+        this.load.image('progress-frame','./assets/ui/progress-frame.png');
+        this.load.image('progress-measure','./assets/ui/progress-measure.png');
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
@@ -60,7 +62,7 @@ class Play extends Phaser.Scene
         }
         
         this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
-        this.economy = new PlayEconomy(this,0,0);
+        this.economy = new PlayEconomy(this);
         this.radio = new Radio(this,100,100,[],this.songList);
         this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
         

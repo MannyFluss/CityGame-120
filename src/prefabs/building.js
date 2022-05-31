@@ -45,9 +45,9 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.state = "idle";
         this.resourceMultiplier = 1;
         this.timer = scene.time.addEvent({
-            delay: 500,                // ms
+            delay: 250,                // ms
             callback: this.timeElapsed,
-            args: [500],
+            args: [250],
             loop: true
         });
 
@@ -129,9 +129,9 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.eventEmitter.on('timePassed',this.onTimeElapsed,this); //events are not working
 
         this.timer = this.sceneRef.time.addEvent({
-            delay: 500,                // ms
+            delay: 250,                // ms
             callback: ()=>{this.eventEmitter.emit('timePassed')},
-            args: [500],
+            args: [250],
             loop: true
         });
     }

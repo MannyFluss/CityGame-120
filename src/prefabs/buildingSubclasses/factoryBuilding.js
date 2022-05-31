@@ -18,7 +18,7 @@ class SmallFactory extends Building
 
     onTimeElapsed()
     {
-        this.counter += 500;
+        this.counter += 250;
         console.log(this.counter)
         if (this.counter >= this.timeOut)
         {

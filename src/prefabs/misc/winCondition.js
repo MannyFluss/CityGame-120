@@ -11,7 +11,7 @@ class winState extends Phaser.GameObjects.GameObject
         this.workingVariables['objectiveMessage'] = 'default objective message';
         this.config = config;
         this.objectiveComplete = false;
-        this.progressText = this.sceneRef.add.text(game.canvas.width/2,20,'progress goes here').setOrigin(.5,.5); 
+        this.progressText = this.sceneRef.add.text(game.canvas.width/2,5,'Progress Towards Goal').setOrigin(.5, 0); 
 
         this.initializeWinCondition();
         this.timer = scene.time.addEvent({
@@ -25,21 +25,24 @@ class winState extends Phaser.GameObjects.GameObject
         
         
     }
+
     initializeWinCondition()
     {
-
+        this.createProgressMeter();
         switch(this.condition)
         {
             case 'timer':
                 this.workingVariables["timePassed"] = 0;
                 this.workingVariables["survivalTime"] = 0;
                 this.progressText.text = this.workingVariables["timePassed"] + ' / ' + this.workingVariables["survivalTime"];
+                this.updateProgressMeter(this.workingVariables['timePassed'], this.config['survivalTime']);
                 //configure goes here
                 break;
             case 'building':
                 this.workingVariables['buildingsBuilt'] = 0;
                 this.workingVariables['totalBuildings'] = 0;
                 this.workingVariables['buildingType'] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
+                this.updateProgressMeter(this.workingVariables['buildingsBuilt'], this.config['totalBuildings']);
                 this.boardRef.on('newBuildingPlaced',(buildingType)=>{
                     this.buildingUpdateWinCondition(buildingType);
                 });
@@ -48,6 +51,7 @@ class winState extends Phaser.GameObjects.GameObject
             case 'disasters':
                 this.workingVariables['disastersEndured'] = 0;
                 this.workingVariables['totalDisasters'] = 0;
+                this.updateProgressMeter(this.workingVariables['disastersEndured'], this.config['totalDisasters']);
                 this.boardRef.on('onDisaster',()=>{
                     this.disasterUpdates();
                 })    
@@ -55,18 +59,21 @@ class winState extends Phaser.GameObjects.GameObject
             case 'capitalism':
                 this.workingVariables['moneyEarned'] = 0;
                 this.workingVariables['moneyTotal'] = 0;
-                this.economyRef.on('onMoneyMade',(amount)=>{
+                this.updateProgressMeter(this.sceneRef.economy.getCurrMoney(), this.config['moneyTotal']);
+                this.economyRef.on('onMoneyChanged',(amount)=>{
                     this.capitalismUpdate(amount);
                 })
+                break;
             case 'koth':
                 this.workingVariables['kothEarned'] = 0;
                 this.workingVariables['kothTotal'] = 0;
+                this.updateProgressMeter(this.workingVariables['kothEarned'], this.config['kothTotal']);
                 this.koth = new KingRay(this.sceneRef,0,0,undefined);
 
                 this.koth.on('onKothTick',()=>{
                     this.updateKoth();
                 })
-
+                break;
             default:
                 console.log('win condition failed to setup');
                 //goto win condition
@@ -77,6 +84,7 @@ class winState extends Phaser.GameObjects.GameObject
         this.workingVariables = this.combineDict(this.workingVariables,this.config);
         
     }
+
     updateKoth()
     {
         this.workingVariables['kothEarned'] += 1;
@@ -86,15 +94,22 @@ class winState extends Phaser.GameObjects.GameObject
             this.conditionMet();
             this.koth.customDestroy();
         }  
+
+        // update progress meter
+        this.updateProgressMeter(this.workingVariables['kothEarned'], this.workingVariables['kothTotal']);
     }
+
     capitalismUpdate(amount)
     {
-        this.workingVariables['moneyEarned'] += amount;
+        this.workingVariables['moneyEarned'] = amount;
         //this.workingVariables['moneyTotal'] = 0;
         if (this.workingVariables['moneyEarned'] >= this.workingVariables['moneyTotal'])
         {
             this.conditionMet();    
         }
+
+        // update progress meter
+        this.updateProgressMeter(this.workingVariables['moneyEarned'], this.workingVariables['moneyTotal']);
     }
 
     disasterUpdates()
@@ -106,6 +121,8 @@ class winState extends Phaser.GameObjects.GameObject
             this.conditionMet();
         }
 
+        // update progress meter
+        this.updateProgressMeter(this.workingVariables['disastersEndured'], this.workingVariables['totalDisasters']);
     }
 
     buildingUpdateWinCondition(type)
@@ -118,9 +135,10 @@ class winState extends Phaser.GameObjects.GameObject
         {
             this.conditionMet();
         }
+
+        // update progress meter
+        this.updateProgressMeter(this.workingVariables['buildingsBuilt'], this.workingVariables['totalBuildings']);
     }
-
-
 
     updateWinCondition(deltaTime)
     {
@@ -135,6 +153,8 @@ class winState extends Phaser.GameObjects.GameObject
                 {
                     this.conditionMet();
                 }
+                // update progress meter
+                this.updateProgressMeter(this.workingVariables['timePassed'], this.workingVariables['survivalTime']);
                 break;
             case 'building':
                 break;
@@ -144,6 +164,19 @@ class winState extends Phaser.GameObjects.GameObject
         }
         //go through each key
 
+    }
+
+    createProgressMeter()
+    {
+        let width = 240;
+        let height = 24;
+        this.progressMeter = new Meter(this.sceneRef, game.config.width/2-width/2, height, width, height, 'progress-measure').setOrigin(0,0);
+        new BasicSprite(this.sceneRef, game.config.width/2-width/2, height, 'progress-frame').setOrigin(0,0);
+    }
+
+    updateProgressMeter(progress, max) 
+    {
+        this.progressMeter.set(Math.min(progress, max)/max);
     }
     
     showGoal(customMessage=undefined)

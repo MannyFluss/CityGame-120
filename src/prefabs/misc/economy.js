@@ -1,8 +1,8 @@
 class PlayEconomy extends Phaser.GameObjects.GameObject
 {
-    constructor(scene,x,y)
+    constructor(scene)
     {
-        super(scene,x,y)
+        super(scene)
         
         scene.add.existing(scene);
         this.currentMoney = 0;
@@ -53,8 +53,8 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
         {
             this.emitParticles(amount, buildingSendingMoney);
         }
-        this.emit('onMoneyMade',amount);
         this.currentMoney += amount
+        this.emit('onMoneyChanged',this.currentMoney);
     }
     emitParticles(amount,building)
     {
@@ -68,6 +68,7 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
     spendMoney(amount=0)
     {
         this.currentMoney -= amount;
+        this.emit('onMoneyChanged',this.currentMoney);
     }
     checkSpendMoney(amount=0)
     {

@@ -6,7 +6,7 @@ class Hotel extends Building
         "description" : "this building generates over time, makes less money for each housing unit nearby",
         "name" : "hotel",
         'tag' : 'hotel',
-        'placeCost' : 30,
+        'placeCost' : 10,
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Hotel],
@@ -16,14 +16,14 @@ class Hotel extends Building
         
         super(scene,board,x,y,texture);
         this.counter = 0;
-        this.earningInterval = 10 * 1000;
+        this.earningInterval = 3 * 1000;
         this.tag = 'hotel';
            
     }
 
     onTimeElapsed()
     {
-        this.counter += 500;
+        this.counter += 250;
         if (this.counter >= this.earningInterval)
         {
             let buildings = this.getSurroundoundingBuildings();
@@ -57,7 +57,7 @@ class Casino extends MultiBuilding
         "description" : "this building generates extra income from hotels nearby,"+ 
         "additionally gambles part a part of your income any time it is moved",
         "name" : "casino",
-        'placeCost' : 30,
+        'placeCost' : 20,
         "shopCost" : 100,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Casino],
@@ -67,13 +67,13 @@ class Casino extends MultiBuilding
 
         super(scene,board,x,y,texture,['left']);
         this.counter = 0;
-        this.earningInterval = 10 * 1000;
+        this.earningInterval = 3 * 1000;
         this.tag = 'casino';
 
     }
     onTimeElapsed()
     {
-        this.counter += 500;
+        this.counter += 250;
         if (this.counter >= this.earningInterval)
         {
             let buildings = this.getSurroundoundingBuildings();
