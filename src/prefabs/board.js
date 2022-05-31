@@ -131,7 +131,6 @@ class Board extends Phaser.GameObjects.Container
                 toAdd.tileY = y;
                 toAdd.boardRef = this;
                 let temp = x+','+y;
-                this.sceneRef.add.text(locX,locY,temp);
 
                 locX += this.tileXOffset;
                 locY += this.tileYOffset;   
