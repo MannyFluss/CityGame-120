@@ -82,7 +82,7 @@ class Menu extends Phaser.Scene
             targets: [this.dragTooltip, this.dragArrow],
             alpha: 1,
             ease: Phaser.Math.Easing.Quartic.InOut,
-            duration : 2000,
+            duration : 1300,
             delay: 3500,
         });
 
@@ -92,7 +92,7 @@ class Menu extends Phaser.Scene
             alpha: .5,
             ease: Phaser.Math.Easing.Quadratic.In,
             duration : 800,
-            delay: 5500,
+            delay: 4800,
             yoyo: true,
             repeat: -1,
         });
