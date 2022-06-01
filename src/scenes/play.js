@@ -70,7 +70,7 @@ class Play extends Phaser.Scene
         
         this.board = new Board(this, game.config.width/2, game.config.height/2, [], this.boardConfig);
         this.economy = new PlayEconomy(this);
-        this.radio = new Radio(this,100,100,[],this.songList);
+        this.radio = new Radio(this,-200,100,[],this.songList);
         this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
         this.initWinCondition();
@@ -98,7 +98,7 @@ class Play extends Phaser.Scene
 
     initUI()
     {
-        this.UImoney = this.add.text(game.config.width - 50, 50, "$" + this.economy.getCurrMoney(), {font: "42px Montserrat"}).setOrigin(1,0);
+        this.UImoney = this.add.text(game.config.width - 50, 50, "$" + this.economy.getCurrMoney(), {font: "42px 'Press Start 2P'"}).setOrigin(1,0);
     }
 
     update()
