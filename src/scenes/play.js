@@ -79,7 +79,6 @@ class Play extends Phaser.Scene
         this.radio = new Radio(this,-200,100,[],this.songList);
         this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
-        this.initWinCondition();
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
         if (boardSize == 2)
         {
@@ -87,22 +86,22 @@ class Play extends Phaser.Scene
         }else
         {
             this.initWinCondition();
+            this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
         }
         
-        this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
         this.initUI();
     }
 
     initTutorial()
     {
-        new Tutorial(this,300,800);
+        new Tutorial(this,150,game.config.height - 150);
     }
 
 
     initWinCondition()
     {
         
-        this.winCondition = new winState(this,"capitalism",{'moneyTotal' : 15});
+        this.winCondition = new winState(this,"capitalism",{'moneyTotal' : 20});
 
 
         //new Meteor(this,0,0,'',5,this.board.getTile(0,0))

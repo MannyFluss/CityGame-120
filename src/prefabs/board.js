@@ -12,12 +12,6 @@ class Board extends Phaser.GameObjects.Container
         this.tileArray = this.createArray(this.boardX,this.boardY); //this is where the board
         this.objectArray = this.createArray(this.boardX,this.boardY);
         this.initalizeGrid();
-
-        
-        
-        // this.placeBuilding(new MultiBuilding(this.sceneRef,this,0,0,'large-apartment-1'), 1, 0);
-        // retBuilding.moveBuilding('down');
-        // retBuilding.moveBuilding('left');
     }
 
     getRandomTile()
@@ -158,6 +152,22 @@ class Board extends Phaser.GameObjects.Container
             for (let tile of tileRow) {
                 let distance = Math.pow(tile.x - worldX, 2) + Math.pow(tile.y - worldY, 2);
                 if (distance < nearestDist) {
+                    nearestDist = distance;
+                    nearestTile = tile;
+                }
+            }
+        }
+        return nearestTile;
+    }
+
+    getNearestEmptyTile(worldX, worldY) 
+    {
+        let nearestTile = null;
+        let nearestDist = Infinity;
+        for (let tileRow of this.tileArray) {
+            for (let tile of tileRow) {
+                let distance = Math.pow(tile.x - worldX, 2) + Math.pow(tile.y - worldY, 2);
+                if (distance < nearestDist && this.checkEmpty(tile.tileX, tile.tileY)) {
                     nearestDist = distance;
                     nearestTile = tile;
                 }

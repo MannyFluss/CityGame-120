@@ -23,9 +23,9 @@ class ShopGhost extends Phaser.GameObjects.Sprite
             //attempt to deploy
             
             let board = scene.board;
-            let tile = board.getNearestTile(this.x,this.y);
+            let tile = board.getNearestEmptyTile(this.x,this.y);
             let checkBuilding = new buildingType(this.sceneRef,board,0,0,'');    
-            if (checkBuilding.validBuildSpot(tile.tileX,tile.tileY))
+            if (tile != null)
             {
                 console.log('able 2 place');
                 this.buildingDeployer = new BuildingDeployer(this.sceneRef,board, tile.tileX,tile.tileY,undefined,buildingType,0);
@@ -33,7 +33,11 @@ class ShopGhost extends Phaser.GameObjects.Sprite
                 scene.shop.buildingPlaced(index,buildingType);
                 
                 //build here
-            }else{console.log('cannot place');}
+            }
+            else
+            {
+                console.log('board full, cannot purchase building');
+            }
             checkBuilding.destroyThisBuilding();
             this.destroy()
         })

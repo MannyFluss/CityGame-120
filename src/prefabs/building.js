@@ -80,7 +80,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
             // must be made immovable to collide correctly
             this.body.setImmovable(true);
             this.afterimage.destroy();
-           let tile = this.board.getNearestTile(this.x,this.y)
+            let tile = this.board.getNearestTile(this.x,this.y)
             if (this.ableToMove(tile.tileX,tile.tileY) && this.immovable == false) {// ithink this needs to be changed to able to move
                 this.snapToTile();
             } else {

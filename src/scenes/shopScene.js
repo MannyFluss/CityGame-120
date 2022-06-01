@@ -35,7 +35,7 @@ class ShopScene extends Phaser.Scene
 
     initTutorial()
     {
-        new Tutorial(this,300,800,undefined,'shop');
+        new Tutorial(this,150,game.config.height - 150,undefined,'shop').setOrigin(0, 1);
     }
 
     initPurchases()
