@@ -25,7 +25,7 @@ class ShopGhost extends Phaser.GameObjects.Sprite
             let board = scene.board;
             let tile = board.getNearestEmptyTile(this.x,this.y);
             let checkBuilding = new buildingType(this.sceneRef,board,0,0,'');    
-            if (tile != null)
+            if (tile != null && checkBuilding.validBuildSpot(tile.tileX,tile.tileY))
             {
                 console.log('able 2 place');
                 this.buildingDeployer = new BuildingDeployer(this.sceneRef,board, tile.tileX,tile.tileY,undefined,buildingType,0);
