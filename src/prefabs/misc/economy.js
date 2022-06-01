@@ -13,7 +13,7 @@ class PlayEconomy extends Phaser.GameObjects.GameObject
 
         this.particles = scene.add.particles('money');
         this.moneyEmitter = this.particles.createEmitter({
-            scale : 2,
+            scale : 1,
             alpha : {start : 1, end : .25},
             life : 5 * 1000,
             speed : {min : 75, max : 100},
