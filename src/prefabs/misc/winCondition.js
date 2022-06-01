@@ -187,7 +187,7 @@ class winState extends Phaser.GameObjects.GameObject
             'background-color': 'lime',
             'width': '220px',
             'height': '100px',
-            'font': '48px Arial',
+            'font': '48px Press Start 2P',
             'font-weight': 'bold',
             'background-color' : '#0000FF'
         };
