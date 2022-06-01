@@ -24,6 +24,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         // physics settings
         this.tag = 'none';
         let collisionRadius = this.width/2.5;
+        this.sfxBuildingThump = scene.sound.add('sfx_BuildingThump');
         this.economyRef = scene.economy;
         this.body.setCircle(collisionRadius);
         this.body.setOffset(this.width/2-collisionRadius, this.height-collisionRadius*2);
@@ -82,7 +83,6 @@ class Building extends Phaser.Physics.Arcade.Sprite
            let tile = this.board.getNearestTile(this.x,this.y)
             if (this.ableToMove(tile.tileX,tile.tileY) && this.immovable == false) {// ithink this needs to be changed to able to move
                 this.snapToTile();
-                this.placementAnimation();
             } else {
                 this.x = this.tileParent.x;
                 this.y = this.tileParent.y;
@@ -232,6 +232,8 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
         this.board.objectArray[tile.tileX][tile.tileY] = this;
+        this.placementAnimation();
+        this.sfxBuildingThump.play();
         
         this.onMove();
         this.board.emit('boardStateChanged',this.board.objectArray);

@@ -10,6 +10,8 @@ class Menu extends Phaser.Scene
         this.load.image('logo', './assets/promo/logo.png');
         this.load.image('tile','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
+
+        this.load.audio('sfx_BuildingThump', './assets/sound/sfx/BuildingThump.wav')
     }
 
     create()

@@ -9,6 +9,7 @@ class MenuBuilding extends Phaser.Physics.Arcade.Sprite
         this.setOrigin(.5, 1);
         // physics settings
         let collisionRadius = this.width/2.5;
+        this.sfxBuildingThump = scene.sound.add('sfx_BuildingThump');
         this.body.setCircle(collisionRadius);
         this.body.setOffset(this.width/2-collisionRadius, this.height-collisionRadius*2);
         this.setCollideWorldBounds(true);
@@ -56,7 +57,6 @@ class MenuBuilding extends Phaser.Physics.Arcade.Sprite
                 this.afterimage.destroy();
                 let tile = this.sceneRef.getNearestTile(this.x,this.y)
                 this.snapToTile();
-                this.placementAnimation();
                 this.state = "idle";
             }
         });
@@ -202,6 +202,8 @@ class MenuBuilding extends Phaser.Physics.Arcade.Sprite
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
         this.onMove();
+        this.placementAnimation();
+        this.sfxBuildingThump.play();
     }
 
     onMove(){//this is a horrible solution to my problem but idc
