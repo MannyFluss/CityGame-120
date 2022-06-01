@@ -14,6 +14,16 @@ class ShopButton extends Phaser.GameObjects.Container
         this.textIcon.setColor("#5bb361")
         this.add([this.backgroundPanel,this.buildingIcon,this.textIcon]);
         this.sceneRef = scene;
+        this.buildingCost = undefined;
+
+        this.scene.economy.on('onMoneyChanged', (currentMoney) => {
+            if (this.buildingCost != undefined) {
+                if (currentMoney >= this.buildingCost)
+                    this.textIcon.setColor("#5bb361");
+                else
+                    this.textIcon.setColor("#dc8181");
+            }
+        });
     }
 
 
@@ -28,7 +38,8 @@ class ShopButton extends Phaser.GameObjects.Container
         while (this.buildingIcon.displayHeight < this.backgroundPanel.height-35)
             this.buildingIcon.scale += .1;
 
-        this.textIcon.setText("$" + building.metaData["placeCost"]);
+        this.buildingCost = building.metaData["placeCost"];
+        this.textIcon.setText("$" + this.buildingCost);
         //temp.destroyThisBu();
     }
 }
