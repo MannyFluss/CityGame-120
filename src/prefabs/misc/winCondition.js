@@ -11,7 +11,7 @@ class winState extends Phaser.GameObjects.GameObject
         this.workingVariables['objectiveMessage'] = 'default objective message';
         this.config = config;
         this.objectiveComplete = false;
-        this.progressText = this.sceneRef.add.text(game.canvas.width/2,5,'Progress Towards Goal').setOrigin(.5, 0); 
+        this.progressText = new BasicSprite(this.sceneRef, game.canvas.width/2, 15, 'goal-progress-text').setOrigin(.5, 0); 
 
         this.initializeWinCondition();
         this.timer = scene.time.addEvent({
@@ -168,10 +168,11 @@ class winState extends Phaser.GameObjects.GameObject
 
     createProgressMeter()
     {
-        let width = 240;
-        let height = 24;
-        this.progressMeter = new Meter(this.sceneRef, game.config.width/2-width/2, height, width, height, 'progress-measure').setOrigin(0,0);
-        new BasicSprite(this.sceneRef, game.config.width/2-width/2, height, 'progress-frame').setOrigin(0,0);
+        let width = 120*3;
+        let height = 10*3;
+        let yOffset = 50;
+        new BasicSprite(this.sceneRef, game.config.width/2-width/2, height + yOffset, 'progress-frame').setOrigin(0,0);
+        this.progressMeter = new Meter(this.sceneRef, game.config.width/2-width/2, height + yOffset, width, height, 'progress-measure').setOrigin(0,0);
     }
 
     updateProgressMeter(progress, max) 

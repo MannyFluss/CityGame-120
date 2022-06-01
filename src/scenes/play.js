@@ -40,6 +40,7 @@ class Play extends Phaser.Scene
         this.load.image('submit-button','./assets/ui/finish-button.png');
         this.load.image('progress-frame','./assets/ui/progress-frame.png');
         this.load.image('progress-measure','./assets/ui/progress-measure.png');
+        this.load.image('goal-progress-text','./assets/ui/goal-progress-text.png');
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
@@ -97,12 +98,13 @@ class Play extends Phaser.Scene
 
     initUI()
     {
-        this.UImoney = this.add.text(50, 50, this.economy.getCurrMoney());
+        this.UImoney = this.add.text(game.config.width - 50, 50, "$" + this.economy.getCurrMoney(), {font: "42px Montserrat"}).setOrigin(1,0);
     }
 
     update()
     {
-        this.UImoney.setText(this.economy.getCurrMoney());
+        this.UImoney.setText("$" + this.economy.getCurrMoney());
+
         for(let x=0; x<this.board.boardX; x++) {
             for(let y=0; y<this.board.boardY; y++) {
                 let building = this.board.objectArray[x][y];
