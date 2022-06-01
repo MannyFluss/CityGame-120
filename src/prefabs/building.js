@@ -175,9 +175,11 @@ class Building extends Phaser.Physics.Arcade.Sprite
             if (buildingsCheck[i]==null || buildingsCheck[i]==undefined){continue;}
             if (buildingsCheck[i].tag == 'repair-crew')
             {
+
                 let curr = buildingsCheck[i];
                 if (curr.protectionCount > 0)
                 {
+                    new Blorb(this.sceneRef,curr.x,curr.y,this);
                     curr.protectionCount -= 1;
                     return;
                 }
