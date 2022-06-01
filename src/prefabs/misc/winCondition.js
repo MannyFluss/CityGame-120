@@ -59,6 +59,7 @@ class winState extends Phaser.GameObjects.GameObject
             case 'capitalism':
                 this.workingVariables['moneyEarned'] = 0;
                 this.workingVariables['moneyTotal'] = 0;
+                this.workingVariables['objectiveMessage'] = 'Goal: Earn $' + this.config['moneyTotal'];
                 this.updateProgressMeter(this.sceneRef.economy.getCurrMoney(), this.config['moneyTotal']);
                 this.economyRef.on('onMoneyChanged',(amount)=>{
                     this.capitalismUpdate(amount);
@@ -197,13 +198,22 @@ class winState extends Phaser.GameObjects.GameObject
             currText=customMessage;
         }
         //let displayMessage = new Phaser.GameObjects.Text(this.sceneRef,300,300,currText);
-        let text = this.sceneRef.add.text(game.canvas.width/2,game.canvas.height/2,currText,style).setOrigin(.5,.5);
+        let text = this.sceneRef.add.text(game.canvas.width/2,game.canvas.height+1,currText,style).setOrigin(.5,0);
         text.setDepth(55);
-        let tween = this.sceneRef.tweens.add({
+        this.sceneRef.tweens.add({
             targets: text,
-            alpha : 0,
-            duration : 5 * 1000, 
-        })
+            y : game.canvas.height-200,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 500,
+        });
+        this.sceneRef.tweens.add({
+            targets: text,
+            y : game.canvas.height+1,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200, 
+            delay: 6000,
+        });
         
     }
 
