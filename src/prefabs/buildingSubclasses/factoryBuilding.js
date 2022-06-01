@@ -5,7 +5,7 @@ class SmallFactory extends Building
         "texture" : 'small-factory',
         "description" : "this building generates money based on how many buildings are next to it",
         "name" : 'Factory',
-        "shopCost" : 100,
+        "shopCost" : 20,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [SmallFactory],
     };

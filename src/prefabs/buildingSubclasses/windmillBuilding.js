@@ -5,7 +5,7 @@ class WinmillBuilding extends Building
         "texture" : 'small-windmill',
         "description" : "this building makes the refresh cost cheaper",
         "name" : 'Windmill',
-        "shopCost" : 100,
+        "shopCost" : 25,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [WinmillBuilding],
     };

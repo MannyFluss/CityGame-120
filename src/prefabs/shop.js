@@ -10,15 +10,15 @@ class Shop extends Phaser.GameObjects.Container
         this.availableBuildings = [undefined,undefined,undefined];   
         
 
-        this.shopConsole = new Phaser.GameObjects.Sprite(scene,0,0,'shop-console');
+        this.shopConsole = new Phaser.GameObjects.Sprite(scene,0,0,'shop-console-ben');
 
-        this.refreshButton = new Phaser.GameObjects.Sprite(scene,80,-160,).setInteractive();
+        this.refreshButton = new Phaser.GameObjects.Sprite(scene,0,300,'refresh').setInteractive();
 
         this.economyRef = scene.economy;
         this.purchase = [];
-        this.purchase[0] = new ShopButton(scene,0,-23);
-        this.purchase[1] = new ShopButton(scene,0,10);
-        this.purchase[2] = new ShopButton(scene,0,43);
+        this.purchase[0] = new ShopButton(scene,0,20);
+        this.purchase[1] = new ShopButton(scene,0,115);
+        this.purchase[2] = new ShopButton(scene,0,210);
         
         this.refreshButton.on('pointerup',()=>{this.refreshShop();});
         this.purchase[0].on('pointerdown',()=>{this.purchaseBuilding(0);});

@@ -10,7 +10,7 @@ class MultiBuilding extends Building
         "texture" : 'large-apartment-1',
         "description" : "this building is epic and large",
         "name" : 'multibuilding',
-        "shopCost" : 100,
+        "shopCost" : 20,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [MultiBuilding],
     };

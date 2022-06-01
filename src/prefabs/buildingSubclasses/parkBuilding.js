@@ -6,7 +6,7 @@ class ParkBuilding extends Building
         "texture" : 'small-park',
         "description" : "this building increases the amount of money adjacent buildings make",
         "name" : 'Park',
-        "shopCost" : 100,
+        "shopCost" : 25,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [ParkBuilding],
     };

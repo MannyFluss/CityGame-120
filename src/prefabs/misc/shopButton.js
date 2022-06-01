@@ -4,14 +4,14 @@ class ShopButton extends Phaser.GameObjects.Container
     {
         super(scene,x,y);
         scene.add.existing(this);
-        this.backgroundPanel = new Phaser.GameObjects.Sprite(scene,0,0,'shop-button');
-        this.buildingIcon = new Phaser.GameObjects.Sprite(scene, -20 ,0 ,'small-apartment-1');
-        this.buildingIcon.setDisplaySize(20,20);
+        this.backgroundPanel = new Phaser.GameObjects.Sprite(scene,0,0,'shop-button-ben');
+        this.buildingIcon = new Phaser.GameObjects.Sprite(scene, -30 ,0 ,'small-apartment-1');
         this.setSize(this.backgroundPanel.displayWidth,this.backgroundPanel.displayHeight);
 
         this.setInteractive();
         //this.buildingIcon.height = 50;
-        this.textIcon = scene.add.text(20,0,'sample text', { fontSize: 24 }).setOrigin(.5,.5);
+        this.textIcon = scene.add.text(40,0,'sample text', { fontSize: 24 }).setOrigin(.5,.5);
+        this.textIcon.setColor("#5bb361")
         this.add([this.backgroundPanel,this.buildingIcon,this.textIcon]);
         this.sceneRef = scene;
     }
@@ -22,7 +22,13 @@ class ShopButton extends Phaser.GameObjects.Container
         //let temp = new building(this.sceneRef,this.sceneRef.board,-500,-500);
         //console.log(temp.texture)
         this.buildingIcon.setTexture(building.metaData['texture']);
-        this.textIcon.setText(building.metaData["placeCost"]);
+
+        // scale the building to fit inside the button
+        this.buildingIcon.scale = 0;
+        while (this.buildingIcon.displayHeight < this.backgroundPanel.height-35)
+            this.buildingIcon.scale += .1;
+
+        this.textIcon.setText("$" + building.metaData["placeCost"]);
         //temp.destroyThisBu();
     }
 }

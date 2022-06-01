@@ -7,7 +7,7 @@ class Hotel extends Building
         "name" : "hotel",
         'tag' : 'hotel',
         'placeCost' : 10,
-        "shopCost" : 100,
+        "shopCost" : 15,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Hotel],
     };
@@ -58,7 +58,7 @@ class Casino extends MultiBuilding
         "additionally gambles part a part of your income any time it is moved",
         "name" : "casino",
         'placeCost' : 20,
-        "shopCost" : 100,
+        "shopCost" : 25,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Casino],
     };

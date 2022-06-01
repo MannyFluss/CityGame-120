@@ -5,7 +5,7 @@ class ShopEntries
     "texture" : 'tileSprite',
     "description" : "expand the current tile count!",
     "name" : "Tile Upgrade #1",
-    "shopCost" : 100,
+    "shopCost" : 5,
     "shopFunction" : "increaseBoardSize",
     "shopArguments" : [],
     }
@@ -14,7 +14,7 @@ class ShopEntries
     "texture" : 'tileSprite',
     "description" : "expand the current tile space even further!",
     "name" : "Tile Upgrade #2",
-    "shopCost" : 500,
+    "shopCost" : 35,
     "shopFunction" : "increaseBoardSize",
     "shopArguments" : [],
     }

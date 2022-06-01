@@ -21,7 +21,10 @@ class Play extends Phaser.Scene
         this.load.image('temp-background','./assets/tempArt/shopPrev.png');
         
         this.load.image('shop-console','./assets/ui/shopOutline.png');
+        this.load.image('shop-console-ben','./assets/ui/shopOutlineBen.png');
         this.load.image('shop-button','./assets/ui/shopButton.png');
+        this.load.image('shop-button-ben','./assets/ui/shopButtonBen.png');
+        this.load.image('refresh','./assets/ui/refresh.png');
 
         this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
 
@@ -64,10 +67,10 @@ class Play extends Phaser.Scene
             "sprite" : 'tileSprite',
         }
         
-        this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
+        this.board = new Board(this, game.config.width/2, game.config.height/2, [], this.boardConfig);
         this.economy = new PlayEconomy(this);
         this.radio = new Radio(this,100,100,[],this.songList);
-        this.shop = new Shop(this,1000,400,[],this.board).setScale(3);
+        this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
         this.initWinCondition();
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
