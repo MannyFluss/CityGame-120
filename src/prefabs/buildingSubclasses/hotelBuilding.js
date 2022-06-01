@@ -44,7 +44,8 @@ class Hotel extends Building
     }
     onPlace()
     {
-        this.economyRef.earnMoney(10,this);
+        // not sure why this was implemented
+        // this.economyRef.earnMoney(10,this);
     }
 }
 
