@@ -35,7 +35,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
         this.config = {color : "#000000", 
         align: "left",
-        wordWrap: { width: 300, useAdvancedWrap: true }
+        wordWrap: { width: 300, useAdvancedWrap: true , fontSize: 42}
         };
 
         //this.threatRef = scene.threatGen;
@@ -46,8 +46,8 @@ class Tutorial extends Phaser.GameObjects.Sprite
         this.speechBubble = new Phaser.GameObjects.Sprite(scene,this.x + 260 , this.y - 50,'speech-bubble');
         this.speechBubble.setInteractive();
         //let s = 'ssssssssssssssssssssssssssssssssssss\nsssssssssssssssssssssssssssssssssssssssssssssssssss';
-        this.speechText = new Phaser.GameObjects.Text(scene,this.speechBubble.x,this.speechBubble.y,'',this.config);
-        console.log(this.speechText);
+        this.speechText = new Phaser.GameObjects.Text(scene,this.speechBubble.x,this.speechBubble.y+20,'',this.config);
+        // console.log(this.speechText);
         this.speechText.setFixedSize(300,200)
         //this.speechText.setColor("#000000");
         this.speechText.setOrigin(.5,.5);
@@ -56,7 +56,6 @@ class Tutorial extends Phaser.GameObjects.Sprite
         scene.add.existing(this.speechText)
         if (type=='play')
         {
-            
             this.playNext();
             
         }
@@ -99,7 +98,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
         {
             this.threatRef.enabled = true;
 
-            this.threatRef.generateDisaster('meteor');   
+            //this.threatRef.generateDisaster('meteor');   
         }
         this.speechText.text = this.playTutorial[this.index]
         this.index += 1;
