@@ -15,6 +15,8 @@ class Menu extends Phaser.Scene
         this.load.image('play-text','./assets/ui/play-text.png');
         this.load.image('drag-here','./assets/ui/drag-here.png');
         this.load.image('drag-arrow','./assets/ui/drag-arrow.png');
+
+        this.load.audio('sfx_BuildingThump', './assets/sound/sfx/BuildingThump.wav')
     }
 
     create()

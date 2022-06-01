@@ -15,6 +15,7 @@ class Meteor extends Phaser.GameObjects.Sprite
         scene.time.delayedCall(destructionDelay * 1000,()=>{this.meteorExplosion();});
         this.x = this.tileRef.x;
         this.y = this.tileRef.y - 500;
+        this.sfxCrash = scene.sound.add('sfx_meteor');
 
         this.sceneRef.tweens.add({
             targets: this,
@@ -58,6 +59,7 @@ class Meteor extends Phaser.GameObjects.Sprite
         })
         this.sceneRef.time.delayedCall(100,()=>{emitter.stop();},this);
         this.fireEmitter.stop();
+        this.sfxCrash.play();
         this.destroy();
     }
 

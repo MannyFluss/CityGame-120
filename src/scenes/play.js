@@ -53,6 +53,11 @@ class Play extends Phaser.Scene
         this.load.image('shop-temp','./assets/tempArt/shopConsole.png');
         //this.load.image('shop-button-temp','./assets/tempArt/shopButton.png');
 
+        this.load.audio('sfx_BuildingThump', './assets/sound/sfx/BuildingThump.wav');
+        this.load.audio('sfx_warning', './assets/sound/sfx/Warning.wav');
+        this.load.audio('sfx_meteor', './assets/sound/sfx/Meteor.wav');
+        this.load.audio('sfx_ButtonPress', './assets/sound/sfx/ButtonPress.wav');
+        this.load.audio('sfx_GoalAchieved', './assets/sound/sfx/GoalAchieved.wav');
         
         for (let i=0; i< this.songList.length; i++)//this can be unsafe
         {
