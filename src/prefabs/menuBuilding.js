@@ -209,7 +209,7 @@ class MenuBuilding extends Phaser.Physics.Arcade.Sprite
     onMove(){//this is a horrible solution to my problem but idc
         if (this.tag == 'casino')
         {
-            let toGamble = this.economyRef.getCurrMoney() * 0.05;
+            let toGamble = this.economyRef.getCurrMoney() * 0.25;
             let random = Phaser.Math.FloatBetween(0.0 , 2.5);
             let value = Math.round(toGamble * random);
 
