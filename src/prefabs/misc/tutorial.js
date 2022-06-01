@@ -38,8 +38,11 @@ class Tutorial extends Phaser.GameObjects.Sprite
         wordWrap: { width: 300, useAdvancedWrap: true }
         };
 
-        this.threatRef = scene.threatGen;
-        this.threatRef.enabled = false;
+        //this.threatRef = scene.threatGen;
+        if(this.threatRef!=undefined)
+        {
+            this.threatRef.enabled = false;
+        }
         this.speechBubble = new Phaser.GameObjects.Sprite(scene,this.x + 260 , this.y - 50,'speech-bubble');
         this.speechBubble.setInteractive();
         //let s = 'ssssssssssssssssssssssssssssssssssss\nsssssssssssssssssssssssssssssssssssssssssssssssssss';
@@ -53,27 +56,57 @@ class Tutorial extends Phaser.GameObjects.Sprite
         scene.add.existing(this.speechText)
         if (type=='play')
         {
+            
             this.playNext();
+            
         }
-        this.speechBubble.on('pointerup',()=>{this.playNext();})
+        if (type=='shop')
+        {
+            this.shopNext();
+            //this.speechBubble.on('pointerup',()=>{this.shopNext();})
+        }
+        this.speechBubble.on('pointerup',()=>{
+            if (type=='play')
+            {
+                this.playNext();
+            }else
+            {
+                this.shopNext();
+            }
+            })
+    }
+
+    shopNext()
+    {
+        if (this.index == this.shopTutorial.length)
+        {
+            this.finished();
+            return;
+        }
+        this.speechText.text = this.shopTutorial[this.index]
+        this.index += 1;
     }
 
     playNext()
     {
         if (this.index == this.playTutorial.length)
         {
+            this.sceneRef.initWinCondition();
             this.finished();
             return;
         }
         if (this.index==6)
         {
             this.threatRef.enabled = true;
+
             this.threatRef.generateDisaster('meteor');   
         }
         this.speechText.text = this.playTutorial[this.index]
         this.index += 1;
     }
-    
+
+
+
     finished()
     {
         this.destroy();

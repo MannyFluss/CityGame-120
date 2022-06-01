@@ -43,7 +43,7 @@ let shopSceneAvailableList = //this is an array filled with the METADATA for the
 [
 
     ShopEntries.tilePurchase1,Hotel.metaData, MultiBuilding.metaData,
-    Casino.metaData, RepairCrew.metaData,
+    RepairCrew.metaData, Casino.metaData, 
     ShopEntries.tilePurchase2,
 
 //    SmallFactory.metaData,ParkBuilding.metaData,WinmillBuilding.metaData,
