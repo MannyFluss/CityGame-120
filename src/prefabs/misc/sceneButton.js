@@ -23,6 +23,12 @@ class SceneButton extends Phaser.GameObjects.Sprite
     clicked()
     {
         this.sceneRef.scene.start(this.targetSCN);
+
+        if (this.sceneRef.radio != undefined)
+        {
+            this.sceneRef.radio.killMusic();
+        }
+
         if (this.sceneRef.type == Play)
         {
             console.log('osss')

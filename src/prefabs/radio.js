@@ -90,6 +90,7 @@ class Radio extends Phaser.GameObjects.Container
 
     }
 
+    
     playPrevious()
     {
         this.playNext(-1);
@@ -103,6 +104,11 @@ class Radio extends Phaser.GameObjects.Container
         {
             this.music.resume();
         }
+    }
+    killMusic()
+    {
+        this.music.pause();
+        this.destroy();
     }
     shuffleToggle()
     {
