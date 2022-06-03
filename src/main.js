@@ -55,3 +55,4 @@ let sceneInitMoney = 5;
 let highScore = 0;
 let boardSize = 2;
 let money = 0;
+let level = 0;
