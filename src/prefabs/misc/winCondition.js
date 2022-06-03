@@ -63,7 +63,7 @@ class winState extends Phaser.GameObjects.GameObject
                 this.updateProgressMeter(this.sceneRef.economy.getCurrMoney(), this.config['moneyTotal']);
                 this.economyRef.on('onMoneyChanged',(amount)=>{
                     this.capitalismUpdate(amount);
-                })
+                });
                 break;
             case 'koth':
                 this.workingVariables['kothEarned'] = 0;

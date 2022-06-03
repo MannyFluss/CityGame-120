@@ -64,15 +64,25 @@ class Tutorial extends Phaser.GameObjects.Sprite
             this.shopNext();
             //this.speechBubble.on('pointerup',()=>{this.shopNext();})
         }
-        this.speechBubble.on('pointerup',()=>{
-            if (type=='play')
+        this.economyRef.on('onMoneyChanged',(amount)=>{
+            this.emit('tutorialMoneyChanged', this.index, amount);
+        });
+        this.on('tutorialMoneyChanged',(index, amount)=>{
+            if(index==3 && type=='play' && amount==0)
             {
                 this.playNext();
-            }else
-            {
-                this.shopNext();
             }
-            })
+        });
+        this.speechBubble.on('pointerdown',()=>{
+            if (type=='play' && this.index!=3)
+            {
+                console.log('inside speech bubble', this.index);
+                this.playNext();
+            } else if (type=='shop')
+            {
+                // this.shopNext();
+            }
+        });
     }
 
     shopNext()
@@ -96,12 +106,17 @@ class Tutorial extends Phaser.GameObjects.Sprite
         }
         if (this.index==6)
         {
-            this.threatRef.enabled = true;
+            // this.threatRef.enabled = true;
 
-            //this.threatRef.generateDisaster('meteor');   
+            // this.threatRef.generateDisaster('meteor');
+
+            
+            let targTile = this.boardRef.getRandomTile();
+            this.threatRef.disasters.push(new Meteor(this.sceneRef,0,0,undefined,5,targTile));
         }
         this.speechText.text = this.playTutorial[this.index]
         this.index += 1;
+        this.emit('indexChanged', this.index, this.economyRef.currentMoney);
     }
 
 
