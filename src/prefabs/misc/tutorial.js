@@ -110,9 +110,23 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
             // this.threatRef.generateDisaster('meteor');
 
-            
-            let targTile = this.boardRef.getRandomTile();
-            this.threatRef.disasters.push(new Meteor(this.sceneRef,0,0,undefined,5,targTile));
+            console.log("Board X:", this.boardRef.boardX);
+            for (let i=0; i<this.boardRef.boardX; i++)
+            {
+                console.log("i:", i);
+                console.log("Board Y:", this.boardRef.boardY);
+                for (let j=0; j<this.boardRef.boardY; j++)
+                {
+                    console.log("j:", j);
+                    console.log(this.boardRef.checkEmpty(i,j));
+                    if(!this.boardRef.checkEmpty(i,j))
+                    {
+                        this.targTile = this.boardRef.getTile(i,j);
+                        console.log(this.targTile)
+                    }
+                }
+            }
+            this.threatRef.disasters.push(new Meteor(this.sceneRef,0,0,undefined,5,this.targTile));
         }
         this.speechText.text = this.playTutorial[this.index]
         this.index += 1;
