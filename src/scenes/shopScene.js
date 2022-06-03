@@ -16,6 +16,10 @@ class ShopScene extends Phaser.Scene
         new SceneButton(this,game.config.width-20,game.config.height-20,'submit-button','playScene').setOrigin(1, 1);
         this.initPreview();
         this.initPurchases();
+        if (boardSize==2)
+        {
+            this.initTutorial();
+        }
         // static metaData = 
         // {
         //     "texture" : 'small-apartment-1',
@@ -29,6 +33,10 @@ class ShopScene extends Phaser.Scene
 
     }
 
+    initTutorial()
+    {
+        new Tutorial(this,150,game.config.height - 150,undefined,'shop');
+    }
 
     initPurchases()
     {

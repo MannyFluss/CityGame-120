@@ -7,7 +7,7 @@ class Hotel extends Building
         "name" : "hotel",
         'tag' : 'hotel',
         'placeCost' : 10,
-        "shopCost" : 100,
+        "shopCost" : 15,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Hotel],
     };
@@ -44,7 +44,8 @@ class Hotel extends Building
     }
     onPlace()
     {
-        this.economyRef.earnMoney(10,this);
+        // not sure why this was implemented
+        // this.economyRef.earnMoney(10,this);
     }
 }
 
@@ -58,7 +59,7 @@ class Casino extends MultiBuilding
         "additionally gambles part a part of your income any time it is moved",
         "name" : "casino",
         'placeCost' : 20,
-        "shopCost" : 100,
+        "shopCost" : 25,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Casino],
     };

@@ -6,7 +6,7 @@ class RepairCrew extends Building
         "description" : "protects adjacent buildings from threats",
         "name" : 'Repair Crew',
         "placeCost" : 5,
-        "shopCost" : 100,
+        "shopCost" : 10,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [RepairCrew],
         "tag" : "housing",
@@ -28,7 +28,7 @@ class InsuranceCo extends Building
         "description" : "gives you money whenever a building is destroyed",
         "name" : 'Insurance Company',
         "placeCost" : 5,
-        "shopCost" : 100,
+        "shopCost" : 25,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [InsuranceCo],
     };
@@ -52,7 +52,7 @@ class Garden extends Building
         "description" : "gives you money based on how many building types surround it",
         "name" : 'Garden',
         "placeCost" : 18,
-        "shopCost" : 100,
+        "shopCost" : 20,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Garden],
     };
@@ -92,7 +92,7 @@ class Mine extends MultiBuilding
         "description" : "generates lots of money!",
         "name" : 'Mine',
         "placeCost" : 25,
-        "shopCost" : 100,
+        "shopCost" : 30,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Mine],
     };

@@ -6,7 +6,7 @@ class SmallApartment extends Building
         "description" : "this building generates money when placed",
         "name" : 'Small Apartment',
         "placeCost" : 5,
-        "shopCost" : 100,
+        "shopCost" : 5,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [SmallApartment],
         "tag" : "housing",
@@ -40,7 +40,7 @@ class LargeApartment extends MultiBuilding
         "name" : 'Large Apartment',
         "placeCost" : 9,
 
-        "shopCost" : 100,
+        "shopCost" : 10,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [LargeApartment],
         "tag" : "housing",

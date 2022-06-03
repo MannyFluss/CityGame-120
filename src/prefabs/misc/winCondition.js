@@ -11,7 +11,7 @@ class winState extends Phaser.GameObjects.GameObject
         this.workingVariables['objectiveMessage'] = 'default objective message';
         this.config = config;
         this.objectiveComplete = false;
-        this.progressText = this.sceneRef.add.text(game.canvas.width/2,5,'Progress Towards Goal').setOrigin(.5, 0); 
+        this.progressText = new BasicSprite(this.sceneRef, game.canvas.width/2, 15, 'goal-progress-text').setOrigin(.5, 0); 
 
         this.initializeWinCondition();
         this.timer = scene.time.addEvent({
@@ -22,7 +22,7 @@ class winState extends Phaser.GameObjects.GameObject
             callbackScope : this
         });
         
-        
+        this.sfxGoalAchieved = scene.sound.add('sfx_GoalAchieved');
         
     }
 
@@ -59,6 +59,7 @@ class winState extends Phaser.GameObjects.GameObject
             case 'capitalism':
                 this.workingVariables['moneyEarned'] = 0;
                 this.workingVariables['moneyTotal'] = 0;
+                this.workingVariables['objectiveMessage'] = 'Goal: Earn $' + this.config['moneyTotal'];
                 this.updateProgressMeter(this.sceneRef.economy.getCurrMoney(), this.config['moneyTotal']);
                 this.economyRef.on('onMoneyChanged',(amount)=>{
                     this.capitalismUpdate(amount);
@@ -168,10 +169,11 @@ class winState extends Phaser.GameObjects.GameObject
 
     createProgressMeter()
     {
-        let width = 240;
-        let height = 24;
-        this.progressMeter = new Meter(this.sceneRef, game.config.width/2-width/2, height, width, height, 'progress-measure').setOrigin(0,0);
-        new BasicSprite(this.sceneRef, game.config.width/2-width/2, height, 'progress-frame').setOrigin(0,0);
+        let width = 120*3;
+        let height = 10*3;
+        let yOffset = 50;
+        new BasicSprite(this.sceneRef, game.config.width/2-width/2, height + yOffset, 'progress-frame').setOrigin(0,0);
+        this.progressMeter = new Meter(this.sceneRef, game.config.width/2-width/2, height + yOffset, width, height, 'progress-measure').setOrigin(0,0);
     }
 
     updateProgressMeter(progress, max) 
@@ -185,7 +187,7 @@ class winState extends Phaser.GameObjects.GameObject
             'background-color': 'lime',
             'width': '220px',
             'height': '100px',
-            'font': '48px Arial',
+            'font': '48px Press Start 2P',
             'font-weight': 'bold',
             'background-color' : '#0000FF'
         };
@@ -196,13 +198,22 @@ class winState extends Phaser.GameObjects.GameObject
             currText=customMessage;
         }
         //let displayMessage = new Phaser.GameObjects.Text(this.sceneRef,300,300,currText);
-        let text = this.sceneRef.add.text(game.canvas.width/2,game.canvas.height/2,currText,style).setOrigin(.5,.5);
+        let text = this.sceneRef.add.text(game.canvas.width/2,game.canvas.height+1,currText,style).setOrigin(.5,0);
         text.setDepth(55);
-        let tween = this.sceneRef.tweens.add({
+        this.sceneRef.tweens.add({
             targets: text,
-            alpha : 0,
-            duration : 5 * 1000, 
-        })
+            y : game.canvas.height-200,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 500,
+        });
+        this.sceneRef.tweens.add({
+            targets: text,
+            y : game.canvas.height+1,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200, 
+            delay: 6000,
+        });
         
     }
 
@@ -231,7 +242,8 @@ class winState extends Phaser.GameObjects.GameObject
         //this.emitter.x = game.canvas.width/2;
         this.objectiveComplete = true;
         //create the win button and coffetti pops out from the sky
-        this.showGoal('city-goals met!')
+        this.showGoal('City Goal Achieved!')
+        this.sfxGoalAchieved.play();
         new FinishButton(this.sceneRef,20,game.config.height-20,'submit-button','shopScene').setOrigin(0, 1);
         
     }

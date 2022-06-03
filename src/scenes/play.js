@@ -5,8 +5,8 @@ class Play extends Phaser.Scene
         super("playScene");
         this.songList = //name of each of the songs
         [
+            "omygodv2.mp3",
             "mannymoemnt.mp3",
-            "omygodv2.mp3"
         ];
 
     }
@@ -20,6 +20,15 @@ class Play extends Phaser.Scene
         this.load.image('yellow','./assets/particles/yellow.png');
         this.load.image('temp-background','./assets/tempArt/shopPrev.png');
         
+        this.load.image('shop-console','./assets/ui/shopOutline.png');
+        this.load.image('shop-console-ben','./assets/ui/shopOutlineBen.png');
+        this.load.image('shop-button','./assets/ui/shopButton.png');
+        this.load.image('shop-button-ben','./assets/ui/shopButtonBen.png');
+        this.load.image('outside-shop-button-ben','./assets/ui/outside-shop-button-ben.png');
+        this.load.image('refresh','./assets/ui/refresh.png');
+        this.load.image('tutorialJohnson', './assets/other/tutorialJohnson.png');
+        this.load.image('speech-bubble','./assets/ui/speechBubble.png');
+
         this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
 
         this.load.image('money','./assets/ui/dollar-sign.png');
@@ -34,19 +43,24 @@ class Play extends Phaser.Scene
         this.load.image('submit-button','./assets/ui/finish-button.png');
         this.load.image('progress-frame','./assets/ui/progress-frame.png');
         this.load.image('progress-measure','./assets/ui/progress-measure.png');
+        this.load.image('goal-progress-text','./assets/ui/goal-progress-text.png');
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
         this.load.image('large-apartment-1','./assets/buildings/large-apartment-1.png');
         this.load.image('casino','./assets/buildings/casino.png');
         this.load.image('shop-1','./assets/buildings/shop-1.png');
-        this.load.image('dollar-sign','./assets/ui/dollar-sign.png');
         this.load.image('warning', './assets/warning.png');
         this.load.image('temp-button','./assets/tempArt/buttonz.png');
         this.load.image('radio-temp','./assets/tempArt/radioConsole.png');
         this.load.image('shop-temp','./assets/tempArt/shopConsole.png');
-        this.load.image('shop-button-temp','./assets/tempArt/shopButton.png');
+        //this.load.image('shop-button-temp','./assets/tempArt/shopButton.png');
 
+        this.load.audio('sfx_BuildingThump', './assets/sound/sfx/BuildingThump.wav');
+        this.load.audio('sfx_warning', './assets/sound/sfx/Warning.wav');
+        this.load.audio('sfx_meteor', './assets/sound/sfx/Meteor.wav');
+        this.load.audio('sfx_ButtonPress', './assets/sound/sfx/ButtonPress.wav');
+        this.load.audio('sfx_GoalAchieved', './assets/sound/sfx/GoalAchieved.wav');
         
         for (let i=0; i< this.songList.length; i++)//this can be unsafe
         {
@@ -61,25 +75,34 @@ class Play extends Phaser.Scene
             "sprite" : 'tileSprite',
         }
         
-        this.board = new Board(this, game.config.width/2, 250, [], this.boardConfig);
+        this.board = new Board(this, game.config.width/2, game.config.height/2, [], this.boardConfig);
         this.economy = new PlayEconomy(this);
-        this.radio = new Radio(this,100,100,[],this.songList);
-        this.shop = new Shop(this,700,400,[],this.board).setScale(.5);
+        this.radio = new Radio(this,-200,100,[],this.songList);
+        this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
-        this.initWinCondition();
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
-        this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
+        if (boardSize == 2)
+        {
+            this.initTutorial();
+        }else
+        {
+            this.initWinCondition();
+            this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
+        }
+        
         this.initUI();
     }
 
-
-    
+    initTutorial()
+    {
+        new Tutorial(this,150,game.config.height - 150);
+    }
 
 
     initWinCondition()
     {
         
-        this.winCondition = new winState(this,"capitalism",{'moneyTotal' : 15});
+        this.winCondition = new winState(this,"capitalism",{'moneyTotal' : 20});
 
 
         //new Meteor(this,0,0,'',5,this.board.getTile(0,0))
@@ -88,8 +111,6 @@ class Play extends Phaser.Scene
         
         //this.warning.setWarningPlacement(this.board.getTile(0,0));
 
-        
-        this.initUI()
         //var spritetest = this.add.sprite(100,100,'tileSprite');
 
         this.cameras.main.fadeIn(1000, 57, 52, 87);
@@ -97,12 +118,13 @@ class Play extends Phaser.Scene
 
     initUI()
     {
-        this.UImoney = this.add.text(50, 50, this.economy.getCurrMoney());
+        this.UImoney = this.add.text(game.config.width - 50, 50, "$" + this.economy.getCurrMoney(), {font: "42px 'Press Start 2P'"}).setOrigin(1,0);
     }
 
     update()
     {
-        this.UImoney.text = this.economy.getCurrMoney();
+        this.UImoney.setText("$" + this.economy.getCurrMoney());
+
         for(let x=0; x<this.board.boardX; x++) {
             for(let y=0; y<this.board.boardY; y++) {
                 let building = this.board.objectArray[x][y];

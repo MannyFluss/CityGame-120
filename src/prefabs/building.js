@@ -7,8 +7,8 @@ class Building extends Phaser.Physics.Arcade.Sprite
         "description" : "this building generates money when placed",
         "name" : 'default building',
         "tag" : undefined,
-        "placeCost" : 10,
-        "shopCost" : 100,
+        "placeCost" : 5,
+        "shopCost" : 5,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Building],
         
@@ -24,6 +24,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         // physics settings
         this.tag = 'none';
         let collisionRadius = this.width/2.5;
+        this.sfxBuildingThump = scene.sound.add('sfx_BuildingThump');
         this.economyRef = scene.economy;
         this.body.setCircle(collisionRadius);
         this.body.setOffset(this.width/2-collisionRadius, this.height-collisionRadius*2);
@@ -79,10 +80,9 @@ class Building extends Phaser.Physics.Arcade.Sprite
             // must be made immovable to collide correctly
             this.body.setImmovable(true);
             this.afterimage.destroy();
-           let tile = this.board.getNearestTile(this.x,this.y)
+            let tile = this.board.getNearestTile(this.x,this.y)
             if (this.ableToMove(tile.tileX,tile.tileY) && this.immovable == false) {// ithink this needs to be changed to able to move
                 this.snapToTile();
-                this.placementAnimation();
             } else {
                 this.x = this.tileParent.x;
                 this.y = this.tileParent.y;
@@ -175,9 +175,11 @@ class Building extends Phaser.Physics.Arcade.Sprite
             if (buildingsCheck[i]==null || buildingsCheck[i]==undefined){continue;}
             if (buildingsCheck[i].tag == 'repair-crew')
             {
+
                 let curr = buildingsCheck[i];
                 if (curr.protectionCount > 0)
                 {
+                    new Blorb(this.sceneRef,curr.x,curr.y,this);
                     curr.protectionCount -= 1;
                     return;
                 }
@@ -232,6 +234,8 @@ class Building extends Phaser.Physics.Arcade.Sprite
         this.tileY = tile.tileY;
         console.log("Placing at", tile.tileX, tile.tileY);
         this.board.objectArray[tile.tileX][tile.tileY] = this;
+        this.placementAnimation();
+        this.sfxBuildingThump.play();
         
         this.onMove();
         this.board.emit('boardStateChanged',this.board.objectArray);

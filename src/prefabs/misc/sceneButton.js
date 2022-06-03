@@ -48,7 +48,7 @@ class FinishButton extends Phaser.GameObjects.Sprite
         this.x -= 1000
         this.targetSCN = targetSCN;
         this.sceneRef = scene;
-        this.setInteractive();
+        this.setInteractive({useHandCursor: true});
         this.on('pointerdown',()=>{
             this.clicked();
         });

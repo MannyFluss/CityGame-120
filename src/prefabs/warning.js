@@ -12,6 +12,7 @@ class Warning extends Phaser.GameObjects.Sprite
         this.boardRef;
         this.tileObj;
         this.time = time;
+        this.sfxWarning = scene.sound.add('sfx_warning');
         scene.time.delayedCall(time * 1000,()=>{this.warningDissapear();})
         
         scene.tweens.add({
@@ -34,8 +35,9 @@ class Warning extends Phaser.GameObjects.Sprite
         //this might not be necessary
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
-        return this;
         console.log("Placing warning at", tile.tileX, tile.tileY);
+        this.sfxWarning.play();
+        return this;
     }
 
     update() {
