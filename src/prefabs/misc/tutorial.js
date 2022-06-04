@@ -57,12 +57,10 @@ class Tutorial extends Phaser.GameObjects.Sprite
         if (type=='play')
         {
             this.playNext();
-            
         }
         if (type=='shop')
         {
             this.shopNext();
-            //this.speechBubble.on('pointerup',()=>{this.shopNext();})
         }
         this.speechBubble.on('pointerup',()=>{
             if (type=='play')
