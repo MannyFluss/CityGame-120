@@ -22,6 +22,9 @@ class SceneButton extends Phaser.GameObjects.Sprite
     }
     clicked()
     {
+        // transfer money to next scene
+        this.sceneRef.economy.sceneEnd();
+        // begin next scene
         this.sceneRef.scene.start(this.targetSCN);
 
         if (this.sceneRef.radio != undefined)

@@ -9,28 +9,19 @@ class ShopScene extends Phaser.Scene
     {
         this.load.image('submit-button','./assets/tempArt/check.png');
     }
+    
     create()
     {
-        //this.addNewBuilding(Hotel);
-        //this.increaseBoardSize();
+        this.economy = new PlayEconomy(this, money);
+        
         new SceneButton(this,game.config.width-20,game.config.height-20,'submit-button','playScene').setOrigin(1, 1);
+        
         this.initPreview();
         this.initPurchases();
-        if (boardSize==2)
-        {
+        this.initMoneyUI();
+
+        if (level==1)
             this.initTutorial();
-        }
-        // static metaData = 
-        // {
-        //     "texture" : 'small-apartment-1',
-        //     "description" : "this building generates money when placed",
-    
-        //     "shopCost" : 100,
-        //     "shopFunction" : "addNewBuilding",
-        //     "shopArguments" : [Building],
-        // };
-
-
     }
 
     initTutorial()
@@ -80,6 +71,12 @@ class ShopScene extends Phaser.Scene
             [this.previewBackground,this.previewIcon,this.costText,this.descriptText,this.previewName]);
         this.shopPreview.alpha = 0;
     }
+
+    initMoneyUI()
+    {
+        this.UImoney = this.add.text(game.config.width - 50, 50, "$" + this.economy.getCurrMoney(), {font: "42px 'Press Start 2P'"}).setOrigin(1,0);
+    }
+
     executeViaString(func='',args=[])
     {
         switch(func)
