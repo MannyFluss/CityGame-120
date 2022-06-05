@@ -85,22 +85,25 @@ class economyPanel extends Phaser.GameObjects.Container
         this.economyRef = scene.economy;
         this.setDepth(100);
         scene.add.existing(this);
-        this.background = new Phaser.GameObjects.Sprite(scene,0,0,'temp-background').setInteractive();
+        this.background = new Phaser.GameObjects.Sprite(scene,0,0,'win-background').setInteractive();
         this.background.on('pointerdown',()=>{
             this.destroy();
         })
 
         this.add(this.background);
         this.texts = [];
-        this.texts[0] = new Phaser.GameObjects.Text(scene, 0 ,-80, 'City Successfully Built!');
-        this.texts[1] = new Phaser.GameObjects.Text(scene, 0 , - 60 , 'Stats:');
-        this.texts[2] = new Phaser.GameObjects.Text(scene, 0 ,-45, 'Disasters Endured: ' + this.economyRef.disastersEndured);
-        this.texts[3] = new Phaser.GameObjects.Text(scene, 0 ,-30, 'Time Spent: ' + this.economyRef.timeSpent);
-        this.texts[4] = new Phaser.GameObjects.Text(scene, 0 ,-15, 'Money Earned: ' + this.economyRef.currentMoney);
-        this.texts[5] = new Phaser.GameObjects.Text(scene, 0 ,0, 'Current Money Multiplier: ' + moneyMultiplier + 'x');
+
+        let style = {'color' : '#393457'};
+
+        this.texts[0] = new Phaser.GameObjects.Text(scene, 0 ,-80, 'City Successfully Built!', style);
+        this.texts[1] = new Phaser.GameObjects.Text(scene, 0 , - 60 , 'Stats:', style);
+        this.texts[2] = new Phaser.GameObjects.Text(scene, 0 ,-45, 'Disasters Endured: ' + this.economyRef.disastersEndured, style);
+        this.texts[3] = new Phaser.GameObjects.Text(scene, 0 ,-30, 'Time Spent: ' + this.economyRef.timeSpent, style);
+        this.texts[4] = new Phaser.GameObjects.Text(scene, 0 ,-15, 'Money Earned: ' + this.economyRef.currentMoney, style);
+        this.texts[5] = new Phaser.GameObjects.Text(scene, 0 ,0, 'Current Money Multiplier: ' + moneyMultiplier + 'x', style);
         let temp = (moneyMultiplier*this.economyRef.currentMoney);
-        this.texts[6] = new Phaser.GameObjects.Text(scene, 0 , 15, 'Total Money Earned: ' + temp);
-        this.texts[7] = new Phaser.GameObjects.Text(scene, 0 ,30, 'New City-wide Budget: ' + (temp + money));//global money
+        this.texts[6] = new Phaser.GameObjects.Text(scene, 0 , 15, 'Total Money Earned: ' + temp, style);
+        this.texts[7] = new Phaser.GameObjects.Text(scene, 0 ,30, 'New City-wide Budget: ' + (temp + money), style);//global money
         for (let i=0; i<this.texts.length;i++)
         {
             this.texts[i].setOrigin(.5,.5);

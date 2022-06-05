@@ -3,7 +3,7 @@ class ShopEntries
     static tilePurchase1 = 
     {
     "texture" : 'tileSprite',
-    "description" : "expand the current tile count!",
+    "description" : "Expand the size of the city!",
     "name" : "Tile Upgrade #1",
     "shopCost" : 5,
     "shopFunction" : "increaseBoardSize",
@@ -12,7 +12,7 @@ class ShopEntries
     static tilePurchase2 = 
     {
     "texture" : 'tileSprite',
-    "description" : "expand the current tile space even further!",
+    "description" : "Expand the size of the city even further!",
     "name" : "Tile Upgrade #2",
     "shopCost" : 35,
     "shopFunction" : "increaseBoardSize",

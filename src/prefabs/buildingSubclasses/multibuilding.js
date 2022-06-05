@@ -8,7 +8,7 @@ class MultiBuilding extends Building
     static metaData = 
     {
         "texture" : 'large-apartment-1',
-        "description" : "this building is epic and large",
+        "description" : "This building is epic and large.",
         "name" : 'multibuilding',
         "shopCost" : 20,
         "shopFunction" : "addNewBuilding",

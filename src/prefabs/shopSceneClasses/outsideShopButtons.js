@@ -12,7 +12,8 @@ class ShopSceneButton extends Phaser.GameObjects.Container
 
         this.setInteractive();
         //this.buildingIcon.height = 50;
-        this.textIcon = scene.add.text(40,0,'sample text');
+        let style = { 'color' : '#393457' }
+        this.textIcon = scene.add.text(-5,-5,'sample text', style);
         this.add([this.backgroundPanel,this.buildingIcon,this.textIcon]);
         this.sceneRef = scene;
         this.on('pointerup',()=>{this.executeFunction();})

@@ -3,8 +3,8 @@ class Hotel extends Building
     static metaData = 
     {
         "texture" : 'hotel-1',
-        "description" : "this building generates over time, makes less money for each housing unit nearby",
-        "name" : "hotel",
+        "description" : "Generates lots of money, but makes less money for each housing unit nearby.",
+        "name" : "Hotel",
         'tag' : 'hotel',
         'placeCost' : 15,
         "shopCost" : 15,
@@ -55,9 +55,9 @@ class Casino extends MultiBuilding
     static metaData = 
     {
         "texture" : 'casino',
-        "description" : "this building generates extra income from hotels nearby,"+ 
-        "additionally gambles part a part of your income any time it is moved",
-        "name" : "casino",
+        "description" : "Generates tons of income for each nearby Hotel. "+ 
+        "Gambles a part of your income any time it is moved.",
+        "name" : "Casino",
         'placeCost' : 25,
         "shopCost" : 25,
         "shopFunction" : "addNewBuilding",
