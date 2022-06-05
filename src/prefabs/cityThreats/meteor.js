@@ -17,6 +17,8 @@ class Meteor extends Phaser.GameObjects.Sprite
         this.y = this.tileRef.y - 800;
         this.sfxCrash = scene.sound.add('sfx_meteor');
 
+        this.setDepth(2 * (this.tileX + this.tileY));
+
         this.sceneRef.tweens.add({
             targets: this,
             ease: 'Sine.easeIn',
@@ -93,6 +95,7 @@ class Lightning extends Phaser.GameObjects.Sprite
         this.setOrigin(.5, 1);
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
+        this.setDepth(2 * (this.tileX + this.tileY));
         this.boardRef;
 
         this.warning = new Warning(scene,this.tileRef.x,this.tileRef.y,'warning',destructionDelay);
