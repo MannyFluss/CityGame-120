@@ -66,6 +66,9 @@ class Play extends Phaser.Scene
         {
             let x = this.load.audio(this.songList[i],'./assets/music/radioMusic/'+this.songList[i]);
         }
+
+        // advance to the next level
+        level += 1;
     }
     
     create()
@@ -81,7 +84,7 @@ class Play extends Phaser.Scene
         this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
-        if (boardSize == 2)
+        if (level == 1)
         {
             this.initTutorial();
         }else
@@ -101,8 +104,18 @@ class Play extends Phaser.Scene
 
     initWinCondition()
     {
-        
-        this.winCondition = new winState(this,"capitalism",{'moneyTotal' : 20});
+        switch (level)
+        {
+            case 1:
+                this.winCondition = new winState(this, "capitalism", {'moneyTotal' : 20});
+                break;
+            case 2:
+                this.winCondition = new winState(this, "capitalism", {'moneyTotal' : 50});
+                break;
+            default:
+                this.winCondition = new winState(this, "capitalism", {'moneyTotal' : level*150-200});
+                break;
+        }
 
 
         //new Meteor(this,0,0,'',5,this.board.getTile(0,0))
