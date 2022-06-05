@@ -7,7 +7,7 @@ class Meteor extends Phaser.GameObjects.Sprite
         this.setOrigin(.5, .5);
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
-        this.boardRef;
+        this.boardRef = scene.board;
         this.tileRef = tile;
         this.sceneRef = scene;
         this.warning = new Warning(scene,this.tileRef.x,this.tileRef.y,'warning',destructionDelay);
@@ -46,6 +46,7 @@ class Meteor extends Phaser.GameObjects.Sprite
         if (buildingOrNull!=null)
         {   
             console.log('meteor has destroyed building')
+            this.boardRef.onBuildingDestroy(buildingOrNull);
             buildingOrNull.destroyThisBuilding();
         }
         let particles = this.sceneRef.add.particles('hotel-1');
@@ -105,7 +106,8 @@ class Lightning extends Phaser.GameObjects.Sprite
         let buildingOrNull = this.tileRef.getThisBuilding();
         if (buildingOrNull!=null)
         {   
-            console.log('lightning has destroyed this building')
+            console.log('lightning has destroyed this building');
+            this.boardRef.onBuildingDestroy(buildingOrNull);
             buildingOrNull.destroyThisBuilding();
         }
         let particles = this.sceneRef.add.particles('hotel-1');
@@ -169,6 +171,7 @@ class Fog extends Phaser.GameObjects.Sprite
             let buildingOrNull = this.boardRef.getBuildingAt(x,y);
             if (buildingOrNull != null)
             {
+                this.boardRef.onBuildingDestroy(buildingOrNull);
                 buildingOrNull.destroyThisBuilding();
             }
 

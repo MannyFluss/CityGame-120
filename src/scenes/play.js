@@ -46,6 +46,7 @@ class Play extends Phaser.Scene
         this.load.image('goal-progress-text','./assets/ui/goal-progress-text.png');
         this.load.image('tileSprite','./assets/tile.png');
         this.load.image('small-apartment-1','./assets/buildings/small-apartment-1.png');
+        this.load.image('insurance-1','./assets/buildings/insurance-1.png');
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
         this.load.image('large-apartment-1','./assets/buildings/large-apartment-1.png');
         this.load.image('casino','./assets/buildings/casino.png');
@@ -84,14 +85,14 @@ class Play extends Phaser.Scene
         this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
-        
+
         if (level == 1)
             this.initTutorial();
         else
         {
             if (level == 3)
                 availableThreats.push('fog');
-            else if (level == 5)
+            if (level == 5)
                 availableThreats.push('lightning');
                 
             this.initWinCondition();

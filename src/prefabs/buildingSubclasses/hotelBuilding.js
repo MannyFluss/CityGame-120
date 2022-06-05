@@ -6,7 +6,7 @@ class Hotel extends Building
         "description" : "this building generates over time, makes less money for each housing unit nearby",
         "name" : "hotel",
         'tag' : 'hotel',
-        'placeCost' : 10,
+        'placeCost' : 15,
         "shopCost" : 15,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Hotel],
@@ -58,7 +58,7 @@ class Casino extends MultiBuilding
         "description" : "this building generates extra income from hotels nearby,"+ 
         "additionally gambles part a part of your income any time it is moved",
         "name" : "casino",
-        'placeCost' : 20,
+        'placeCost' : 25,
         "shopCost" : 25,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [Casino],

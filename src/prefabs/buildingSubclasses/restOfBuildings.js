@@ -24,10 +24,10 @@ class InsuranceCo extends Building
 {    
     static metaData = 
     {
-        "texture" : 'small-apartment-1',
+        "texture" : 'insurance-1',
         "description" : "gives you money whenever a building is destroyed",
         "name" : 'Insurance Company',
-        "placeCost" : 5,
+        "placeCost" : 7,
         "shopCost" : 25,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [InsuranceCo],
@@ -35,9 +35,7 @@ class InsuranceCo extends Building
     constructor(scene,board,x,y,texture = InsuranceCo.metaData['texture'])
     {
         super(scene,board,x,y,texture);
-        this.money2Earn = 10;
-        //this.protectionCount = 3;
-        //this.tag = 'repair-crew';
+        this.money2Earn = 6;
         this.board.on('onBuildingDestroy',()=>{
             this.economyRef.earnMoney(this.money2Earn);
         })
