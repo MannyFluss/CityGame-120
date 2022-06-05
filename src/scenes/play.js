@@ -83,15 +83,20 @@ class Play extends Phaser.Scene
         this.radio = new Radio(this,-200,100,[],this.songList);
         this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
-        this.threatGen = new ThreatGenerator(this,0,0,this.board);
         if (level == 1)
-        {
             this.initTutorial();
-        }else
+        else
         {
+            if (level == 3)
+                availableThreats.push('fog');
+            else if (level == 5)
+                availableThreats.push('lightning');
+                
             this.initWinCondition();
             this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
         }
+
+        this.threatGen = new ThreatGenerator(this,0,0,this.board);
         
         this.initUI();
     }
