@@ -34,19 +34,18 @@ class ShopSceneButton extends Phaser.GameObjects.Container
             return;
         }
 
-        this.sceneRef.executeViaString(this.targetFunction,this.targetArguments);
-        let idx = shopSceneAvailableList.indexOf(this.metadata);
-        shopSceneAvailableList.splice(idx,1);
-        this.sceneRef.tweens.add({
-            targets: this,
-            alpha : 0,
-            x : -300,
-            duration : 1 *1000,
+        // try to execute, if successful remove option
+        if (this.sceneRef.executeViaString(this.targetFunction,this.targetArguments))
+        {
+            let idx = shopSceneAvailableList.indexOf(this.metadata);
+            shopSceneAvailableList.splice(idx,1);
+            this.sceneRef.tweens.add({
+                targets: this,
+                alpha : 0,
+                x : -300,
+                duration : 1 *1000,
 
-        })
-        // this.sceneRef.add.
-        // this.sceneRef.targetFunction;
-        
-
+            })
+        }
     }
 }

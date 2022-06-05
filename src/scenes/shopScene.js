@@ -82,28 +82,37 @@ class ShopScene extends Phaser.Scene
         switch(func)
         {
             case "increaseBoardSize":
-                this.increaseBoardSize();
-                break
+                if (args.length == 0){console.log('error with exec via str no args prov');break;}
+                return this.increaseBoardSize(args[0]);
             case "addNewBuilding":
                 if (args.length == 0){console.log('error with exec via str no args prov');break;}
-                this.addNewBuilding(args[0]);
-                break;
+                return this.purchaseBuilding(args[0]);
             default:
                 console.log('shop given invalid execution string');
                 break;
         }
     }
 
-
-
-
-    increaseBoardSize()
+    increaseBoardSize(tileCost)
     {
-        if (boardSize < 4)
+        if (boardSize < 4 && this.economy.checkSpendMoney(tileCost))
         {
+            this.economy.spendMoney(tileCost);
             boardSize += 1;
+            return true;
         }
-        
+        return false;
+    }
+
+    purchaseBuilding(building)
+    {
+        if (this.economy.checkSpendMoney(building.metaData['shopCost']))
+        {
+            this.economy.spendMoney(building.metaData['shopCost']);
+            this.addNewBuilding(building);
+            return true;
+        }
+        return false;
     }
 
     addNewBuilding(building)
@@ -112,5 +121,10 @@ class ShopScene extends Phaser.Scene
         {
             possibleBuildingList[possibleBuildingList.length]=building;
         }
+    }
+
+    update()
+    {
+        this.UImoney.setText("$" + this.economy.getCurrMoney());
     }
 }

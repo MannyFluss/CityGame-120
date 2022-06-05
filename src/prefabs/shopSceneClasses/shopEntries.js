@@ -7,7 +7,7 @@ class ShopEntries
     "name" : "Tile Upgrade #1",
     "shopCost" : 5,
     "shopFunction" : "increaseBoardSize",
-    "shopArguments" : [],
+    "shopArguments" : [5], // must be the same as shopCost
     }
     static tilePurchase2 = 
     {
@@ -16,6 +16,6 @@ class ShopEntries
     "name" : "Tile Upgrade #2",
     "shopCost" : 35,
     "shopFunction" : "increaseBoardSize",
-    "shopArguments" : [],
+    "shopArguments" : [35], // must be the same as shopCost
     }
 }
