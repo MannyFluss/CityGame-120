@@ -22,7 +22,7 @@ class Shop extends Phaser.GameObjects.Container
         this.purchase[2].on('pointerdown',()=>{this.purchaseBuilding(2);});
         this.add(this.shopConsole);
         this.add(this.purchase);
-
+        this.tweenNotPlayed = false;
 
         this.refreshShop(false);
 
@@ -85,6 +85,21 @@ class Shop extends Phaser.GameObjects.Container
         if (this.economyRef.checkSpendMoney(this.availableBuildings[index].metaData['placeCost'])==false)
         {
             console.log('not enough money')
+            if (!this.tweenNotPlayed)
+            {
+                this.cannotPurchase = this.sceneRef.tweens.add({
+                    targets: this.purchase[index],
+                    ease: Phaser.Math.Easing.Back.InOut(),
+                    x : this.purchase[index].x - 10,
+                    duration : 50,
+                    repeat: 2,
+                    yoyo: true,
+                });
+                this.tweenNotPlayed = true;
+            } else if (!this.cannotPurchase.isPlaying())
+            {
+                this.cannotPurchase.play();
+            }
             
             return; //not enough money
         }        

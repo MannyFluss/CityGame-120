@@ -8,20 +8,20 @@ class ShopButton extends Phaser.GameObjects.Container
         this.buildingIcon = new Phaser.GameObjects.Sprite(scene, -30 ,0 ,'small-apartment-1');
         this.setSize(this.backgroundPanel.displayWidth,this.backgroundPanel.displayHeight);
 
-        this.setInteractive();
         //this.buildingIcon.height = 50;
         this.textIcon = scene.add.bitmapText(35,3,"Pixellari", 'sample text', 32).setOrigin(.5,.5);
         this.textIcon.setFont("Pixellari Green");
         this.add([this.backgroundPanel,this.buildingIcon,this.textIcon]);
         this.sceneRef = scene;
         this.buildingCost = undefined;
+        this.setInteractive({ useHandCursor:true });
 
         this.scene.economy.on('onMoneyChanged', (currentMoney) => {
             if (this.buildingCost != undefined) {
                 if (currentMoney >= this.buildingCost)
                     this.textIcon.setFont("Pixellari Green");
                 else
-                    this.textIcon.setTint("Pixellari Red");
+                    this.textIcon.setFont("Pixellari Red");
             }
         });
     }

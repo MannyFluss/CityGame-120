@@ -136,15 +136,6 @@ class Play extends Phaser.Scene
                 this.winCondition = new winState(this, "capitalism", {'moneyTotal' : level*150-200});
                 break;
         }
-
-
-        //new Meteor(this,0,0,'',5,this.board.getTile(0,0))
-
-        //this.warning = new Warning(this,0,0);
-        
-        //this.warning.setWarningPlacement(this.board.getTile(0,0));
-
-        //var spritetest = this.add.sprite(100,100,'tileSprite');
     }
 
     initUI()

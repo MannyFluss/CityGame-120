@@ -15,7 +15,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
             "Natural disasters are constantly putting our city in peril. It's our duty as Civil Engineers to protect our citizens.",//click
             "HOLY COW THERE'S A METEOR INCOMING!! This is below my paygrade, make sure the building does not get struck!",//wait for timer
             "Nice work! Well that's all for an education. Go on and complete the City Goal.",//click and finished
-            "Oh no! Your building's been destroyed! Well...good luck completing your city-assigned task." // click and finished
+            "Oh no! Your building's been destroyed! Well...good luck completing your City Goal." // click and finished
         ];
 
         this.shopTutorial=
@@ -37,7 +37,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
             this.threatRef.enabled = false;
         }
         this.speechBubble = new Phaser.GameObjects.Sprite(scene,this.x + 260 , this.y - 50,'speech-bubble');
-        this.speechBubble.setInteractive();
+        this.speechBubble.setInteractive({useHandCursor: true});
         this.speechText = new Phaser.GameObjects.BitmapText(scene,this.speechBubble.x,this.speechBubble.y,"Pixellari",'',24).setMaxWidth(300);
 
         this.speechText.setOrigin(.5,.5);
@@ -91,17 +91,11 @@ class Tutorial extends Phaser.GameObjects.Sprite
             this.finished();
             return;
         }
-        if (this.index==2)
+        if (this.index==0)
         {
-            this.sceneRef.tweens.add({
-                targets: this.sceneRef.UImoney,
-                ease: Phaser.Math.Easing.Back.InOut,
-                x : this.sceneRef.UImoney.x - 100,
-                duration : 500,
-            });
-            this.economyRef.currentMoney += 5;
+            this.economyRef.currentMoney = 5;
         }
-        if (this.index==2)
+        if (this.index==1)
         {
             this.sceneRef.tweens.add({
                 targets: this.sceneRef.shop,
