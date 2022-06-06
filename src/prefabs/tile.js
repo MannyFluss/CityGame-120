@@ -9,6 +9,10 @@ class Tile extends Phaser.GameObjects.Sprite
         this.tileY;
         this.boardRef;
         this.tileObj;
+        
+
+
+
     }
     checkEmpty() //true means empty
     {

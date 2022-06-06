@@ -134,10 +134,22 @@ class Board extends Phaser.GameObjects.Container
             for(let x=0;x<this.boardX;x++)
             {
 
-                const toAdd = new Tile(this.sceneRef,locX,locY,'tileSprite');//this can be cleaned up
+                const toAdd = new Tile(this.sceneRef,locX,locY + 400,'tileSprite');//this can be cleaned up
+                let randTemp = Phaser.Math.Between(900,1100);
+
+                this.sceneRef.tweens.add({
+                    targets: toAdd,
+                    ease: Phaser.Math.Easing.Back.InOut,
+//                    duration : 1200,
+//                    delay: 50
+        //            scale : {start : 2, end : 1.5},
+                    y : locY,
+                    duration : randTemp,
+                });
+
                 this.tileArray[x][y] = toAdd;
                 toAdd.x = locX;
-                toAdd.y = locY;
+                // toAdd.y = locY;
                 toAdd.tileX = x;
                 toAdd.tileY = y;
                 toAdd.boardRef = this;
