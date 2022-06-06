@@ -8,7 +8,7 @@ class ThreatGenerator extends Phaser.GameObjects.Container
         this.economyRef = scene.economy;
         this.sceneRef = scene;
         this.boardRef = boardRef;
-        this.timeUntilDisaster = 1000;
+        this.timeUntilDisaster = 3000;
         this.timeReset = 12 * 1000;
         this.disasters = [];
         this.enabled = true;
