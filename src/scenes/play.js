@@ -6,7 +6,12 @@ class Play extends Phaser.Scene
         this.songList = //name of each of the songs
         [
             "omygodv2.mp3",
-            "mannymoemnt.mp3",
+            "Walter_white.mp3",
+            "mannuel.mp3",
+            "I_am_the_one_who_knocks_v2.mp3",
+            "I_am_in_your_walls.mp3",
+            "meeany_manny.mp3",
+
         ];
 
     }
@@ -31,6 +36,7 @@ class Play extends Phaser.Scene
         this.load.image('refresh','./assets/ui/refresh.png');
         this.load.image('tutorialJohnson', './assets/other/tutorialJohnson.png');
         this.load.image('speech-bubble','./assets/ui/speechBubble.png');
+        this.load.image('ben-speech-bubble','./assets/ui/ben-speech-bubble.png');
 
         this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
 
@@ -106,7 +112,8 @@ class Play extends Phaser.Scene
                 availableThreats.push('fog');
             if (level == 5)
                 availableThreats.push('lightning');
-                
+            if (level == 7)
+                availableThreats.push('tornado');
             this.initWinCondition();
             this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
         }
@@ -118,7 +125,7 @@ class Play extends Phaser.Scene
 
     initTutorial()
     {
-        new Tutorial(this,150,game.config.height - 150);
+        new Tutorial(this,150,game.config.height - 180);
     }
 
 

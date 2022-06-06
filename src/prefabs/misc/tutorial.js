@@ -2,7 +2,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
 {
     constructor(scene,x,y,texture='tutorialJohnson',type='play')
     {
-        super(scene,x,y,texture);
+        super(scene,x,game.canvas.height+160,texture);
         scene.add.existing(this);
         this.setScale(2);
 
@@ -30,18 +30,17 @@ class Tutorial extends Phaser.GameObjects.Sprite
         this.sceneRef = scene;
         this.economyRef = scene.economy;
         this.threatRef = scene.threatGen;
+        this.done = false;
 
         this.threatRef = scene.threatGen;
         if(this.threatRef!=undefined)
         {
             this.threatRef.enabled = false;
         }
-        this.speechBubble = new Phaser.GameObjects.Sprite(scene,this.x + 260 , this.y - 50,'speech-bubble');
-        this.speechBubble.setInteractive();
-        this.speechText = new Phaser.GameObjects.BitmapText(scene,this.speechBubble.x,this.speechBubble.y,"Pixellari",'',24).setMaxWidth(300);
+        this.speechBubble = new Phaser.GameObjects.Sprite(scene,this.x + 320, this.y,'ben-speech-bubble');
+        this.speechBubble.setInteractive({useHandCursor: true});
+        this.speechText = new Phaser.GameObjects.BitmapText(scene, this.speechBubble.x - 135, this.speechBubble.y-70, "Pixellari",'',24).setMaxWidth(300);
 
-        this.speechText.setOrigin(.5,.5);
-        this.speechBubble.setScale(1.5);
         scene.add.existing(this.speechBubble);
         scene.add.existing(this.speechText)
         if (type=='play')
@@ -60,11 +59,34 @@ class Tutorial extends Phaser.GameObjects.Sprite
             {
                 this.shopNext();
             }
-            })
+        });
+
+        this.sceneRef.tweens.add({
+            targets: this,
+            y : y,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 50
+        });
+        this.sceneRef.tweens.add({
+            targets: this.speechBubble,
+            y : y+30,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 100
+        });
+        this.sceneRef.tweens.add({
+            targets: this.speechText,
+            y : y+30-70,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 100
+        });
     }
 
     shopNext()
     {
+        if (this.done) return;
         if (this.index == this.shopTutorial.length)
         {
             this.finished();
@@ -76,10 +98,11 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
     playNext()
     {
+        if (this.done) return;
         if (this.index == this.playTutorial.length)
         {
-            this.sceneRef.initWinCondition();
             this.finished();
+            this.sceneRef.initWinCondition();
             return;
         }
         if (this.index==5)
@@ -97,8 +120,32 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
     finished()
     {
-        this.destroy();
-        this.speechBubble.destroy();
-        this.speechText.destroy();
+        this.done = true;
+        this.sceneRef.tweens.add({
+            targets: this,
+            y : game.canvas.height+170,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 50
+        });
+        this.sceneRef.tweens.add({
+            targets: this.speechBubble,
+            y : game.canvas.height+170+30,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 100
+        });
+        this.sceneRef.tweens.add({
+            targets: this.speechText,
+            y : game.canvas.height+170+30-70,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 100
+        });
+        this.sceneRef.time.delayedCall(1200+100,()=>{
+            this.speechText.destroy();
+            this.speechBubble.destroy();
+            this.destroy();
+        });
     }
 }
