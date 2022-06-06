@@ -30,6 +30,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
         this.sceneRef = scene;
         this.economyRef = scene.economy;
         this.threatRef = scene.threatGen;
+        this.done = false;
 
         this.threatRef = scene.threatGen;
         if(this.threatRef!=undefined)
@@ -85,6 +86,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
     shopNext()
     {
+        if (this.done) return;
         if (this.index == this.shopTutorial.length)
         {
             this.finished();
@@ -96,10 +98,11 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
     playNext()
     {
+        if (this.done) return;
         if (this.index == this.playTutorial.length)
         {
-            this.sceneRef.initWinCondition();
             this.finished();
+            this.sceneRef.initWinCondition();
             return;
         }
         if (this.index==5)
@@ -117,6 +120,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
     finished()
     {
+        this.done = true;
         this.sceneRef.tweens.add({
             targets: this,
             y : game.canvas.height+170,
