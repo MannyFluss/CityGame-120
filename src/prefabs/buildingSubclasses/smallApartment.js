@@ -3,7 +3,7 @@ class SmallApartment extends Building
     static metaData = 
     {
         "texture" : 'small-apartment-1',
-        "description" : "this building generates money when placed",
+        "description" : "This building generates a low amount of money periodically.",
         "name" : 'Small Apartment',
         "placeCost" : 5,
         "shopCost" : 5,
@@ -15,7 +15,7 @@ class SmallApartment extends Building
     {
         super(scene,board,x,y,texture);
         this.counter = 0;
-        this.earningInterval = 2.5 * 1000;
+        this.earningInterval = 2.2 * 1000;
         this.tag = 'housing';
     }
 
@@ -36,7 +36,7 @@ class LargeApartment extends MultiBuilding
     static metaData = 
     {
         "texture" : 'large-apartment-1',//all buildings currentl will be small-apartment textures
-        "description" : "this building passively generates income",
+        "description" : "This building earns more than double that of a Small Apartment!",
         "name" : 'Large Apartment',
         "placeCost" : 9,
 

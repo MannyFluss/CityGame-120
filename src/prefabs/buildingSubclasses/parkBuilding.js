@@ -4,7 +4,7 @@ class ParkBuilding extends Building
     static metaData = 
     {
         "texture" : 'small-park',
-        "description" : "this building increases the amount of money adjacent buildings make",
+        "description" : "This building increases the amount of money adjacent buildings make.",
         "name" : 'Park',
         "shopCost" : 25,
         "shopFunction" : "addNewBuilding",

@@ -3,7 +3,7 @@ class RepairCrew extends Building
     static metaData = 
     {
         "texture" : 'repair-crew-1',
-        "description" : "protects adjacent buildings from threats",
+        "description" : "Protects adjacent buildings from threats. Has 3 uses before it is destroyed.",
         "name" : 'Repair Crew',
         "placeCost" : 5,
         "shopCost" : 10,
@@ -24,10 +24,10 @@ class InsuranceCo extends Building
 {    
     static metaData = 
     {
-        "texture" : 'small-apartment-1',
-        "description" : "gives you money whenever a building is destroyed",
+        "texture" : 'insurance-1',
+        "description" : "Gives you cash every time a building is destroyed!",
         "name" : 'Insurance Company',
-        "placeCost" : 5,
+        "placeCost" : 7,
         "shopCost" : 25,
         "shopFunction" : "addNewBuilding",
         "shopArguments" : [InsuranceCo],
@@ -35,9 +35,7 @@ class InsuranceCo extends Building
     constructor(scene,board,x,y,texture = InsuranceCo.metaData['texture'])
     {
         super(scene,board,x,y,texture);
-        this.money2Earn = 10;
-        //this.protectionCount = 3;
-        //this.tag = 'repair-crew';
+        this.money2Earn = 6;
         this.board.on('onBuildingDestroy',()=>{
             this.economyRef.earnMoney(this.money2Earn);
         })
@@ -49,7 +47,7 @@ class Garden extends Building
     static metaData = 
     {
         "texture" : 'small-apartment-1',
-        "description" : "gives you money based on how many building types surround it",
+        "description" : "Gives you money based on how many different building types surround it.",
         "name" : 'Garden',
         "placeCost" : 18,
         "shopCost" : 20,
@@ -89,7 +87,7 @@ class Mine extends MultiBuilding
     static metaData = 
     {
         "texture" : 'small-apartment-1',
-        "description" : "generates lots of money!",
+        "description" : "Generates lots of money! \nCannot be moved.",
         "name" : 'Mine',
         "placeCost" : 25,
         "shopCost" : 30,

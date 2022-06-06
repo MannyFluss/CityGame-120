@@ -38,20 +38,21 @@ let possibleBuildingList =
 ];
 let availableThreats = 
 [
-    'meteor'//,'fog','lightning','tornado'
+    'meteor'
 ];
 
 let shopSceneAvailableList = //this is an array filled with the METADATA for the shop
 [
     
-    ShopEntries.tilePurchase1,Hotel.metaData, LargeApartment.metaData,
-    Casino.metaData, RepairCrew.metaData,
+    ShopEntries.tilePurchase1, Hotel.metaData, LargeApartment.metaData,
+    RepairCrew.metaData, InsuranceCo.metaData, Casino.metaData, 
     ShopEntries.tilePurchase2,
 
 //    SmallFactory.metaData,ParkBuilding.metaData,WinmillBuilding.metaData,
 ];
 let moneyMultiplier = 1;
-let sceneInitMoney = 0;
+let sceneInitMoney = 55;
 let highScore = 0;
 let boardSize = 2;
 let money = 0;
+let level = 0;

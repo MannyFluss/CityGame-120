@@ -3,7 +3,7 @@ class SmallFactory extends Building
     static metaData = 
     {
         "texture" : 'small-factory',
-        "description" : "this building generates money based on how many buildings are next to it",
+        "description" : "This building generates money based on how many buildings are next to it.",
         "name" : 'Factory',
         "shopCost" : 20,
         "shopFunction" : "addNewBuilding",

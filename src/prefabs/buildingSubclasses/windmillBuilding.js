@@ -3,7 +3,7 @@ class WinmillBuilding extends Building
     static metaData = 
     {
         "texture" : 'small-windmill',
-        "description" : "this building makes the refresh cost cheaper",
+        "description" : "This building makes the refresh cost cheaper!",
         "name" : 'Windmill',
         "shopCost" : 25,
         "shopFunction" : "addNewBuilding",

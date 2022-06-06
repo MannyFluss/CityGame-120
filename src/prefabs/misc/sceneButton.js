@@ -22,7 +22,16 @@ class SceneButton extends Phaser.GameObjects.Sprite
     }
     clicked()
     {
+        // transfer money to next scene
+        this.sceneRef.economy.sceneEnd();
+        // begin next scene
         this.sceneRef.scene.start(this.targetSCN);
+
+        if (this.sceneRef.radio != undefined)
+        {
+            this.sceneRef.radio.killMusic();
+        }
+
         if (this.sceneRef.type == Play)
         {
             console.log('osss')
@@ -79,22 +88,23 @@ class economyPanel extends Phaser.GameObjects.Container
         this.economyRef = scene.economy;
         this.setDepth(100);
         scene.add.existing(this);
-        this.background = new Phaser.GameObjects.Sprite(scene,0,0,'temp-background').setInteractive();
+        this.background = new Phaser.GameObjects.Sprite(scene,0,0,'win-background').setInteractive();
         this.background.on('pointerdown',()=>{
             this.destroy();
         })
 
         this.add(this.background);
         this.texts = [];
-        this.texts[0] = new Phaser.GameObjects.Text(scene, 0 ,-80, 'City Successfully Built!');
-        this.texts[1] = new Phaser.GameObjects.Text(scene, 0 , - 60 , 'Stats:');
-        this.texts[2] = new Phaser.GameObjects.Text(scene, 0 ,-45, 'Disasters Endured: ' + this.economyRef.disastersEndured);
-        this.texts[3] = new Phaser.GameObjects.Text(scene, 0 ,-30, 'Time Spent: ' + this.economyRef.timeSpent);
-        this.texts[4] = new Phaser.GameObjects.Text(scene, 0 ,-15, 'Money Earned: ' + this.economyRef.currentMoney);
-        this.texts[5] = new Phaser.GameObjects.Text(scene, 0 ,0, 'Current Money Multiplier: ' + moneyMultiplier + 'x');
+
+        this.texts[0] = new Phaser.GameObjects.BitmapText(scene, 0, -120, "Pixellari Green", 'City Successfully Built!', 32);
+        this.texts[1] = new Phaser.GameObjects.BitmapText(scene, 0, -80 , "Pixellari Blue", 'Stats:', 24);
+        this.texts[2] = new Phaser.GameObjects.BitmapText(scene, 0, -40, "Pixellari Blue", 'Disasters Endured: ' + this.economyRef.disastersEndured, 24);
+        this.texts[3] = new Phaser.GameObjects.BitmapText(scene, 0, -15, "Pixellari Blue", 'Time Spent: ' + this.economyRef.timeSpent, 24);
+        this.texts[4] = new Phaser.GameObjects.BitmapText(scene, 0, 10, "Pixellari Blue", 'Money Earned: ' + this.economyRef.currentMoney, 24);
+        this.texts[5] = new Phaser.GameObjects.BitmapText(scene, 0, 35, "Pixellari Blue", 'Current Money Multiplier: ' + moneyMultiplier + 'x', 24);
         let temp = (moneyMultiplier*this.economyRef.currentMoney);
-        this.texts[6] = new Phaser.GameObjects.Text(scene, 0 , 15, 'Total Money Earned: ' + temp);
-        this.texts[7] = new Phaser.GameObjects.Text(scene, 0 ,30, 'New City-wide Budget: ' + (temp + money));//global money
+        this.texts[6] = new Phaser.GameObjects.BitmapText(scene, 0, 60, "Pixellari Blue", 'Total Money Earned: ' + temp, 24);
+        this.texts[7] = new Phaser.GameObjects.BitmapText(scene, 0, 85, "Pixellari Blue", 'New City-wide Budget: ' + (temp + money), 24);//global money
         for (let i=0; i<this.texts.length;i++)
         {
             this.texts[i].setOrigin(.5,.5);

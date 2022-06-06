@@ -9,10 +9,7 @@ class Shop extends Phaser.GameObjects.Container
         this.boardRef = boardRef; //we need access to the board within the shop
         this.availableBuildings = [undefined,undefined,undefined];   
         
-
         this.shopConsole = new Phaser.GameObjects.Sprite(scene,0,0,'shop-console-ben');
-
-        this.refreshButton = new Phaser.GameObjects.Sprite(scene,0,300,'refresh').setInteractive();
 
         this.economyRef = scene.economy;
         this.purchase = [];
@@ -20,18 +17,17 @@ class Shop extends Phaser.GameObjects.Container
         this.purchase[1] = new ShopButton(scene,0,115);
         this.purchase[2] = new ShopButton(scene,0,210);
         
-        this.refreshButton.on('pointerup',()=>{this.refreshShop();});
         this.purchase[0].on('pointerdown',()=>{this.purchaseBuilding(0);});
         this.purchase[1].on('pointerdown',()=>{this.purchaseBuilding(1);});
         this.purchase[2].on('pointerdown',()=>{this.purchaseBuilding(2);});
-        this.add([this.shopConsole,this.refreshButton]);
+        this.add(this.shopConsole);
         this.add(this.purchase);
 
 
-        this.refreshShop();
+        this.refreshShop(false);
 
     }
-    refreshShop()
+    refreshShop(delayed = true)
     {
         if (this.boardRef.checkForBuildingType(WinmillBuilding))
         {
@@ -41,14 +37,15 @@ class Shop extends Phaser.GameObjects.Container
         for (let i = 0; i<3 ;i++)
         {
             this.availableBuildings[i] = possibleBuildingList[Phaser.Math.Between(0,possibleBuildingList.length-1)];
-            this.purchase[i].updateBuildings(this.availableBuildings[i]);
-            let tween = this.sceneRef.tweens.add({
+            let delay = delayed ? .25*1000 + i*100 : 0;
+            this.sceneRef.time.delayedCall(delay, () => {this.purchase[i].updateBuildings(this.availableBuildings[i])});
+            this.sceneRef.tweens.add({
                 targets: this.purchase[i],
                 alpha : 1,
                 x : 0,
                 ease: 'Sine.easeInOut',
                 duration : .25 *1000,
-    
+                delay: .25*1000 + i*100,
             })
             //this.purchase[i];
             //add cosmetic refresh here
@@ -62,14 +59,19 @@ class Shop extends Phaser.GameObjects.Container
 
         this.economyRef.spendMoney(buildingType.metaData['placeCost']);
 
-        let tween = this.sceneRef.tweens.add({
-            targets: this.purchase[index],
-            alpha : 0,
-            x : 100,
-            ease: 'Sine.easeInOut',
-            duration : .25 *1000,
-        });     
+        for (let i = 0; i<3 ;i++)
+        {
+            this.sceneRef.tweens.add({
+                targets: this.purchase[i],
+                alpha : 0,
+                x : 100,
+                ease: 'Sine.easeInOut',
+                duration : .25 *1000,
+                delay: i*100,
+            });
+        }
 
+        this.refreshShop();
     }
 
     purchaseBuilding(index = 0)//currently unsafe, can place on a already existing building w/o destroying it

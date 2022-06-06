@@ -188,7 +188,6 @@ class Building extends Phaser.Physics.Arcade.Sprite
         //if its made it past here it is getting destroyed()
         //clear the obj array @ this buildings coordinates of board.js
 
-        this.board.onBuildingDestroy(this);
         this.board.clearTile(this.tileX,this.tileY);
         let x = this.tileX;
         let y = this.tileY;

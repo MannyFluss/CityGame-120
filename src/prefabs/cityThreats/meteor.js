@@ -7,15 +7,17 @@ class Meteor extends Phaser.GameObjects.Sprite
         this.setOrigin(.5, .5);
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
-        this.boardRef;
+        this.boardRef = scene.board;
         this.tileRef = tile;
         this.sceneRef = scene;
         this.warning = new Warning(scene,this.tileRef.x,this.tileRef.y,'warning',destructionDelay);
         this.warning.setWarningPlacement(this.tileRef);
         scene.time.delayedCall(destructionDelay * 1000,()=>{this.meteorExplosion();});
         this.x = this.tileRef.x;
-        this.y = this.tileRef.y - 500;
+        this.y = this.tileRef.y - 800;
         this.sfxCrash = scene.sound.add('sfx_meteor');
+
+        this.setDepth(2 * (this.tileX + this.tileY));
 
         this.sceneRef.tweens.add({
             targets: this,
@@ -46,6 +48,7 @@ class Meteor extends Phaser.GameObjects.Sprite
         if (buildingOrNull!=null)
         {   
             console.log('meteor has destroyed building')
+            this.boardRef.onBuildingDestroy(buildingOrNull);
             buildingOrNull.destroyThisBuilding();
         }
         let particles = this.sceneRef.add.particles('hotel-1');
@@ -72,16 +75,28 @@ class Meteor extends Phaser.GameObjects.Sprite
 }
 class Lightning extends Phaser.GameObjects.Sprite
 {
-    constructor(scene,x,y,texture,destructionDelay=5,tile)
+    constructor(scene,x,y,texture = 'meteor',destructionDelay=5,tile)
     {
         super(scene,x,y,texture);
+        this.tileRef = tile;
         scene.add.existing(this);
+
+        this.x = this.tileRef.x;
+        this.y = this.tileRef.y - 800;
+        this.sceneRef = scene;
+
+        this.sceneRef.tweens.add({
+            targets: this,
+            ease: 'Sine.easeIn',
+            y : this.tileRef.y - 50,
+            duration : destructionDelay * 1000,
+            angle : 1000,
+        })
         this.setOrigin(.5, 1);
         this.tileX = tile.tileX;
         this.tileY = tile.tileY;
+        this.setDepth(2 * (this.tileX + this.tileY));
         this.boardRef;
-        this.tileRef = tile;
-        this.sceneRef = scene;
 
         this.warning = new Warning(scene,this.tileRef.x,this.tileRef.y,'warning',destructionDelay);
         this.warning.setWarningPlacement(this.tileRef);
@@ -94,7 +109,8 @@ class Lightning extends Phaser.GameObjects.Sprite
         let buildingOrNull = this.tileRef.getThisBuilding();
         if (buildingOrNull!=null)
         {   
-            console.log('lightning has destroyed this building')
+            console.log('lightning has destroyed this building');
+            this.boardRef.onBuildingDestroy(buildingOrNull);
             buildingOrNull.destroyThisBuilding();
         }
         let particles = this.sceneRef.add.particles('hotel-1');
@@ -107,6 +123,7 @@ class Lightning extends Phaser.GameObjects.Sprite
             lifeSpan : 100
         })
         this.sceneRef.time.delayedCall(100,()=>{emitter.stop();},this);
+        this.destroy();
     }
 
     update()
@@ -139,7 +156,11 @@ class Fog extends Phaser.GameObjects.Sprite
         this.warnings[2] = new Warning(scene,0,0,'warning',destructionDelay).setWarningPlacement(this.boardRef.getTile(randX,randY+1));
         this.warnings[3] = new Warning(scene,0,0,'warning',destructionDelay).setWarningPlacement(this.boardRef.getTile(randX+1,randY+1));
 
-        scene.time.delayedCall((destructionDelay * 1000)-5,()=>{this.fogDestruction();});
+        new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX,randY));
+        new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX+1,randY));
+        new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX,randY+1));
+        new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX+1,randY+1));
+        //scene.time.delayedCall((destructionDelay * 1000)-5,()=>{this.fogDestruction();});
     }
 
     fogDestruction()
@@ -153,6 +174,7 @@ class Fog extends Phaser.GameObjects.Sprite
             let buildingOrNull = this.boardRef.getBuildingAt(x,y);
             if (buildingOrNull != null)
             {
+                this.boardRef.onBuildingDestroy(buildingOrNull);
                 buildingOrNull.destroyThisBuilding();
             }
 
