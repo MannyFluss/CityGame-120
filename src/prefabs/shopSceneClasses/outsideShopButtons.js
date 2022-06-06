@@ -79,7 +79,14 @@ class ShopSceneButton extends Phaser.GameObjects.Container
                 this.tweenNotPlayed = true;
             } else if (!this.cannotPurchase.isPlaying())
             {
-                this.cannotPurchase.play();
+                this.cannotPurchase = this.sceneRef.tweens.add({
+                    targets: this,
+                    ease: Phaser.Math.Easing.Back.InOut(),
+                    x : this.x + 10,
+                    duration : 50,
+                    repeat: 2,
+                    yoyo: true,
+                });
             }
         }
     }

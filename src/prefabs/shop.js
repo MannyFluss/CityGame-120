@@ -87,6 +87,7 @@ class Shop extends Phaser.GameObjects.Container
             console.log('not enough money')
             if (!this.tweenNotPlayed)
             {
+                console.log("index:",index);
                 this.cannotPurchase = this.sceneRef.tweens.add({
                     targets: this.purchase[index],
                     ease: Phaser.Math.Easing.Back.InOut(),
@@ -98,9 +99,17 @@ class Shop extends Phaser.GameObjects.Container
                 this.tweenNotPlayed = true;
             } else if (!this.cannotPurchase.isPlaying())
             {
-                this.cannotPurchase.play();
+                this.cannotPurchase = this.sceneRef.tweens.add({
+                    targets: this.purchase[index],
+                    ease: Phaser.Math.Easing.Back.InOut(),
+                    x : this.purchase[index].x - 10,
+                    duration : 50,
+                    repeat: 2,
+                    yoyo: true,
+                });
             }
             
+            console.log("should return soon");
             return; //not enough money
         }        
 
