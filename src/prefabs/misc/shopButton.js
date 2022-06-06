@@ -21,7 +21,7 @@ class ShopButton extends Phaser.GameObjects.Container
                 if (currentMoney >= this.buildingCost)
                     this.textIcon.setFont("Pixellari Green");
                 else
-                    this.textIcon.setTint("Pixellari Red");
+                    this.textIcon.setFont("Pixellari Red");
             }
         });
     }
