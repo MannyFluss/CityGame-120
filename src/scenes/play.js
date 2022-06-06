@@ -67,6 +67,7 @@ class Play extends Phaser.Scene
         this.load.image('previous-song','./assets/ui/previous-song.png');
         this.load.image('next-song','./assets/ui/next-song.png');
         this.load.image('shuffle','./assets/ui/shuffle.png');
+        this.load.image('loop','./assets/ui/loop.png');
         this.load.image('music-note','./assets/ui/music-note.png');
         this.load.image('back-button','./assets/ui/back-button.png');
         this.load.image('shop-temp','./assets/tempArt/shopConsole.png');

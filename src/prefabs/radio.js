@@ -24,7 +24,7 @@ class Radio extends Phaser.GameObjects.Container
         this.playPreviousSong = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonSpacing+buttonsY,'previous-song').setInteractive({useHandCursor: true});
         this.playToggle = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonSpacing*2+buttonsY,'play-pause').setInteractive({useHandCursor: true});
         this.playNextSong = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonSpacing*3+buttonsY,'next-song').setInteractive({useHandCursor: true});
-        this.shuffleToggleButton  = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonSpacing*4+buttonsY,'shuffle').setInteractive({useHandCursor: true});
+        this.shuffleToggleButton  = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonSpacing*4+buttonsY,'loop').setInteractive({useHandCursor: true});
         this.playToggle.on('pointerdown',()=>{this.handleInput('i')});
         this.playPreviousSong.on('pointerdown',()=>{this.handleInput('u')});
         this.playNextSong.on('pointerdown',()=>{this.handleInput('o')});
@@ -148,13 +148,14 @@ class Radio extends Phaser.GameObjects.Container
         {
             case 'shuffle':
                 this.shuffleType = 'loop';
+                this.shuffleToggleButton.setTexture('loop');
                 break;
             case 'loop':
                 this.shuffleType = 'shuffle';
+                this.shuffleToggleButton.setTexture('shuffle');
                 break;
             default:
                 break;
         }
-        this.playNext();
     }
 }
