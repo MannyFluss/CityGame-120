@@ -9,28 +9,19 @@ class ShopScene extends Phaser.Scene
     {
         this.load.image('submit-button','./assets/tempArt/check.png');
     }
+    
     create()
     {
-        //this.addNewBuilding(Hotel);
-        //this.increaseBoardSize();
+        this.economy = new PlayEconomy(this, money);
+        
         new SceneButton(this,game.config.width-20,game.config.height-20,'submit-button','playScene').setOrigin(1, 1);
+        
         this.initPreview();
         this.initPurchases();
-        if (boardSize==2)
-        {
+        this.initMoneyUI();
+
+        if (level==1)
             this.initTutorial();
-        }
-        // static metaData = 
-        // {
-        //     "texture" : 'small-apartment-1',
-        //     "description" : "this building generates money when placed",
-    
-        //     "shopCost" : 100,
-        //     "shopFunction" : "addNewBuilding",
-        //     "shopArguments" : [Building],
-        // };
-
-
     }
 
     initTutorial()
@@ -53,7 +44,11 @@ class ShopScene extends Phaser.Scene
             newButton.on('pointerover',()=>{
                 this.shopPreview.alpha = 1;
                 this.previewIcon.setTexture(curr['texture']);
-                this.costText.text = curr['shopCost'];
+                this.costText.text = "$" + curr['shopCost'];
+                if (this.economy.checkSpendMoney(curr['shopCost']))
+                    this.costText.setFont("Pixellari Green");
+                else
+                    this.costText.setFont("Pixellari Red");
                 this.descriptText.text = curr['description'];
                 this.previewName.text = curr['name'];
             })
@@ -65,48 +60,61 @@ class ShopScene extends Phaser.Scene
 
     initPreview()
     {
-        let style = {
-            'color' : '#393457', 
-            wordWrap: { width: 300, useAdvancedWrap: true , fontSize: 42},
-            
-        };
+        let wordWrap = 400;
 
-        this.previewBackground = this.add.sprite(0,0,'win-background');
-        this.previewName = this.add.text(0,-170,'sample text', style).setOrigin(.5,.5);
-        this.previewIcon = this.add.sprite(0,-80,'small-apartment-1').setDisplaySize(100,100);
-        this.costText = this.add.text(0,20,'sample cost text', style).setOrigin(.5,.5);
-        this.descriptText = this.add.text(0,60,'sample description text', style).setOrigin(.5,.5);
-        this.shopPreview = this.add.container(this.game.canvas.width/2,this.game.canvas.height/2,
+        this.previewBackground = this.add.sprite(0,0,'outsideShopBg');
+        this.previewName = this.add.bitmapText(0,-160,"Pixellari Blue", 'sample text', 50).setOrigin(.5,.5).setMaxWidth(wordWrap);
+        this.previewIcon = this.add.sprite(0,-55,'small-apartment-1').setDisplaySize(100,100);
+        this.costText = this.add.bitmapText(0,55,"Pixellari Green", 'sample cost text', 42).setOrigin(.5,.5).setMaxWidth(wordWrap);
+        this.descriptText = this.add.bitmapText(0,95,"Pixellari Blue", 'sample description text', 24).setOrigin(.5,0).setMaxWidth(wordWrap);
+
+
+        this.shopPreview = this.add.container(this.game.canvas.width/2 + 50,this.game.canvas.height/2 - 50,
             [this.previewBackground,this.previewIcon,this.costText,this.descriptText,this.previewName]);
         this.shopPreview.alpha = 0;
     }
+
+    initMoneyUI()
+    {
+        this.UImoney = this.add.bitmapText(game.config.width - 50, 50, "Pixellari White", "$" + this.economy.getCurrMoney()).setOrigin(1,0);
+    }
+
     executeViaString(func='',args=[])
     {
         switch(func)
         {
             case "increaseBoardSize":
-                this.increaseBoardSize();
-                break
+                if (args.length == 0){console.log('error with exec via str no args prov');break;}
+                return this.increaseBoardSize(args[0]);
             case "addNewBuilding":
                 if (args.length == 0){console.log('error with exec via str no args prov');break;}
-                this.addNewBuilding(args[0]);
-                break;
+                return this.purchaseBuilding(args[0]);
             default:
                 console.log('shop given invalid execution string');
                 break;
         }
     }
 
-
-
-
-    increaseBoardSize()
+    increaseBoardSize(tileCost)
     {
-        if (boardSize < 4)
+        if (boardSize < 4 && this.economy.checkSpendMoney(tileCost))
         {
+            this.economy.spendMoney(tileCost);
             boardSize += 1;
+            return true;
         }
-        
+        return false;
+    }
+
+    purchaseBuilding(building)
+    {
+        if (this.economy.checkSpendMoney(building.metaData['shopCost']))
+        {
+            this.economy.spendMoney(building.metaData['shopCost']);
+            this.addNewBuilding(building);
+            return true;
+        }
+        return false;
     }
 
     addNewBuilding(building)
@@ -115,5 +123,10 @@ class ShopScene extends Phaser.Scene
         {
             possibleBuildingList[possibleBuildingList.length]=building;
         }
+    }
+
+    update()
+    {
+        this.UImoney.setText("$" + this.economy.getCurrMoney());
     }
 }

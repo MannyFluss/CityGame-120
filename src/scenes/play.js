@@ -10,6 +10,7 @@ class Play extends Phaser.Scene
         ];
 
     }
+
     preload()
     {
         //particles 
@@ -26,6 +27,7 @@ class Play extends Phaser.Scene
         this.load.image('shop-button','./assets/ui/shopButton.png');
         this.load.image('shop-button-ben','./assets/ui/shopButtonBen.png');
         this.load.image('outside-shop-button-ben','./assets/ui/outside-shop-button-ben.png');
+        this.load.image('outsideShopBg','./assets/ui/outsideShopBg.png');
         this.load.image('refresh','./assets/ui/refresh.png');
         this.load.image('tutorialJohnson', './assets/other/tutorialJohnson.png');
         this.load.image('speech-bubble','./assets/ui/speechBubble.png');
@@ -58,6 +60,15 @@ class Play extends Phaser.Scene
         this.load.image('shop-temp','./assets/tempArt/shopConsole.png');
         //this.load.image('shop-button-temp','./assets/tempArt/shopButton.png');
 
+        // Pixellari font has a 100% free license
+        // https://www.dafont.com/pixellari.font
+        // by Zacchary Dempsey-Plante
+        this.load.bitmapFont('Pixellari',       'assets/ui/Pixellari/Pixellari.png',        'assets/ui/Pixellari/Pixellari.xml');
+        this.load.bitmapFont('Pixellari White', 'assets/ui/Pixellari/PixellariWhite.png',   'assets/ui/Pixellari/PixellariWhite.xml');
+        this.load.bitmapFont('Pixellari Red',   'assets/ui/Pixellari/PixellariRed.png',     'assets/ui/Pixellari/PixellariRed.xml');
+        this.load.bitmapFont('Pixellari Green', 'assets/ui/Pixellari/PixellariGreen.png',   'assets/ui/Pixellari/PixellariGreen.xml');
+        this.load.bitmapFont('Pixellari Blue', 'assets/ui/Pixellari/PixellariBlue.png',   'assets/ui/Pixellari/PixellariBlue.xml');
+
         this.load.audio('sfx_BuildingThump', './assets/sound/sfx/BuildingThump.wav');
         this.load.audio('sfx_warning', './assets/sound/sfx/Warning.wav');
         this.load.audio('sfx_meteor', './assets/sound/sfx/Meteor.wav');
@@ -81,7 +92,7 @@ class Play extends Phaser.Scene
         }
         
         this.board = new Board(this, game.config.width/2, game.config.height/2, [], this.boardConfig);
-        this.economy = new PlayEconomy(this);
+        this.economy = new PlayEconomy(this, sceneInitMoney);
         this.radio = new Radio(this,-200,100,[],this.songList);
         this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
@@ -100,8 +111,9 @@ class Play extends Phaser.Scene
             this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
         }
 
-        
         this.initUI();
+        
+        this.cameras.main.fadeIn(1000, 57, 52, 87);
     }
 
     initTutorial()
@@ -133,13 +145,11 @@ class Play extends Phaser.Scene
         //this.warning.setWarningPlacement(this.board.getTile(0,0));
 
         //var spritetest = this.add.sprite(100,100,'tileSprite');
-
-        this.cameras.main.fadeIn(1000, 57, 52, 87);
     }
 
     initUI()
     {
-        this.UImoney = this.add.text(game.config.width - 50, 50, "$" + this.economy.getCurrMoney(), {font: "42px 'Press Start 2P'"}).setOrigin(1,0);
+        this.UImoney = this.add.bitmapText(game.config.width - 50, 50, "Pixellari White", "$" + this.economy.getCurrMoney()).setOrigin(1,0);
     }
 
     update()
