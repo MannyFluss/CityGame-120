@@ -107,7 +107,8 @@ class Play extends Phaser.Scene
                 availableThreats.push('fog');
             if (level == 5)
                 availableThreats.push('lightning');
-                
+            if (level == 7)
+                availableThreats.push('tornado');
             this.initWinCondition();
             this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
         }

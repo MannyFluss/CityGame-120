@@ -22,9 +22,14 @@ class Tornado extends Phaser.GameObjects.Sprite
                 this.targets.push(curr);
             }  
         }
-        this.placeMarker(0);
 
-        this.sceneRef.time.delayedCall(this.initialDelay * 1000, ()=>{this.destroyMarker(0);})
+        for (let i=0;i<this.targets.length;i++)
+        {
+            new Meteor(this.sceneRef,0,0,undefined,this.travelTime,this.targets[i]);
+        }
+        //this.placeMarker(0);
+
+        //this.sceneRef.time.delayedCall(this.initialDelay * 1000, ()=>{this.destroyMarker(0);})
 
     }
 
