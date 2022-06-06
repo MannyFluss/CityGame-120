@@ -117,8 +117,31 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
     finished()
     {
-        this.destroy();
-        this.speechBubble.destroy();
-        this.speechText.destroy();
+        this.sceneRef.tweens.add({
+            targets: this,
+            y : game.canvas.height+170,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 50
+        });
+        this.sceneRef.tweens.add({
+            targets: this.speechBubble,
+            y : game.canvas.height+170+30,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 100
+        });
+        this.sceneRef.tweens.add({
+            targets: this.speechText,
+            y : game.canvas.height+170+30-70,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 100
+        });
+        this.sceneRef.time.delayedCall(1200+100,()=>{
+            this.speechText.destroy();
+            this.speechBubble.destroy();
+            this.destroy();
+        });
     }
 }
