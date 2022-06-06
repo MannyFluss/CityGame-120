@@ -31,6 +31,7 @@ class Play extends Phaser.Scene
         this.load.image('refresh','./assets/ui/refresh.png');
         this.load.image('tutorialJohnson', './assets/other/tutorialJohnson.png');
         this.load.image('speech-bubble','./assets/ui/speechBubble.png');
+        this.load.image('ben-speech-bubble','./assets/ui/ben-speech-bubble.png');
 
         this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
 

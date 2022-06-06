@@ -36,12 +36,10 @@ class Tutorial extends Phaser.GameObjects.Sprite
         {
             this.threatRef.enabled = false;
         }
-        this.speechBubble = new Phaser.GameObjects.Sprite(scene,this.x + 260 , this.y - 50,'speech-bubble');
-        this.speechBubble.setInteractive();
-        this.speechText = new Phaser.GameObjects.BitmapText(scene,this.speechBubble.x,this.speechBubble.y,"Pixellari",'',24).setMaxWidth(300);
+        this.speechBubble = new Phaser.GameObjects.Sprite(scene,this.x + 320, this.y,'ben-speech-bubble');
+        this.speechBubble.setInteractive({useHandCursor: true});
+        this.speechText = new Phaser.GameObjects.BitmapText(scene, this.speechBubble.x - 135, this.speechBubble.y-70, "Pixellari",'',24).setMaxWidth(300);
 
-        this.speechText.setOrigin(.5,.5);
-        this.speechBubble.setScale(1.5);
         scene.add.existing(this.speechBubble);
         scene.add.existing(this.speechText)
         if (type=='play')
@@ -60,7 +58,9 @@ class Tutorial extends Phaser.GameObjects.Sprite
             {
                 this.shopNext();
             }
-            })
+        });
+
+        
     }
 
     shopNext()
