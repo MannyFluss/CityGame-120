@@ -124,10 +124,6 @@ class Tutorial extends Phaser.GameObjects.Sprite
         }
         if (this.index==8)
         {
-            // this.threatRef.enabled = true;
-
-            // this.threatRef.generateDisaster('meteor');
-
             for (let i=0; i<this.boardRef.boardX; i++)
             {
                 for (let j=0; j<this.boardRef.boardY; j++)
@@ -161,5 +157,6 @@ class Tutorial extends Phaser.GameObjects.Sprite
         this.speechBubble.destroy();
         this.speechText.destroy();
         this.economyRef.currentMoney = 5;
+        this.threatRef.enabled = true;
     }
 }
