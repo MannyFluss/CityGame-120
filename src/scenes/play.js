@@ -125,7 +125,9 @@ class Play extends Phaser.Scene
             if (level == 7)
                 availableThreats.push('tornado');
             this.initWinCondition();
-            this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
+            this.time.delayedCall(1100, () => {
+                this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
+            });
         }
 
         this.initUI();
