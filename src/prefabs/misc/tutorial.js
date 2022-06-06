@@ -13,7 +13,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
             "Take note, you can pick up and move those buildings at any time!",//click
             "Each building has unique effects. This apartment generates money over time.",
             "Natural disasters are constantly putting our city in peril. It's our duty as Civil Engineers to protect our citizens.",//click
-            "HOLY COW THERE'S A METEOR INCOMING!! This is below my paygrade, make sure the building does not get struck!",//wait for timer
+            "HOLY COW THERE'S A METEOR INCOMING!! This is above my paygrade, make sure the building does not get struck!",//wait for timer
             "Nice work! Well that's all for an education. Go on and complete the City Goal.",//click and finished
             "Oh no! Your building's been destroyed! Well...good luck completing your City Goal." // click and finished
         ];
