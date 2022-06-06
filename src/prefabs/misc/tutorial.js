@@ -67,7 +67,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
                 this.playNext();
             } else if (type=='shop')
             {
-                // this.shopNext();
+                this.shopNext();
             }
         });
     }
@@ -138,7 +138,10 @@ class Tutorial extends Phaser.GameObjects.Sprite
         this.destroy();
         this.speechBubble.destroy();
         this.speechText.destroy();
-        this.economyRef.currentMoney = 5;
+        if(this.type=="play")
+        {
+            this.economyRef.currentMoney = 5;
+        }
         this.threatRef.enabled = true;
     }
 }

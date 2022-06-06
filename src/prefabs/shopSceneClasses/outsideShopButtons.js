@@ -10,8 +10,7 @@ class ShopSceneButton extends Phaser.GameObjects.Container
         this.buildingIcon.setDisplaySize(50,50);
         this.setSize(this.backgroundPanel.displayWidth,this.backgroundPanel.displayHeight);
 
-        this.setInteractive();
-        //this.buildingIcon.height = 50;
+        this.setInteractive({ useHandCursor: true });
         this.textIcon = scene.add.bitmapText(-30,-10,"Pixellari Blue",'sample text', 24);
         this.add([this.backgroundPanel,this.buildingIcon,this.textIcon]);
         this.sceneRef = scene;
@@ -19,9 +18,8 @@ class ShopSceneButton extends Phaser.GameObjects.Container
         this.targetFunction = metadata['shopFunction'];//edit
         this.targetArguments = metadata['shopArguments'];//edit
 
-        this.metadata = metadata
-        
-
+        this.metadata = metadata;
+        this.tweenNotPlayed = false;
     }
 
     executeFunction()
@@ -45,6 +43,23 @@ class ShopSceneButton extends Phaser.GameObjects.Container
                 duration : 1 *1000,
 
             })
+        } else
+        {
+            if (!this.tweenNotPlayed)
+            {
+                this.cannotPurchase = this.sceneRef.tweens.add({
+                    targets: this,
+                    ease: Phaser.Math.Easing.Back.InOut(),
+                    x : this.x + 10,
+                    duration : 50,
+                    repeat: 2,
+                    yoyo: true,
+                });
+                this.tweenNotPlayed = true;
+            } else if (!this.cannotPurchase.isPlaying())
+            {
+                this.cannotPurchase.play();
+            }
         }
     }
 }
