@@ -62,7 +62,13 @@ class Play extends Phaser.Scene
         this.load.image('shop-1','./assets/buildings/shop-1.png');
         this.load.image('warning', './assets/warning.png');
         this.load.image('temp-button','./assets/tempArt/buttonz.png');
-        this.load.image('radio-temp','./assets/tempArt/radioConsole.png');
+        this.load.image('radio-bg','./assets/ui/radio-bg.png');
+        this.load.image('play-pause','./assets/ui/play-pause.png');
+        this.load.image('previous-song','./assets/ui/previous-song.png');
+        this.load.image('next-song','./assets/ui/next-song.png');
+        this.load.image('shuffle','./assets/ui/shuffle.png');
+        this.load.image('music-note','./assets/ui/music-note.png');
+        this.load.image('back-button','./assets/ui/back-button.png');
         this.load.image('shop-temp','./assets/tempArt/shopConsole.png');
         //this.load.image('shop-button-temp','./assets/tempArt/shopButton.png');
 
@@ -99,7 +105,7 @@ class Play extends Phaser.Scene
         
         this.board = new Board(this, game.config.width/2, game.config.height/2, [], this.boardConfig);
         this.economy = new PlayEconomy(this, sceneInitMoney);
-        this.radio = new Radio(this,-200,100,[],this.songList);
+        this.radio = new Radio(this,220,70,[],this.songList);
         this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);

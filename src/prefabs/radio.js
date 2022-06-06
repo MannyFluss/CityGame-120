@@ -2,29 +2,65 @@ class Radio extends Phaser.GameObjects.Container
 {
     constructor(scene,x,y,objs=[],songNames=[])
     {
-        super(scene,x,y,objs);
+        super(scene,50,y,objs);
         scene.add.existing(this);
         this.songsArr = songNames;
         this.currentIndex = undefined;
         this.currentlyPlaying;
         this.shuffleType = "none";
         this.sceneRef = scene; //need to know when music is playing/stopping
+        this.expandedX = x;
         
         this.music;
         this.playNext();
 
-        this.radioConsole = new Phaser.GameObjects.Sprite(scene,0,0,'radio-temp');
-        this.playToggle = new Phaser.GameObjects.Sprite(scene,-90,0,'temp-button').setInteractive();
-        this.playPreviousSong = new Phaser.GameObjects.Sprite(scene,-50,0,'temp-button').setInteractive();
-        this.playNextSong = new Phaser.GameObjects.Sprite(scene,50,0,'temp-button').setInteractive();
-        this.shuffleToggleButton  = new Phaser.GameObjects.Sprite(scene,90,0,'temp-button').setInteractive();
+        this.musicNote = new Phaser.GameObjects.Sprite(scene, 10,y-80,'music-note').setInteractive({useHandCursor: true});
+
+        let buttonsY = -10;
+        let buttonsX = -162;
+        let buttonSpacing = 50;
+        this.radioConsole = new Phaser.GameObjects.Sprite(scene,-160,100,'radio-bg');
+        this.backButton = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonsY,'back-button').setInteractive({useHandCursor: true});
+        this.playPreviousSong = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonSpacing+buttonsY,'previous-song').setInteractive({useHandCursor: true});
+        this.playToggle = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonSpacing*2+buttonsY,'play-pause').setInteractive({useHandCursor: true});
+        this.playNextSong = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonSpacing*3+buttonsY,'next-song').setInteractive({useHandCursor: true});
+        this.shuffleToggleButton  = new Phaser.GameObjects.Sprite(scene,buttonsX,buttonSpacing*4+buttonsY,'shuffle').setInteractive({useHandCursor: true});
         this.playToggle.on('pointerdown',()=>{this.handleInput('i')});
         this.playPreviousSong.on('pointerdown',()=>{this.handleInput('u')});
         this.playNextSong.on('pointerdown',()=>{this.handleInput('o')});
         this.shuffleToggleButton.on('pointerdown',()=>{this.handleInput('p')});
 
+        this.musicNote.on('pointerdown',()=>{
+            this.sceneRef.tweens.add({
+                targets: this,
+                x : x,
+                ease: Phaser.Math.Easing.Back.InOut,
+                duration : 1200,
+            });
+            this.sceneRef.tweens.add({
+                targets: this.musicNote,
+                x : -300,
+                ease: Phaser.Math.Easing.Back.InOut,
+                duration : 1200,
+            });
+        });
 
-        this.add([this.radioConsole,this.playToggle,this.playPreviousSong,this.playNextSong,this.shuffleToggleButton]);
+        this.backButton.on('pointerdown',()=>{
+            this.sceneRef.tweens.add({
+                targets: this,
+                x : 50,
+                ease: Phaser.Math.Easing.Back.InOut,
+                duration : 1200,
+            });
+            this.sceneRef.tweens.add({
+                targets: this.musicNote,
+                x : 10,
+                ease: Phaser.Math.Easing.Back.InOut,
+                duration : 1200,
+            });
+        });
+
+        this.add([this.radioConsole,this.playToggle,this.playPreviousSong,this.playNextSong,this.shuffleToggleButton, this.musicNote, this.backButton]);
 
         scene.input.keyboard.on('keydown', (event) => {
             this.handleInput(event.key);
