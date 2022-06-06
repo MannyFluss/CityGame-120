@@ -111,7 +111,6 @@ class Play extends Phaser.Scene
         else
             this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         this.radio = new Radio(this,220,70,[],this.songList);
-        this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
 
