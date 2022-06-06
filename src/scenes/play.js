@@ -119,7 +119,7 @@ class Play extends Phaser.Scene
 
     initTutorial()
     {
-        new Tutorial(this,150,game.config.height - 150);
+        new Tutorial(this,150,game.config.height - 180);
     }
 
 

@@ -2,7 +2,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
 {
     constructor(scene,x,y,texture='tutorialJohnson',type='play')
     {
-        super(scene,x,y,texture);
+        super(scene,x,game.canvas.height+160,texture);
         scene.add.existing(this);
         this.setScale(2);
 
@@ -60,7 +60,27 @@ class Tutorial extends Phaser.GameObjects.Sprite
             }
         });
 
-        
+        this.sceneRef.tweens.add({
+            targets: this,
+            y : y,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 50
+        });
+        this.sceneRef.tweens.add({
+            targets: this.speechBubble,
+            y : y+30,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 100
+        });
+        this.sceneRef.tweens.add({
+            targets: this.speechText,
+            y : y+30-70,
+            ease: Phaser.Math.Easing.Back.InOut,
+            duration : 1200,
+            delay: 100
+        });
     }
 
     shopNext()
