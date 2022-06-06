@@ -7,7 +7,7 @@ class Radio extends Phaser.GameObjects.Container
         this.songsArr = songNames;
         this.currentIndex = undefined;
         this.currentlyPlaying;
-        this.shuffleType = "none";
+        this.shuffleType = "loop";
         this.sceneRef = scene; //need to know when music is playing/stopping
         this.expandedX = x;
         
@@ -104,11 +104,7 @@ class Radio extends Phaser.GameObjects.Container
         {
             if (this.shuffleType == 'shuffle')
             {
-                forward = Phaser.Math.Between(0,512);
-            }
-            if(this.shuffleType == 'loop')
-            {
-                forward = 0;
+                forward = Phaser.Math.Between(1,this.songsArr.length-1);
             }
             this.currentIndex = (this.currentIndex+forward)%this.songsArr.length;
             if (this.currentIndex < 0)
@@ -150,17 +146,15 @@ class Radio extends Phaser.GameObjects.Container
     {
         switch(this.shuffleType)
         {
-            case 'none':
-                this.shuffleType = 'shuffle';
-                break;
             case 'shuffle':
                 this.shuffleType = 'loop';
                 break;
             case 'loop':
-                this.shuffleType = 'none';
+                this.shuffleType = 'shuffle';
                 break;
             default:
                 break;
         }
+        this.playNext();
     }
 }
