@@ -15,7 +15,7 @@ class SmallApartment extends Building
     {
         super(scene,board,x,y,texture);
         this.counter = 0;
-        this.earningInterval = 2.5 * 1000;
+        this.earningInterval = 2.2 * 1000;
         this.tag = 'housing';
     }
 

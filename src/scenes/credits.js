@@ -8,19 +8,25 @@ class Credits extends Phaser.Scene
     preload()
     {
         this.load.image('hotel-1','./assets/buildings/hotel-1.png');
+        this.load.image('ben-paulsen','./assets/ui/ben-paulsen.png');
+        this.load.image('manny-fluss','./assets/ui/manny-fluss.png');
+        this.load.image('manas-sara','./assets/ui/manas-sara.png');
+        this.load.image('liam-fahey','./assets/ui/liam-fahey.png');
+        this.load.image('menu-text','./assets/ui/menu-text.png');
     }
 
     create()
     {
-        this.defaultTile = new Tile(this, 250, 500, 'tile');
+        let tileOffset = 150;
+        this.defaultTile = new Tile(this, game.config.width/2-tileOffset, 700, 'tile');
 
-        this.menuTile = new Tile(this, 550, 500, 'tile');
-        this.menuText = this.add.text(550, 500, 'MENU', { fontSize: 64 }).setOrigin(0.5, 0);
+        this.menuTile = new Tile(this, game.config.width/2+tileOffset, 675, 'tile');
+        this.menuText = this.add.sprite(game.config.width/2+tileOffset, 700, 'menu-text').setOrigin(0.5, 0);
 
-        this.creditsText = this.add.text(400, 50, 'Developed By:', { fontSize: 64 }).setOrigin(0.5, 0);
-        this.benText = this.add.text(400, 100, 'Benjamin Paulsen', { fontSize: 64 }).setOrigin(0.5, 0);
-        this.manasText = this.add.text(400, 150, 'Manas Sara', { fontSize: 64 }).setOrigin(0.5, 0);
-        this.mannyText = this.add.text(400, 200, 'Manny Fluss', { fontSize: 64 }).setOrigin(0.5, 0);
+        this.benText = this.add.sprite(game.config.width/2, 50, 'ben-paulsen').setOrigin(0.5, 0);
+        this.mannyText = this.add.sprite(game.config.width/2, 150, 'manny-fluss').setOrigin(0.5, 0);
+        this.manasText = this.add.sprite(game.config.width/2, 250, 'manas-sara').setOrigin(0.5, 0);
+        this.liamText = this.add.sprite(game.config.width/2, 350, 'liam-fahey').setOrigin(0.5, 0);
 
         this.tileRow = [this.defaultTile, this.menuTile];
 

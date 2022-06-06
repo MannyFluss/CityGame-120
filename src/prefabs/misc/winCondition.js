@@ -182,23 +182,14 @@ class winState extends Phaser.GameObjects.GameObject
     }
     
     showGoal(customMessage=undefined)
-    {
-        let style = {
-            'background-color': 'lime',
-            'width': '220px',
-            'height': '100px',
-            'font': '48px Press Start 2P',
-            'font-weight': 'bold',
-            'background-color' : '#0000FF'
-        };
-        
+    {        
         let currText = this.workingVariables['objectiveMessage'];
         if (customMessage!=undefined)
         {
             currText=customMessage;
         }
         //let displayMessage = new Phaser.GameObjects.Text(this.sceneRef,300,300,currText);
-        let text = this.sceneRef.add.text(game.canvas.width/2,game.canvas.height+1,currText,style).setOrigin(.5,0);
+        let text = this.sceneRef.add.bitmapText(game.canvas.width/2,game.canvas.height+1,"Pixellari White", currText).setOrigin(.5,0);
         text.setDepth(55);
         this.sceneRef.tweens.add({
             targets: text,

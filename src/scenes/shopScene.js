@@ -44,7 +44,11 @@ class ShopScene extends Phaser.Scene
             newButton.on('pointerover',()=>{
                 this.shopPreview.alpha = 1;
                 this.previewIcon.setTexture(curr['texture']);
-                this.costText.text = curr['shopCost'];
+                this.costText.text = "$" + curr['shopCost'];
+                if (this.economy.checkSpendMoney(curr['shopCost']))
+                    this.costText.setFont("Pixellari Green");
+                else
+                    this.costText.setFont("Pixellari Red");
                 this.descriptText.text = curr['description'];
                 this.previewName.text = curr['name'];
             })
@@ -56,25 +60,23 @@ class ShopScene extends Phaser.Scene
 
     initPreview()
     {
-        let style = {
-            'color' : '#393457', 
-            wordWrap: { width: 300, useAdvancedWrap: true , fontSize: 42},
-            
-        };
+        let wordWrap = 400;
 
-        this.previewBackground = this.add.sprite(0,0,'win-background');
-        this.previewName = this.add.text(0,-170,'sample text', style).setOrigin(.5,.5);
-        this.previewIcon = this.add.sprite(0,-80,'small-apartment-1').setDisplaySize(100,100);
-        this.costText = this.add.text(0,20,'sample cost text', style).setOrigin(.5,.5);
-        this.descriptText = this.add.text(0,60,'sample description text', style).setOrigin(.5,.5);
-        this.shopPreview = this.add.container(this.game.canvas.width/2,this.game.canvas.height/2,
+        this.previewBackground = this.add.sprite(0,0,'outsideShopBg');
+        this.previewName = this.add.bitmapText(0,-160,"Pixellari Blue", 'sample text', 50).setOrigin(.5,.5).setMaxWidth(wordWrap);
+        this.previewIcon = this.add.sprite(0,-55,'small-apartment-1').setDisplaySize(100,100);
+        this.costText = this.add.bitmapText(0,55,"Pixellari Green", 'sample cost text', 42).setOrigin(.5,.5).setMaxWidth(wordWrap);
+        this.descriptText = this.add.bitmapText(0,95,"Pixellari Blue", 'sample description text', 24).setOrigin(.5,0).setMaxWidth(wordWrap);
+
+
+        this.shopPreview = this.add.container(this.game.canvas.width/2 + 50,this.game.canvas.height/2 - 50,
             [this.previewBackground,this.previewIcon,this.costText,this.descriptText,this.previewName]);
         this.shopPreview.alpha = 0;
     }
 
     initMoneyUI()
     {
-        this.UImoney = this.add.text(game.config.width - 50, 50, "$" + this.economy.getCurrMoney(), {font: "42px 'Press Start 2P'"}).setOrigin(1,0);
+        this.UImoney = this.add.bitmapText(game.config.width - 50, 50, "Pixellari White", "$" + this.economy.getCurrMoney()).setOrigin(1,0);
     }
 
     executeViaString(func='',args=[])

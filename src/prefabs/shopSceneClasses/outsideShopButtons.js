@@ -6,14 +6,13 @@ class ShopSceneButton extends Phaser.GameObjects.Container
         super(scene,x,y);
         scene.add.existing(this);
         this.backgroundPanel = new Phaser.GameObjects.Sprite(scene,20,0,'outside-shop-button-ben');
-        this.buildingIcon = new Phaser.GameObjects.Sprite(scene, -80 ,0 ,metadata['texture']);//edit
+        this.buildingIcon = new Phaser.GameObjects.Sprite(scene, -95 ,0 ,metadata['texture']);//edit
         this.buildingIcon.setDisplaySize(50,50);
         this.setSize(this.backgroundPanel.displayWidth,this.backgroundPanel.displayHeight);
 
         this.setInteractive();
         //this.buildingIcon.height = 50;
-        let style = { 'color' : '#393457' }
-        this.textIcon = scene.add.text(-5,-5,'sample text', style);
+        this.textIcon = scene.add.bitmapText(-30,-10,"Pixellari Blue",'sample text', 24);
         this.add([this.backgroundPanel,this.buildingIcon,this.textIcon]);
         this.sceneRef = scene;
         this.on('pointerup',()=>{this.executeFunction();})

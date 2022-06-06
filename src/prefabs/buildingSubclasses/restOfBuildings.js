@@ -3,7 +3,7 @@ class RepairCrew extends Building
     static metaData = 
     {
         "texture" : 'repair-crew-1',
-        "description" : "Protects adjacent buildings from threats. \nHas 3 uses before it is destroyed.",
+        "description" : "Protects adjacent buildings from threats. Has 3 uses before it is destroyed.",
         "name" : 'Repair Crew',
         "placeCost" : 5,
         "shopCost" : 10,
