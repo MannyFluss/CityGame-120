@@ -24,7 +24,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
         // physics settings
         this.tag = 'none';
         let collisionRadius = this.width/2.5;
-        this.sfxBuildingThump = scene.sound.add('sfx_BuildingThump');
+        this.sfxBuildingThump = scene.sound.add('sfx_BuildingThump', { volume:2 });
         this.economyRef = scene.economy;
         this.body.setCircle(collisionRadius);
         this.body.setOffset(this.width/2-collisionRadius, this.height-collisionRadius*2);
