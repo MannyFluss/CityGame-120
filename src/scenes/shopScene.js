@@ -3,6 +3,7 @@ class ShopScene extends Phaser.Scene
     constructor()
     {
         super('shopScene');
+        this.type = ShopScene;
     }
 
     preload()
@@ -14,7 +15,7 @@ class ShopScene extends Phaser.Scene
     {
         this.economy = new PlayEconomy(this, money);
         
-        new SceneButton(this,game.config.width-20,game.config.height-20,'submit-button','playScene').setOrigin(1, 1);
+        this.sceneButton = new SceneButton(this,game.config.width-20,game.config.height-20,'submit-button','playScene').setOrigin(1, 1);
         
         this.initPreview();
         this.initPurchases();
@@ -26,7 +27,8 @@ class ShopScene extends Phaser.Scene
 
     initTutorial()
     {
-        new Tutorial(this,150,game.config.height - 150,undefined,'shop');
+        this.tutorial = new Tutorial(this,150,game.config.height - 150,undefined,'shop');
+        console.log("tutorial created");
     }
 
     initPurchases()

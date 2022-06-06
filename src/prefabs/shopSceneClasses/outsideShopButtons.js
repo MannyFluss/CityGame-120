@@ -14,7 +14,28 @@ class ShopSceneButton extends Phaser.GameObjects.Container
         this.textIcon = scene.add.bitmapText(-30,-10,"Pixellari Blue",'sample text', 24);
         this.add([this.backgroundPanel,this.buildingIcon,this.textIcon]);
         this.sceneRef = scene;
-        this.on('pointerup',()=>{this.executeFunction();})
+        this.on('pointerup',()=>
+        {
+            if (scene.tutorial.isFinished)
+            {
+                this.executeFunction();
+            } else
+            {
+                if(scene.tutorial.index==3)
+                {
+                    if(this.metadata['name']=="Tile Upgrade #1")
+                    {
+                        this.executeFunction();
+                    }
+                } else if (scene.tutorial.index==4)
+                {
+                    if(this.metadata['name']=="Hotel")
+                    {
+                        this.executeFunction();
+                    }
+                }
+            }
+        });
         this.targetFunction = metadata['shopFunction'];//edit
         this.targetArguments = metadata['shopArguments'];//edit
 

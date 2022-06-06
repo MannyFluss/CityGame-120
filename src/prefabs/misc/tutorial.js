@@ -31,6 +31,8 @@ class Tutorial extends Phaser.GameObjects.Sprite
         this.sceneRef = scene;
         this.economyRef = scene.economy;
         this.threatRef = scene.threatGen;
+        this.type = type;
+        this.isFinished = false;
 
         if(this.threatRef!=undefined)
         {
@@ -56,16 +58,19 @@ class Tutorial extends Phaser.GameObjects.Sprite
             this.emit('tutorialMoneyChanged', this.index, amount);
         });
         this.on('tutorialMoneyChanged',(index, amount)=>{
-            if(index==2 && type=='play' && amount==0)
+            if(index==2 && type=='play')
             {
                 this.playNext();
+            } else if (type=='shop' && (index==3 || index==4))
+            {
+                this.shopNext();
             }
         });
         this.speechBubble.on('pointerdown',()=>{
             if (type=='play' && !(this.index==2 || this.index==6))
             {
                 this.playNext();
-            } else if (type=='shop')
+            } else if (type=='shop' && !(this.index==3 || this.index==4))
             {
                 this.shopNext();
             }
@@ -138,10 +143,20 @@ class Tutorial extends Phaser.GameObjects.Sprite
         this.destroy();
         this.speechBubble.destroy();
         this.speechText.destroy();
+        console.log("tutorial type:", this.type);
         if(this.type=="play")
         {
             this.economyRef.currentMoney = 5;
+            this.threatRef.enabled = true;
+        } else if (this.type=="shop")
+        {
+            this.sceneRef.tweens.add({
+                targets: this.sceneRef.sceneButton,
+                ease: 'Sine.easeInOut',
+                duration : 1 * 1000, 
+                x: this.sceneRef.sceneButton.x + 1500,
+            });
         }
-        this.threatRef.enabled = true;
+        this.isFinished=true;
     }
 }

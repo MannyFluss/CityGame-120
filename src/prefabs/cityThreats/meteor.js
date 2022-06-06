@@ -38,7 +38,7 @@ class Meteor extends Phaser.GameObjects.Sprite
             frequency : 1,
             blendMode : 'ADD',
             lifespan : 1000,
-        }) 
+        });
     }
 
     meteorExplosion()
@@ -69,7 +69,7 @@ class Meteor extends Phaser.GameObjects.Sprite
     update()
     {
         this.warning.update();
-        this.fireEmitter.setPosition(this.x, this.y)
+        this.fireEmitter.setPosition(this.x, this.y);
     }
 
 }
@@ -101,6 +101,19 @@ class Lightning extends Phaser.GameObjects.Sprite
         this.warning = new Warning(scene,this.tileRef.x,this.tileRef.y,'warning',destructionDelay);
         this.warning.setWarningPlacement(this.tileRef);
         scene.time.delayedCall(destructionDelay * 1000,()=>{this.LightningStrike();});
+
+        let particles = this.sceneRef.add.particles('fireFX');
+        particles.setDepth(this.depth-1);
+        this.fireEmitter = particles.createEmitter({
+            x : this.x,
+            y : this.y - 20,
+            speed : 50,
+            alpha : {start : .5, end : 0},
+            scale : {start : 3, end : 1.5},
+            frequency : 1,
+            blendMode : 'ADD',
+            lifespan : 1000,
+        });
     }
 
     LightningStrike()
@@ -123,12 +136,14 @@ class Lightning extends Phaser.GameObjects.Sprite
             lifeSpan : 100
         })
         this.sceneRef.time.delayedCall(100,()=>{emitter.stop();},this);
+        this.fireEmitter.stop();
         this.destroy();
     }
 
     update()
     {
         this.warning.update();
+        this.fireEmitter.setPosition(this.x, this.y);
     }
 
 }
@@ -150,16 +165,33 @@ class Fog extends Phaser.GameObjects.Sprite
         this.tileY = tile.tileY;
         this.sceneRef = scene;
 
-        this.warnings = []
+        this.warnings = [];
         this.warnings[0] = new Warning(scene,0,0,'warning',destructionDelay).setWarningPlacement(this.boardRef.getTile(randX,randY));
         this.warnings[1] = new Warning(scene,0,0,'warning',destructionDelay).setWarningPlacement(this.boardRef.getTile(randX+1,randY));
         this.warnings[2] = new Warning(scene,0,0,'warning',destructionDelay).setWarningPlacement(this.boardRef.getTile(randX,randY+1));
         this.warnings[3] = new Warning(scene,0,0,'warning',destructionDelay).setWarningPlacement(this.boardRef.getTile(randX+1,randY+1));
 
-        new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX,randY));
-        new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX+1,randY));
-        new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX,randY+1));
-        new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX+1,randY+1));
+        this.meteors = [];
+        this.meteors[0] = new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX,randY));
+        this.meteors[1] = new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX+1,randY));
+        this.meteors[2] = new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX,randY+1));
+        this.meteors[3] = new Meteor(scene,0,0,undefined,destructionDelay,this.boardRef.getTile(randX+1,randY+1));
+
+        let particles = this.sceneRef.add.particles('fireFX');
+        for (let i=0; i<this.meteors.length;i++)
+        {
+            particles.setDepth(this.meteors[i].depth-1);
+            this.meteors[i].fireEmitter = particles.createEmitter({
+                x : this.meteors[i].x,
+                y : this.meteors[i].y - 20,
+                speed : 50,
+                alpha : {start : .5, end : 0},
+                scale : {start : 3, end : 1.5},
+                frequency : 1,
+                blendMode : 'ADD',
+                lifespan : 1000,
+            });
+        }
         //scene.time.delayedCall((destructionDelay * 1000)-5,()=>{this.fogDestruction();});
     }
 
@@ -179,8 +211,20 @@ class Fog extends Phaser.GameObjects.Sprite
             }
 
         }
+        for (let i=0; i<this.meteors.length;i++)
+        {
+            this.meteors[i].fireEmitter.stop();
+        }
         this.destroy();
-        //
+    }
+
+    update()
+    {
+        for (let i=0; i<this.meteors.length;i++)
+        {
+            this.warnings[i].update();
+            this.meteors[i].fireEmitter.setPosition(this.meteors[i].x, this.meteors[i].y);
+        }
     }
 
 }

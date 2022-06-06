@@ -3,6 +3,7 @@ class Credits extends Phaser.Scene
     constructor()
     {
         super("creditsScene");
+        this.type = Credits;
     }
 
     preload()

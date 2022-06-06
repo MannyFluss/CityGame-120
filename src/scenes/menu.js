@@ -3,6 +3,7 @@ class Menu extends Phaser.Scene
     constructor()
     {
         super("menuScene");
+        this.type = Menu;
     }
 
     preload()

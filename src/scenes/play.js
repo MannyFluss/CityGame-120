@@ -8,7 +8,7 @@ class Play extends Phaser.Scene
             "omygodv2.mp3",
             "mannymoemnt.mp3",
         ];
-
+        this.type = Play;
     }
 
     preload()
@@ -94,7 +94,10 @@ class Play extends Phaser.Scene
         this.board = new Board(this, game.config.width/2, game.config.height/2, [], this.boardConfig);
         this.economy = new PlayEconomy(this, sceneInitMoney);
         this.radio = new Radio(this,-200,100,[],this.songList);
-        this.shop = new Shop(this,game.config.width+75,game.config.height/2-100,[],this.board); // 120
+        if (level == 1)
+            this.shop = new Shop(this,game.config.width+75,game.config.height/2-100,[],this.board); // 120
+        else
+            this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
 

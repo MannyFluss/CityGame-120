@@ -5,19 +5,22 @@ class SceneButton extends Phaser.GameObjects.Sprite
         super(scene,x,y,texture);
         scene.add.existing(this);
         let target = this.x;
-        this.x -= 1000
+        this.x -= 1500;
         this.targetSCN = targetSCN;
         this.sceneRef = scene;
         this.setInteractive({ useHandCursor:true });
         this.on('pointerdown',()=>{
             this.clicked();
         });
-        let tween = scene.tweens.add({
-            targets: this,
-            ease: 'Sine.easeInOut',
-            duration : 1 * 1000, 
-            x : target
-        })
+        if (!(level==1) || this.scene.type==Play)
+        {
+            scene.tweens.add({
+                targets: this,
+                ease: 'Sine.easeInOut',
+                duration : 1 * 1000, 
+                x : target,
+            });
+        }
         
     }
     clicked()
@@ -31,11 +34,6 @@ class SceneButton extends Phaser.GameObjects.Sprite
         {
             this.sceneRef.radio.killMusic();
         }
-
-        if (this.sceneRef.type == Play)
-        {
-            console.log('osss')
-        }
     }
 
 }
@@ -48,19 +46,19 @@ class FinishButton extends Phaser.GameObjects.Sprite
         scene.add.existing(this);
         this.economyRef = scene.economy;
         let target = this.x;
-        this.x -= 1000
+        this.x -= 1000;
         this.targetSCN = targetSCN;
         this.sceneRef = scene;
         this.setInteractive({useHandCursor: true});
         this.on('pointerdown',()=>{
             this.clicked();
         });
-        let tween = scene.tweens.add({
+        scene.tweens.add({
             targets: this,
             ease: 'Sine.easeInOut',
             duration : 1 * 1000, 
-            x : target
-        })
+            x : target,
+        });
         
     }
     clicked()
@@ -72,10 +70,6 @@ class FinishButton extends Phaser.GameObjects.Sprite
 
         new SceneButton(this.sceneRef,20,game.config.height-20,'submit-button','shopScene').setOrigin(0, 1);
         //this.sceneRef.scene.start(this.targetSCN);
-        if (this.sceneRef.type == Play)
-        {
-            console.log('osss')
-        }
     }
 
 }
