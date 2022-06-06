@@ -8,25 +8,27 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
         this.playTutorial = 
         [
-            "Welcome to Shuffle City! \n\n\n (click this box to continue tutorial)",//click
-            "Here in Shuffle City Civil Engineering School you will learn the basics of managing our great city!",//click
-            "Lets start by purchasing a building, here are some funds to do so!",//place building
-            "Good job, take note you can pick up and place those buildings back down at any time",//click
-            "Each building has its own unique effects this appartment simply generates money overtime",
-            "As you already know, natural disasters are constantly putting our city in peril, its is our duty as "+
-            "Civil Engineers to protect our citizens.",//click
-            "HOLY COW THERES A METEOR INCOMING denizen this is below my paygrade, make sure the building does not get struck",//wait for timer
-            "Well thats all for an education, you are now ready to serve and maybe protect, go on and complete the city assigned task",//click and finished
+            "Welcome to Shuffle City! \n\n\n (Click this box to continue the tutorial.)", // click
+            "Here in Shuffle City Civil Engineering School, you'll learn the basics of managing our great city!", //click
+            "Lets start with giving you some much-needed finances!", // give player money
+            "Now use that money to purchase a building by dragging it to an empty tile from the shop.", // place building
+            "Good job! Take note that you can pick up and place these buildings back down at any time.", // click
+            "Each building has its own unique effects. This apartment simply generates money overtime.", // click
+            "As you already know, natural disasters are constantly putting our city in peril.",
+            "It's our duty as Civil Engineers to protect our citizens!", // click
+            "HOLY COW THERES A METEOR INCOMING! Denizen, this is way below my paygrade. Make sure the building doesn't get struck!",// wait for timer
+            "Nice work! Well that's all for an education. Go on and complete your city-assigned task.", // click and finished
+            "Oh no! Your building's been destroyed! Well...good luck completing your city-assigned task." // click and finished
         ];
 
         this.shopTutorial=
         [
-            "Im back!, now im here to give you shop credentials!",//click
-            'firstly lets get you some cash!',//click after click give cash
-            'now lets purchase a tile upgrade',//wait until tile purchase
-            'you can also purchase new buildings here lets buy a hotel for the city',//purchase hotel
-            'congrats with your purchases complete my purpose as a tutorial building ceases to have purpose have fun in the city!',
-        ]
+            "Im back! Now I'm here to give you shop credentials!",//click
+            "Firstly, let's get you some cash!",//click after click give cash
+            "Now let's purchase a tile upgrade.",//wait until tile purchase
+            "You can also purchase new buildings here. Let's buy a hotel for the city.",//purchase hotel
+            "Congrats! With your purchases complete, my purpose as a tutorial building ceases to have purpose. Have fun in the city!",
+        ];
         this.index = 0;
         this.boardRef = scene.board;//used to determine scene or not
         this.sceneRef = scene;
@@ -35,7 +37,8 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
         this.config = {color : "#000000", 
         align: "left",
-        wordWrap: { width: 300, useAdvancedWrap: true , fontSize: 42}
+        wordWrap: { width: 300, useAdvancedWrap: true},
+        fontSize: 25,
         };
 
         //this.threatRef = scene.threatGen;
@@ -45,11 +48,8 @@ class Tutorial extends Phaser.GameObjects.Sprite
         }
         this.speechBubble = new Phaser.GameObjects.Sprite(scene,this.x + 260 , this.y - 50,'speech-bubble');
         this.speechBubble.setInteractive();
-        //let s = 'ssssssssssssssssssssssssssssssssssss\nsssssssssssssssssssssssssssssssssssssssssssssssssss';
         this.speechText = new Phaser.GameObjects.Text(scene,this.speechBubble.x,this.speechBubble.y+20,'',this.config);
-        // console.log(this.speechText);
         this.speechText.setFixedSize(300,200)
-        //this.speechText.setColor("#000000");
         this.speechText.setOrigin(.5,.5);
         this.speechBubble.setScale(1.5);
         scene.add.existing(this.speechBubble);
@@ -68,15 +68,14 @@ class Tutorial extends Phaser.GameObjects.Sprite
             this.emit('tutorialMoneyChanged', this.index, amount);
         });
         this.on('tutorialMoneyChanged',(index, amount)=>{
-            if(index==3 && type=='play' && amount==0)
+            if(index==4 && type=='play' && amount==0)
             {
                 this.playNext();
             }
         });
         this.speechBubble.on('pointerdown',()=>{
-            if (type=='play' && this.index!=3)
+            if (type=='play' && !(this.index==4 || this.index==9))
             {
-                console.log('inside speech bubble', this.index);
                 this.playNext();
             } else if (type=='shop')
             {
@@ -98,35 +97,56 @@ class Tutorial extends Phaser.GameObjects.Sprite
 
     playNext()
     {
-        if (this.index == this.playTutorial.length)
+        if ((this.index == this.playTutorial.length) || this.index == 10)
         {
             this.sceneRef.initWinCondition();
             this.finished();
             return;
         }
-        if (this.index==6)
+        if (this.index==2)
+        {
+            this.sceneRef.tweens.add({
+                targets: this.sceneRef.UImoney,
+                ease: 'Sine.easeIn',
+                x : this.sceneRef.UImoney.x - 100,
+                duration : 500,
+            });
+            this.economyRef.currentMoney += 5;
+        }
+        if (this.index==3)
+        {
+            this.sceneRef.tweens.add({
+                targets: this.sceneRef.shop,
+                ease: 'Sine.easeIn',
+                x : this.sceneRef.shop.x - 200,
+                duration : 500,
+            });
+        }
+        if (this.index==8)
         {
             // this.threatRef.enabled = true;
 
             // this.threatRef.generateDisaster('meteor');
 
-            console.log("Board X:", this.boardRef.boardX);
             for (let i=0; i<this.boardRef.boardX; i++)
             {
-                console.log("i:", i);
-                console.log("Board Y:", this.boardRef.boardY);
                 for (let j=0; j<this.boardRef.boardY; j++)
                 {
-                    console.log("j:", j);
-                    console.log(this.boardRef.checkEmpty(i,j));
                     if(!this.boardRef.checkEmpty(i,j))
                     {
                         this.targTile = this.boardRef.getTile(i,j);
-                        console.log(this.targTile)
                     }
                 }
             }
             this.threatRef.disasters.push(new Meteor(this.sceneRef,0,0,undefined,5,this.targTile));
+            this.sceneRef.time.delayedCall(5500,()=>{this.playNext();});
+        }
+        if (this.index==9)
+        {
+            if(this.boardRef.checkBoardEmpty())
+            {
+                this.index = 10;
+            }
         }
         this.speechText.text = this.playTutorial[this.index]
         this.index += 1;
@@ -140,5 +160,6 @@ class Tutorial extends Phaser.GameObjects.Sprite
         this.destroy();
         this.speechBubble.destroy();
         this.speechText.destroy();
+        this.economyRef.currentMoney = 5;
     }
 }

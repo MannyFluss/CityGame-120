@@ -68,7 +68,7 @@ class Shop extends Phaser.GameObjects.Container
             x : 100,
             ease: 'Sine.easeInOut',
             duration : .25 *1000,
-        })     
+        });     
 
     }
 

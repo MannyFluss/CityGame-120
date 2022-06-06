@@ -18,6 +18,7 @@ class Board extends Phaser.GameObjects.Container
     {
         return this.getTile(Phaser.Math.Between(0,this.boardX-1),Phaser.Math.Between(0,this.boardY-1))
     }
+
     createBuilding()//temporary building function
     {
         retBuilding = new Building(this.sceneRef,this,0,0,'small-apartment-1');
@@ -33,6 +34,22 @@ class Board extends Phaser.GameObjects.Container
         }
         return false;
     }
+
+    checkBoardEmpty()
+    {
+        for (let i=0; i<this.boardX; i++)
+        {
+            for (let j=0; j<this.boardY; j++)
+            {
+                if(!this.checkEmpty(i,j))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     checkEmpty(x,y)
     {
         if (this.objectArray[x][y]==null)

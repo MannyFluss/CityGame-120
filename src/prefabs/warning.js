@@ -13,7 +13,7 @@ class Warning extends Phaser.GameObjects.Sprite
         this.tileObj;
         this.time = time;
         this.sfxWarning = scene.sound.add('sfx_warning');
-        scene.time.delayedCall(time * 1000,()=>{this.warningDissapear();})
+        scene.time.delayedCall(time * 1000,()=>{this.warningDisappear();})
         
         scene.tweens.add({
             targets: this,
@@ -23,7 +23,7 @@ class Warning extends Phaser.GameObjects.Sprite
         })
     }
 
-    warningDissapear()
+    warningDisappear()
     {
         this.destroy();
     }

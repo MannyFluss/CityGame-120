@@ -112,7 +112,7 @@ class Building extends Phaser.Physics.Arcade.Sprite
 //            scale : {start : 2, end : 1.5},
             y : this.y + amount,
             duration : dur,
-        })
+        });
         this.sceneRef.time.delayedCall(dur,()=>{this.placementParticles();},this);
         
     }
