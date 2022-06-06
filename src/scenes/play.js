@@ -6,7 +6,12 @@ class Play extends Phaser.Scene
         this.songList = //name of each of the songs
         [
             "omygodv2.mp3",
-            "mannymoemnt.mp3",
+            "Walter_white.mp3",
+            "mannuel.mp3",
+            "I_am_the_one_who_knocks_v2.mp3",
+            "I_am_in_your_walls.mp3",
+            "meeany_manny.mp3",
+
         ];
 
     }
