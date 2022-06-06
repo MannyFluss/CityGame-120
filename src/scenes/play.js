@@ -6,7 +6,12 @@ class Play extends Phaser.Scene
         this.songList = //name of each of the songs
         [
             "omygodv2.mp3",
-            "mannymoemnt.mp3",
+            "Walter_white.mp3",
+            "mannuel.mp3",
+            "I_am_the_one_who_knocks_v2.mp3",
+            "I_am_in_your_walls.mp3",
+            "meeany_manny.mp3",
+
         ];
         this.type = Play;
     }
@@ -31,6 +36,7 @@ class Play extends Phaser.Scene
         this.load.image('refresh','./assets/ui/refresh.png');
         this.load.image('tutorialJohnson', './assets/other/tutorialJohnson.png');
         this.load.image('speech-bubble','./assets/ui/speechBubble.png');
+        this.load.image('ben-speech-bubble','./assets/ui/ben-speech-bubble.png');
 
         this.load.atlas('particles','./assets/particles/spritesheet.png','./assets/particles/spritesheet.json');
 
@@ -56,7 +62,14 @@ class Play extends Phaser.Scene
         this.load.image('shop-1','./assets/buildings/shop-1.png');
         this.load.image('warning', './assets/warning.png');
         this.load.image('temp-button','./assets/tempArt/buttonz.png');
-        this.load.image('radio-temp','./assets/tempArt/radioConsole.png');
+        this.load.image('radio-bg','./assets/ui/radio-bg.png');
+        this.load.image('play-pause','./assets/ui/play-pause.png');
+        this.load.image('previous-song','./assets/ui/previous-song.png');
+        this.load.image('next-song','./assets/ui/next-song.png');
+        this.load.image('shuffle','./assets/ui/shuffle.png');
+        this.load.image('loop','./assets/ui/loop.png');
+        this.load.image('music-note','./assets/ui/music-note.png');
+        this.load.image('back-button','./assets/ui/back-button.png');
         this.load.image('shop-temp','./assets/tempArt/shopConsole.png');
         //this.load.image('shop-button-temp','./assets/tempArt/shopButton.png');
 
@@ -93,11 +106,12 @@ class Play extends Phaser.Scene
         
         this.board = new Board(this, game.config.width/2, game.config.height/2, [], this.boardConfig);
         this.economy = new PlayEconomy(this, sceneInitMoney);
-        this.radio = new Radio(this,-200,100,[],this.songList);
         if (level == 1)
             this.shop = new Shop(this,game.config.width+75,game.config.height/2-100,[],this.board); // 120
         else
             this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
+        this.radio = new Radio(this,220,70,[],this.songList);
+        this.shop = new Shop(this,game.config.width-120,game.config.height/2-100,[],this.board);
         
         this.threatGen = new ThreatGenerator(this,0,0,this.board);
 
@@ -109,7 +123,8 @@ class Play extends Phaser.Scene
                 availableThreats.push('fog');
             if (level == 5)
                 availableThreats.push('lightning');
-                
+            if (level == 7)
+                availableThreats.push('tornado');
             this.initWinCondition();
             this.board.placeBuilding(new SmallApartment(this,this.board,0,0), 0, 0);
         }
@@ -121,7 +136,7 @@ class Play extends Phaser.Scene
 
     initTutorial()
     {
-        new Tutorial(this,150,game.config.height - 150);
+        new Tutorial(this,150,game.config.height - 180);
     }
 
 

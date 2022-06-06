@@ -193,7 +193,7 @@ class winState extends Phaser.GameObjects.GameObject
         text.setDepth(55);
         this.sceneRef.tweens.add({
             targets: text,
-            y : game.canvas.height-200,
+            y : game.canvas.height-100,
             ease: Phaser.Math.Easing.Back.InOut,
             duration : 1200,
             delay: 500,
