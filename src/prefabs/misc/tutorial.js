@@ -128,7 +128,7 @@ class Tutorial extends Phaser.GameObjects.Sprite
             this.sceneRef.tweens.add({
                 targets: this.sceneRef.shop,
                 ease: Phaser.Math.Easing.Back.InOut,
-                x : this.sceneRef.shop.x - 200,
+                x : this.sceneRef.shop.x - 205,
                 duration : 500,
             });
         }
